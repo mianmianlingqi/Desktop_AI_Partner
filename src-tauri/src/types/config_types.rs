@@ -20,6 +20,16 @@ pub struct ApiConfig {
     pub tencent_secret_key: String,
     /// 阿里云 DashScope API Key (用于 TTS)
     pub aliyun_dashscope_key: String,
+    /// 阿里云 TTS 接口地址
+    pub aliyun_tts_endpoint: String,
+    /// 阿里云 TTS 模型名称
+    pub aliyun_tts_model: String,
+    /// 阿里云 TTS 默认音色或复刻音色 ID
+    pub aliyun_tts_voice: String,
+    /// 阿里云 TTS 输出格式
+    pub aliyun_tts_format: String,
+    /// 阿里云 TTS 额外参数（JSON 字符串）
+    pub aliyun_tts_extra_parameters_json: String,
 }
 
 impl Default for ApiConfig {
@@ -32,6 +42,11 @@ impl Default for ApiConfig {
             tencent_secret_id: String::new(),
             tencent_secret_key: String::new(),
             aliyun_dashscope_key: String::new(),
+            aliyun_tts_endpoint: defaults::DEFAULT_ALIYUN_TTS_ENDPOINT.to_string(),
+            aliyun_tts_model: defaults::DEFAULT_ALIYUN_TTS_MODEL.to_string(),
+            aliyun_tts_voice: defaults::DEFAULT_ALIYUN_TTS_VOICE.to_string(),
+            aliyun_tts_format: defaults::DEFAULT_ALIYUN_TTS_FORMAT.to_string(),
+            aliyun_tts_extra_parameters_json: String::new(),
         }
     }
 }

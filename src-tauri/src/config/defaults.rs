@@ -11,6 +11,18 @@ pub const DEFAULT_MODEL: &str = "gpt-4o";
 /// 默认 API 基础 URL（OpenAI 官方端点）
 pub const DEFAULT_BASE_URL: &str = "https://api.openai.com/v1";
 
+/// 默认阿里云 TTS 接口地址
+pub const DEFAULT_ALIYUN_TTS_ENDPOINT: &str = "wss://dashscope.aliyuncs.com/api-ws/v1/inference/";
+
+/// 默认阿里云 TTS 模型名称
+pub const DEFAULT_ALIYUN_TTS_MODEL: &str = "cosyvoice-v1";
+
+/// 默认阿里云 TTS 音色
+pub const DEFAULT_ALIYUN_TTS_VOICE: &str = "longxiaoxia";
+
+/// 默认阿里云 TTS 音频格式
+pub const DEFAULT_ALIYUN_TTS_FORMAT: &str = "wav";
+
 // ======== 应用设置默认值 ========
 
 /// 默认全局唤醒快捷键

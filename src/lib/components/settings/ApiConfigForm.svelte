@@ -15,6 +15,11 @@
   let tencentSecretId = $state(configState.config.api.tencent_secret_id);
   let tencentSecretKey = $state(configState.config.api.tencent_secret_key);
   let aliyunDashscopeKey = $state(configState.config.api.aliyun_dashscope_key);
+  let aliyunTtsEndpoint = $state(configState.config.api.aliyun_tts_endpoint);
+  let aliyunTtsModel = $state(configState.config.api.aliyun_tts_model);
+  let aliyunTtsVoice = $state(configState.config.api.aliyun_tts_voice);
+  let aliyunTtsFormat = $state(configState.config.api.aliyun_tts_format);
+  let aliyunTtsExtraParametersJson = $state(configState.config.api.aliyun_tts_extra_parameters_json);
 
   /** 保存状态 */
   let saveStatus = $state<'idle' | 'saving' | 'success' | 'error'>('idle');
@@ -29,6 +34,11 @@
       tencentSecretId = configState.config.api.tencent_secret_id;
       tencentSecretKey = configState.config.api.tencent_secret_key;
       aliyunDashscopeKey = configState.config.api.aliyun_dashscope_key;
+      aliyunTtsEndpoint = configState.config.api.aliyun_tts_endpoint;
+      aliyunTtsModel = configState.config.api.aliyun_tts_model;
+      aliyunTtsVoice = configState.config.api.aliyun_tts_voice;
+      aliyunTtsFormat = configState.config.api.aliyun_tts_format;
+      aliyunTtsExtraParametersJson = configState.config.api.aliyun_tts_extra_parameters_json;
     }
   });
 
@@ -46,6 +56,11 @@
         tencent_secret_id: tencentSecretId,
         tencent_secret_key: tencentSecretKey,
         aliyun_dashscope_key: aliyunDashscopeKey,
+        aliyun_tts_endpoint: aliyunTtsEndpoint,
+        aliyun_tts_model: aliyunTtsModel,
+        aliyun_tts_voice: aliyunTtsVoice,
+        aliyun_tts_format: aliyunTtsFormat,
+        aliyun_tts_extra_parameters_json: aliyunTtsExtraParametersJson,
       },
     };
 
@@ -132,6 +147,55 @@
     />
   </label>
 
+  <label class="form-label">
+    <span>阿里云 TTS Endpoint</span>
+    <input
+      type="text"
+      class="form-input"
+      bind:value={aliyunTtsEndpoint}
+      placeholder="wss://dashscope.aliyuncs.com/api-ws/v1/inference/"
+    />
+  </label>
+
+  <label class="form-label">
+    <span>阿里云 TTS Model</span>
+    <input
+      type="text"
+      class="form-input"
+      bind:value={aliyunTtsModel}
+      placeholder="cosyvoice-v1"
+    />
+  </label>
+
+  <label class="form-label">
+    <span>阿里云 TTS Voice / 复刻音色ID</span>
+    <input
+      type="text"
+      class="form-input"
+      bind:value={aliyunTtsVoice}
+      placeholder="longxiaoxia 或你的复制音色ID"
+    />
+  </label>
+
+  <label class="form-label">
+    <span>阿里云 TTS Format</span>
+    <input
+      type="text"
+      class="form-input"
+      bind:value={aliyunTtsFormat}
+      placeholder="wav"
+    />
+  </label>
+
+  <label class="form-label">
+    <span>阿里云 TTS 额外参数 JSON（复制音色）</span>
+    <textarea
+      class="form-input form-textarea"
+      bind:value={aliyunTtsExtraParametersJson}
+      placeholder={"例如：{\"volume\": 50, \"pitch\": 0, \"speech_rate\": 0, \"style\": \"default\"}"}
+    ></textarea>
+  </label>
+
   <!-- 操作栏 -->
   <div class="form-actions">
     <button
@@ -190,6 +254,12 @@
 
   .form-input::placeholder {
     color: rgba(255, 255, 255, 0.3);
+  }
+
+  .form-textarea {
+    min-height: 88px;
+    resize: vertical;
+    line-height: 1.4;
   }
 
   .form-actions {

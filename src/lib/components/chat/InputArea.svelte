@@ -21,6 +21,7 @@
     captureState,
     clearImage,
     setCapturing,
+    configState,
   } from '$lib/stores';
   import { sendMessage, abortChat, listenChatDelta, openOverlay } from '$lib/services';
   import type { UnlistenFn } from '@tauri-apps/api/event';
@@ -48,6 +49,9 @@
     const text = inputText.trim();
     if (!text && !captureState.currentImage) return;
     if (chatState.isStreaming) return;
+
+    // 先预热播放通道，避免 AI 回复回来时音频播放丢失用户手势上下文。
+    void audioService.primePlayback();
 
     // 1. 构建用户消息
     const images = captureState.currentImage ? [captureState.currentImage.base64] : undefined;
@@ -78,7 +82,7 @@
         // 自动触发语音合成播放
         const lastMsg = chatState.messages[chatState.messages.length - 1];
         if (lastMsg && lastMsg.role === 'assistant' && lastMsg.content) {
-          audioService.synthesizeSpeech(lastMsg.content)
+          audioService.synthesizeSpeechWithConfig(lastMsg.content, configState.config.api)
             .then(bytes => audioService.playAudio(bytes))
             .catch(err => console.error('TTS 播放失败:', err));
         }

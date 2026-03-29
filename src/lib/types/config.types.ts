@@ -18,6 +18,16 @@ export interface ApiConfig {
   tencent_secret_key: string;
   /** 阿里云 DashScope API Key (用于 TTS) */
   aliyun_dashscope_key: string;
+  /** 阿里云 TTS 接口地址 */
+  aliyun_tts_endpoint: string;
+  /** 阿里云 TTS 模型名称 */
+  aliyun_tts_model: string;
+  /** 阿里云 TTS 默认音色或复刻音色 ID */
+  aliyun_tts_voice: string;
+  /** 阿里云 TTS 输出格式 */
+  aliyun_tts_format: string;
+  /** 阿里云 TTS 额外参数（JSON 字符串） */
+  aliyun_tts_extra_parameters_json: string;
 }
 
 /** 应用设置 —— 控制应用行为与外观 */

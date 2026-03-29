@@ -1,11 +1,21 @@
 import { invoke } from '@tauri-apps/api/core';
 import { extractErrorMessage } from '$lib/utils';
+import type { ApiConfig } from '$lib/types';
+
+interface TtsOptions {
+    endpoint?: string;
+    model?: string;
+    voice?: string;
+    format?: string;
+    extraParametersJson?: string;
+}
 
 export class AudioService {
     private mediaRecorder: MediaRecorder | null = null;
     private audioChunks: Blob[] = [];
     private stream: MediaStream | null = null;
     private onDataCallback: ((base64Chunk: string) => void) | null = null;
+    private playbackContext: AudioContext | null = null;
 
     async startRecording(timeslice?: number, onData?: (base64Chunk: string) => void): Promise<void> {
         try {
@@ -136,29 +146,86 @@ export class AudioService {
         }
     }
 
-    async synthesizeSpeech(text: string): Promise<number[]> {
+    /**
+     * 预热播放通道，尽量在用户点击发送时调用，避免后续自动播报被策略拦截。
+     */
+    async primePlayback(): Promise<void> {
         try {
-            return await invoke('tts_synthesize_speech', { text, voice: 'longxiaoxia' });
+            await this.getPlaybackContext();
+            console.info('播放通道已预热');
+        } catch (error) {
+            console.warn('预热播放通道失败:', error);
+        }
+    }
+
+    async synthesizeSpeech(text: string, options?: TtsOptions): Promise<number[]> {
+        try {
+            return await invoke('tts_synthesize_speech', {
+                text,
+                voice: options?.voice ?? 'longxiaoxia',
+                model: options?.model ?? '',
+                endpoint: options?.endpoint ?? '',
+                format: options?.format ?? 'wav',
+                extraParametersJson: options?.extraParametersJson ?? '',
+            });
         } catch (error) {
             console.error('Error synthesizing speech:', error);
             throw new Error(extractErrorMessage(error, '语音合成失败'));
         }
     }
 
+    synthesizeSpeechWithConfig(text: string, apiConfig: ApiConfig): Promise<number[]> {
+        return this.synthesizeSpeech(text, {
+            endpoint: apiConfig.aliyun_tts_endpoint,
+            model: apiConfig.aliyun_tts_model,
+            voice: apiConfig.aliyun_tts_voice,
+            format: apiConfig.aliyun_tts_format,
+            extraParametersJson: apiConfig.aliyun_tts_extra_parameters_json,
+        });
+    }
+
     playAudio(audioBytes: number[]): Promise<void> {
         return new Promise((resolve) => {
-            const blob = new Blob([new Uint8Array(audioBytes)], { type: 'audio/wav' });
-            const url = URL.createObjectURL(blob);
-            const audio = new Audio(url);
-            audio.onended = () => {
-                URL.revokeObjectURL(url);
+            if (!audioBytes.length) {
+                console.warn('播放音频被跳过：后端未返回音频数据');
                 resolve();
-            };
-            audio.play().catch(e => {
-                console.error("Failed to play audio", e);
-                resolve();
-            });
+                return;
+            }
+
+            console.info('开始播放音频', { bytesLength: audioBytes.length });
+            this.getPlaybackContext()
+                .then(async (context) => {
+                    const arrayBuffer = new Uint8Array(audioBytes).buffer;
+                    const audioBuffer = await context.decodeAudioData(arrayBuffer.slice(0));
+                    const source = context.createBufferSource();
+                    source.buffer = audioBuffer;
+                    source.connect(context.destination);
+                    source.onended = () => {
+                        console.info('音频播放结束');
+                        resolve();
+                    };
+                    source.start();
+                })
+                .catch((error) => {
+                    console.error('Failed to play audio', error);
+                    resolve();
+                });
         });
+    }
+
+    /**
+     * 获取可用的播放上下文，并尽量恢复到 running 状态。
+     */
+    private async getPlaybackContext(): Promise<AudioContext> {
+        if (!this.playbackContext) {
+            this.playbackContext = new window.AudioContext({ sampleRate: 16000 });
+        }
+
+        if (this.playbackContext.state === 'suspended') {
+            await this.playbackContext.resume();
+        }
+
+        return this.playbackContext;
     }
 }
 

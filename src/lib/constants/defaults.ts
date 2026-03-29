@@ -15,6 +15,18 @@ export const DEFAULT_MODEL = 'gpt-4o';
 /** 默认 API 基础 URL（OpenAI 官方端点） */
 export const DEFAULT_BASE_URL = 'https://api.openai.com/v1';
 
+/** 默认阿里云 TTS 接口地址 */
+export const DEFAULT_ALIYUN_TTS_ENDPOINT = 'wss://dashscope.aliyuncs.com/api-ws/v1/inference/';
+
+/** 默认阿里云 TTS 模型名称 */
+export const DEFAULT_ALIYUN_TTS_MODEL = 'cosyvoice-v1';
+
+/** 默认阿里云 TTS 音色 */
+export const DEFAULT_ALIYUN_TTS_VOICE = 'longxiaoxia';
+
+/** 默认阿里云 TTS 音频格式 */
+export const DEFAULT_ALIYUN_TTS_FORMAT = 'wav';
+
 // ======== 应用设置默认值 ========
 
 /** 默认全局唤醒快捷键 */
@@ -45,6 +57,11 @@ export const DEFAULT_APP_CONFIG: AppConfig = {
     tencent_secret_id: '',
     tencent_secret_key: '',
     aliyun_dashscope_key: '',
+    aliyun_tts_endpoint: DEFAULT_ALIYUN_TTS_ENDPOINT,
+    aliyun_tts_model: DEFAULT_ALIYUN_TTS_MODEL,
+    aliyun_tts_voice: DEFAULT_ALIYUN_TTS_VOICE,
+    aliyun_tts_format: DEFAULT_ALIYUN_TTS_FORMAT,
+    aliyun_tts_extra_parameters_json: '',
   },
   settings: {
     shortcut: DEFAULT_SHORTCUT,
