@@ -1,0 +1,32 @@
+/**
+ * 常量统一 re-export 入口
+ *
+ * 所有常量从此文件集中导出
+ */
+
+export {
+  CHAT_DELTA_EVENT,
+} from './events';
+
+export {
+  CMD_CAPTURE_SCREEN,
+  CMD_OPEN_OVERLAY,
+  CMD_CLOSE_OVERLAY,
+  CMD_CHAT_SEND,
+  CMD_CHAT_ABORT,
+  CMD_GET_CONFIG,
+  CMD_SET_CONFIG,
+  CMD_LOG_REPORT,
+  CMD_EXPORT_DIAGNOSTICS,
+} from './commands';
+
+export {
+  DEFAULT_MODEL,
+  DEFAULT_BASE_URL,
+  DEFAULT_SHORTCUT,
+  DEFAULT_LANGUAGE,
+  DEFAULT_THEME,
+  OVERLAY_LABEL,
+  MAIN_WINDOW_LABEL,
+  DEFAULT_APP_CONFIG,
+} from './defaults';

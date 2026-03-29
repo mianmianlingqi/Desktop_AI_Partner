@@ -1,0 +1,58 @@
+[package]
+name = "desktop-ai-assistant"
+version = "0.1.0"
+description = "Desktop AI Assistant - Tauri v2 悬浮窗 AI 助手"
+authors = ["you"]
+edition = "2021"
+
+[lib]
+name = "desktop_ai_assistant_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+# Tauri 核心 + 插件
+tauri = { version = "2", features = [] }
+tauri-plugin-opener = "2"
+tauri-plugin-global-shortcut = "2"
+tauri-plugin-clipboard-manager = "2"
+tauri-plugin-store = "2"
+
+# 序列化
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# 截图 + 图片处理
+xcap = "0.8"
+image = { version = "0.25", default-features = false, features = ["png", "jpeg"] }
+
+# AI API
+async-openai = "0.27"
+reqwest = { version = "0.12", features = ["json", "stream"] }
+base64 = "0.22"
+futures = "0.3"
+hmac = "0.12"
+sha2 = "0.10"
+hex = "0.4"
+
+
+# 异步
+tokio = { version = "1", features = ["full"] }
+
+# 错误处理
+thiserror = "2"
+
+# 日志
+log = "0.4"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+tracing-appender = "0.2"
+tracing-log = "0.2"
+chrono = "0.4.44"
+tokio-tungstenite = "0.29.0"
+tungstenite = "0.29.0"
+futures-util = "0.3.32"
+url = "2.5.8"
+
