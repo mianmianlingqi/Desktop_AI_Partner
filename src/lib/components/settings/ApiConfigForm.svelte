@@ -6,7 +6,8 @@
 -->
 <script lang="ts">
   import { configState, saveConfig } from '$lib/stores';
-  import type { AppConfig } from '$lib/types';
+  import { SYSTEM_PROMPT_PRESETS, MAX_SYSTEM_PROMPT_LENGTH } from '$lib/constants';
+  import type { AppConfig, SystemPromptCustomPreset } from '$lib/types';
 
   /** 表单本地状态（编辑时不直接修改全局状态） */
   let apiKey = $state(configState.config.api.api_key);
@@ -20,10 +21,37 @@
   let aliyunTtsVoice = $state(configState.config.api.aliyun_tts_voice);
   let aliyunTtsFormat = $state(configState.config.api.aliyun_tts_format);
   let aliyunTtsExtraParametersJson = $state(configState.config.api.aliyun_tts_extra_parameters_json);
+  let systemPromptPreset = $state(configState.config.settings.system_prompt_preset);
+  let systemPrompt = $state(configState.config.settings.system_prompt);
+  let systemPromptCustomPresets = $state(configState.config.settings.system_prompt_custom_presets);
+  let newSystemPromptPresetName = $state('');
 
   /** 保存状态 */
   let saveStatus = $state<'idle' | 'saving' | 'success' | 'error'>('idle');
   let saveError = $state('');
+  let promptPresetError = $state('');
+  let promptPresetSuccess = $state('');
+
+  /** 内置 + 自定义系统提示词预设合集 */
+  const allSystemPromptPresets = $derived([
+    ...SYSTEM_PROMPT_PRESETS,
+    ...systemPromptCustomPresets.map((preset) => ({
+      id: preset.id,
+      label: preset.name,
+      prompt: preset.prompt,
+    })),
+  ]);
+
+  /** 当前是否选中了自定义预设 */
+  const selectedPresetIsCustom = $derived(
+    systemPromptCustomPresets.some((preset) => preset.id === systemPromptPreset),
+  );
+
+  /** 当前系统提示词字数 */
+  const systemPromptCharCount = $derived(systemPrompt.length);
+
+  /** 是否超过系统提示词最大长度 */
+  const systemPromptTooLong = $derived(systemPromptCharCount > MAX_SYSTEM_PROMPT_LENGTH);
 
   /** 同步全局状态到本地（配置加载后） */
   $effect(() => {
@@ -39,15 +67,44 @@
       aliyunTtsVoice = configState.config.api.aliyun_tts_voice;
       aliyunTtsFormat = configState.config.api.aliyun_tts_format;
       aliyunTtsExtraParametersJson = configState.config.api.aliyun_tts_extra_parameters_json;
+      systemPromptPreset = configState.config.settings.system_prompt_preset;
+      systemPrompt = configState.config.settings.system_prompt;
+      systemPromptCustomPresets = configState.config.settings.system_prompt_custom_presets;
     }
   });
 
-  /** 保存配置 */
-  async function handleSave(): Promise<void> {
-    saveStatus = 'saving';
-    saveError = '';
+  /** 应用选中的系统提示词预设 */
+  function applySystemPromptPreset(): void {
+    const matchedPreset = allSystemPromptPresets.find((item) => item.id === systemPromptPreset);
+    if (!matchedPreset) return;
+    systemPrompt = matchedPreset.prompt;
+  }
 
-    const newConfig: AppConfig = {
+  /** 同步文本编辑内容到当前选中的自定义预设，确保保存时不会丢失修改 */
+  function syncSelectedCustomPresetPrompt(
+    presets: SystemPromptCustomPreset[],
+  ): SystemPromptCustomPreset[] {
+    if (!selectedPresetIsCustom) {
+      return presets;
+    }
+
+    return presets.map((preset) => {
+      if (preset.id !== systemPromptPreset) {
+        return preset;
+      }
+
+      return {
+        ...preset,
+        prompt: systemPrompt,
+      };
+    });
+  }
+
+  /** 构建保存用配置对象 */
+  function buildConfig(customPresets: SystemPromptCustomPreset[]): AppConfig {
+    const syncedCustomPresets = syncSelectedCustomPresetPrompt(customPresets);
+
+    return {
       ...configState.config,
       api: {
         api_key: apiKey,
@@ -62,10 +119,121 @@
         aliyun_tts_format: aliyunTtsFormat,
         aliyun_tts_extra_parameters_json: aliyunTtsExtraParametersJson,
       },
+      settings: {
+        ...configState.config.settings,
+        system_prompt_preset: systemPromptPreset,
+        system_prompt: systemPrompt,
+        system_prompt_custom_presets: syncedCustomPresets,
+      },
+    };
+  }
+
+  /** 新建并保存系统提示词预设 */
+  async function handleCreateSystemPromptPreset(): Promise<void> {
+    promptPresetError = '';
+    promptPresetSuccess = '';
+
+    const name = newSystemPromptPresetName.trim();
+    const prompt = systemPrompt.trim();
+
+    if (!name) {
+      promptPresetError = '请先填写预设名称';
+      return;
+    }
+    if (!prompt) {
+      promptPresetError = '系统提示词为空，无法保存为预设';
+      return;
+    }
+    if (prompt.length > MAX_SYSTEM_PROMPT_LENGTH) {
+      promptPresetError = `系统提示词最多 ${MAX_SYSTEM_PROMPT_LENGTH} 个字符`;
+      return;
+    }
+
+    const newPreset: SystemPromptCustomPreset = {
+      id: `custom-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      name,
+      prompt,
     };
 
+    const nextCustomPresets = [...systemPromptCustomPresets, newPreset];
+    systemPromptCustomPresets = nextCustomPresets;
+    systemPromptPreset = newPreset.id;
+    newSystemPromptPresetName = '';
+
+    saveStatus = 'saving';
     try {
-      await saveConfig(newConfig);
+      await saveConfig(buildConfig(nextCustomPresets));
+      saveStatus = 'success';
+      promptPresetSuccess = '新预设已保存';
+      setTimeout(() => {
+        saveStatus = 'idle';
+        promptPresetSuccess = '';
+      }, 2000);
+    } catch (err) {
+      saveStatus = 'error';
+      promptPresetError = err instanceof Error ? err.message : String(err);
+      saveError = promptPresetError;
+    }
+  }
+
+  /** 保存当前选中的自定义预设内容 */
+  async function handleSaveCurrentSystemPromptPreset(): Promise<void> {
+    promptPresetError = '';
+    promptPresetSuccess = '';
+
+    if (!selectedPresetIsCustom) {
+      promptPresetError = '当前选中的是内置预设，请先新建自定义预设';
+      return;
+    }
+    if (!systemPrompt.trim()) {
+      promptPresetError = '系统提示词为空，无法保存';
+      return;
+    }
+    if (systemPromptTooLong) {
+      promptPresetError = `系统提示词最多 ${MAX_SYSTEM_PROMPT_LENGTH} 个字符`;
+      return;
+    }
+
+    const nextCustomPresets = systemPromptCustomPresets.map((preset) => {
+      if (preset.id !== systemPromptPreset) {
+        return preset;
+      }
+      return {
+        ...preset,
+        prompt: systemPrompt,
+      };
+    });
+
+    systemPromptCustomPresets = nextCustomPresets;
+    saveStatus = 'saving';
+    try {
+      await saveConfig(buildConfig(nextCustomPresets));
+      saveStatus = 'success';
+      promptPresetSuccess = '当前预设已更新';
+      setTimeout(() => {
+        saveStatus = 'idle';
+        promptPresetSuccess = '';
+      }, 2000);
+    } catch (err) {
+      saveStatus = 'error';
+      promptPresetError = err instanceof Error ? err.message : String(err);
+      saveError = promptPresetError;
+    }
+  }
+
+  /** 保存配置 */
+  async function handleSave(): Promise<void> {
+    if (systemPromptTooLong) {
+      saveStatus = 'error';
+      saveError = `系统提示词最多 ${MAX_SYSTEM_PROMPT_LENGTH} 个字符`;
+      return;
+    }
+
+    saveStatus = 'saving';
+    saveError = '';
+
+    try {
+      await saveConfig(buildConfig(systemPromptCustomPresets));
       saveStatus = 'success';
       // 2 秒后重置提示
       setTimeout(() => { saveStatus = 'idle'; }, 2000);
@@ -111,6 +279,68 @@
       bind:value={model}
       placeholder="gpt-4o"
     />
+  </label>
+
+  <h3 class="section-title" style="margin-top: 24px;">角色提示词配置（系统提示词）</h3>
+
+  <label class="form-label">
+    <span>预设角色</span>
+    <select class="form-input" bind:value={systemPromptPreset} onchange={applySystemPromptPreset}>
+      {#each allSystemPromptPresets as preset (preset.id)}
+        <option value={preset.id}>{preset.label}</option>
+      {/each}
+    </select>
+  </label>
+
+  <label class="form-label">
+    <span>系统提示词内容</span>
+    <textarea
+      class="form-input form-textarea"
+      bind:value={systemPrompt}
+      maxlength={MAX_SYSTEM_PROMPT_LENGTH}
+      placeholder="这里是系统提示词，会作为 system 消息发送给模型，不会显示在用户输入框中"
+    ></textarea>
+
+    <div class="prompt-counter" class:prompt-counter--error={systemPromptTooLong}>
+      <span>{systemPromptCharCount} / {MAX_SYSTEM_PROMPT_LENGTH}</span>
+      {#if systemPromptTooLong}
+        <span>已超过字数上限</span>
+      {/if}
+    </div>
+  </label>
+
+  <label class="form-label">
+    <span>新建角色预设名称</span>
+    <div class="prompt-actions">
+      <input
+        type="text"
+        class="form-input"
+        bind:value={newSystemPromptPresetName}
+        placeholder="例如：代码评审专家"
+      />
+      <button
+        class="btn btn--outline"
+        onclick={handleCreateSystemPromptPreset}
+        disabled={configState.isSaving || !systemPrompt.trim() || systemPromptTooLong}
+      >
+        新建并保存
+      </button>
+
+      <button
+        class="btn btn--outline"
+        onclick={handleSaveCurrentSystemPromptPreset}
+        disabled={configState.isSaving || !selectedPresetIsCustom || !systemPrompt.trim() || systemPromptTooLong}
+      >
+        保存当前预设
+      </button>
+    </div>
+
+    {#if promptPresetSuccess}
+      <span class="status status--success">{promptPresetSuccess}</span>
+    {/if}
+    {#if promptPresetError}
+      <span class="status status--error">{promptPresetError}</span>
+    {/if}
   </label>
 
   <h3 class="section-title" style="margin-top: 24px;">语音 API 配置</h3>
@@ -269,6 +499,29 @@
     margin-top: 16px;
   }
 
+  .prompt-counter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.45);
+    margin-top: 4px;
+  }
+
+  .prompt-counter--error {
+    color: #f87171;
+  }
+
+  .prompt-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .prompt-actions .form-input {
+    flex: 1;
+  }
+
   .btn {
     padding: 8px 16px;
     font-size: 13px;
@@ -293,6 +546,16 @@
     background: rgba(99, 102, 241, 0.45);
   }
 
+  .btn--outline {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .btn--outline:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
   .status {
     font-size: 12px;
   }
@@ -303,9 +566,9 @@
 
   .status--error {
     color: #f87171;
-    max-width: 200px;
+    max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: normal;
   }
 </style>

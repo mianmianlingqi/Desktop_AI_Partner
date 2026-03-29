@@ -7,6 +7,16 @@
 
 import type { AppConfig } from '$lib/types';
 
+/** 系统提示词预设项 */
+export interface SystemPromptPresetItem {
+  /** 唯一标识 */
+  id: string;
+  /** 下拉框显示文案 */
+  label: string;
+  /** 预设系统提示词内容 */
+  prompt: string;
+}
+
 // ======== AI API 默认值 ========
 
 /** 默认 AI 模型名称 */
@@ -38,6 +48,44 @@ export const DEFAULT_LANGUAGE = 'zh-CN';
 /** 默认主题模式 */
 export const DEFAULT_THEME = 'dark';
 
+/** 默认系统提示词预设 ID */
+export const DEFAULT_SYSTEM_PROMPT_PRESET = 'assistant-default';
+
+/** 默认系统提示词 */
+export const DEFAULT_SYSTEM_PROMPT =
+  '你是桌面 AI 助手。请优先给出清晰结论，再给关键步骤，表达简洁、可执行。';
+
+/** 系统提示词最大长度（字符） */
+export const MAX_SYSTEM_PROMPT_LENGTH = 12000;
+
+/** 系统提示词预设（用于设置页选择角色） */
+export const SYSTEM_PROMPT_PRESETS: SystemPromptPresetItem[] = [
+  {
+    id: 'assistant-default',
+    label: '通用助手',
+    prompt:
+      '你是桌面 AI 助手。请优先给出清晰结论，再给关键步骤，表达简洁、可执行。',
+  },
+  {
+    id: 'product-manager',
+    label: '产品经理',
+    prompt:
+      '你是一名资深产品经理。请先给目标和结论，再输出需求拆解、优先级与里程碑，明确风险与验收标准。',
+  },
+  {
+    id: 'senior-engineer',
+    label: '高级工程师',
+    prompt:
+      '你是一名高级工程师。回答时请先给可运行方案，再说明关键实现细节、边界条件和验证步骤。',
+  },
+  {
+    id: 'writing-coach',
+    label: '写作顾问',
+    prompt:
+      '你是专业写作顾问。请在不改变原意前提下优化结构与表达，给出更清晰的版本，并指出主要修改理由。',
+  },
+];
+
 // ======== 窗口标识 ========
 
 /** Overlay 窗口 label */
@@ -67,5 +115,8 @@ export const DEFAULT_APP_CONFIG: AppConfig = {
     shortcut: DEFAULT_SHORTCUT,
     language: DEFAULT_LANGUAGE,
     theme: DEFAULT_THEME,
+    system_prompt_preset: DEFAULT_SYSTEM_PROMPT_PRESET,
+    system_prompt: DEFAULT_SYSTEM_PROMPT,
+    system_prompt_custom_presets: [],
   },
 };

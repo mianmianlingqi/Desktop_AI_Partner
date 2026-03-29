@@ -21,6 +21,7 @@ export type {
   ApiConfig,
   AppSettings,
   AppConfig,
+  SystemPromptCustomPreset,
 } from './config.types';
 
 export type {

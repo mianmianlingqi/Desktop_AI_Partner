@@ -34,6 +34,13 @@ pub const DEFAULT_LANGUAGE: &str = "zh-CN";
 /// 默认主题模式
 pub const DEFAULT_THEME: &str = "dark";
 
+/// 默认系统提示词预设 ID
+pub const DEFAULT_SYSTEM_PROMPT_PRESET: &str = "assistant-default";
+
+/// 默认系统提示词
+pub const DEFAULT_SYSTEM_PROMPT: &str =
+	"你是桌面 AI 助手。请优先给出清晰结论，再给关键步骤，表达简洁、可执行。";
+
 // ======== 窗口标识 ========
 
 /// 截图 Overlay 窗口 label（用于动态创建/销毁）

@@ -18,12 +18,15 @@
     appendDelta,
     finishStreaming,
     setStreamError,
+    setSpeechStatus,
+    clearSpeechStatus,
     captureState,
     clearImage,
     setCapturing,
     configState,
   } from '$lib/stores';
   import { sendMessage, abortChat, listenChatDelta, openOverlay } from '$lib/services';
+  import type { ChatMessage } from '$lib/types';
   import type { UnlistenFn } from '@tauri-apps/api/event';
 
   /** 用户输入文本 */
@@ -82,17 +85,16 @@
         // 自动触发语音合成播放
         const lastMsg = chatState.messages[chatState.messages.length - 1];
         if (lastMsg && lastMsg.role === 'assistant' && lastMsg.content) {
-          audioService.synthesizeSpeechWithConfig(lastMsg.content, configState.config.api)
-            .then(bytes => audioService.playAudio(bytes))
-            .catch(err => console.error('TTS 播放失败:', err));
+          void synthesizeAndPlayAssistant(lastMsg.content);
         }
       }
     });
 
     // 5. 发送请求到后端（chatState.messages 已包含 userMessage，无需再 concat）
     try {
+      const requestMessages = buildRequestMessagesWithSystemPrompt(chatState.messages);
       await sendMessage({
-        messages: chatState.messages,
+        messages: requestMessages,
       });
     } catch (err) {
       setStreamError(err instanceof Error ? err.message : String(err));
@@ -162,6 +164,40 @@
         setStreamError(`无法开始录音: ${extractErrorMessage(err, '请检查麦克风权限')}`);
       }
     }
+  }
+
+  /** 自动合成并播放 assistant 消息，同时展示状态避免静默等待 */
+  async function synthesizeAndPlayAssistant(content: string): Promise<void> {
+    try {
+      setSpeechStatus('正在合成语音...');
+      const audioBytes = await audioService.synthesizeSpeechWithConfig(content, configState.config.api);
+      setSpeechStatus('正在播放语音...');
+      await audioService.playAudio(audioBytes);
+    } catch (err) {
+      console.error('自动语音合成失败:', err);
+      setStreamError(`语音合成失败: ${extractErrorMessage(err, '未知错误')}`);
+    } finally {
+      clearSpeechStatus();
+    }
+  }
+
+  /**
+   * 组装发送给后端的消息列表
+   * - 系统提示词来自设置页
+   * - 不在用户输入框和消息列表中展示
+   */
+  function buildRequestMessagesWithSystemPrompt(messages: ChatMessage[]): ChatMessage[] {
+    const prompt = configState.config.settings.system_prompt.trim();
+    const messagesWithoutSystem = messages.filter((message) => message.role !== 'system');
+
+    if (!prompt) {
+      return messagesWithoutSystem;
+    }
+
+    return [
+      { role: 'system', content: prompt },
+      ...messagesWithoutSystem,
+    ];
   }
 </script>
 
@@ -243,6 +279,12 @@
       <span class="error-text">{chatState.error}</span>
     </div>
   {/if}
+
+  {#if chatState.speechStatus}
+    <div class="speech-bar">
+      <span class="speech-text">{chatState.speechStatus}</span>
+    </div>
+  {/if}
 </div>
 
 <style>
@@ -275,5 +317,17 @@
   .error-text {
     font-size: 11px;
     color: #f87171;
+  }
+
+  .speech-bar {
+    margin-top: 6px;
+    padding: 4px 8px;
+    background: rgba(59, 130, 246, 0.16);
+    border-radius: 4px;
+  }
+
+  .speech-text {
+    font-size: 11px;
+    color: #93c5fd;
   }
 </style>

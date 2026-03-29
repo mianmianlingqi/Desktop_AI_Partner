@@ -17,6 +17,8 @@ interface ChatState {
   currentStreamContent: string;
   /** 错误信息（最近一次出错） */
   error: string | null;
+  /** 语音合成状态提示 */
+  speechStatus: string | null;
 }
 
 /** 对话状态 —— 全局响应式状态 */
@@ -25,6 +27,7 @@ export const chatState: ChatState = $state({
   isStreaming: false,
   currentStreamContent: '',
   error: null,
+  speechStatus: null,
 });
 
 /**
@@ -42,6 +45,7 @@ export function clearMessages(): void {
   chatState.messages = [];
   chatState.currentStreamContent = '';
   chatState.error = null;
+  chatState.speechStatus = null;
 }
 
 /**
@@ -83,4 +87,20 @@ export function setStreamError(errorMsg: string): void {
   chatState.isStreaming = false;
   chatState.error = errorMsg;
   chatState.currentStreamContent = '';
+  chatState.speechStatus = null;
+}
+
+/**
+ * 设置语音合成状态提示
+ * @param status - 当前语音状态文案
+ */
+export function setSpeechStatus(status: string): void {
+  chatState.speechStatus = status;
+}
+
+/**
+ * 清空语音合成状态提示
+ */
+export function clearSpeechStatus(): void {
+  chatState.speechStatus = null;
 }

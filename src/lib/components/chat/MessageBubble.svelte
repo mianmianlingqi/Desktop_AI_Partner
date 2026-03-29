@@ -9,7 +9,7 @@
   import { Loader2, Volume2 } from 'lucide-svelte';
   import { IconButton, Tooltip } from '$lib/components/shared';
   import { audioService } from '$lib/services/audio.service';
-  import { configState, setStreamError } from '$lib/stores';
+  import { configState, setStreamError, setSpeechStatus, clearSpeechStatus } from '$lib/stores';
   import type { ChatMessage } from '$lib/types';
   import { extractErrorMessage } from '$lib/utils';
   import MarkdownRenderer from './MarkdownRenderer.svelte';
@@ -38,17 +38,20 @@
 
     isSynthesizing = true;
     try {
+      setSpeechStatus('正在合成语音...');
       // 在用户点击按钮时预热播放通道，避免后续播放被策略拦截。
       await audioService.primePlayback();
       const audioBytes = await audioService.synthesizeSpeechWithConfig(
         message.content,
         configState.config.api,
       );
+      setSpeechStatus('正在播放语音...');
       await audioService.playAudio(audioBytes);
     } catch (err) {
       console.error('手动语音合成失败:', err);
       setStreamError(`语音合成失败: ${extractErrorMessage(err, '未知错误')}`);
     } finally {
+      clearSpeechStatus();
       isSynthesizing = false;
     }
   }

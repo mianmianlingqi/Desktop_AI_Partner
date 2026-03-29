@@ -51,6 +51,18 @@ impl Default for ApiConfig {
     }
 }
 
+/// 自定义系统提示词预设
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[serde(default)]
+pub struct SystemPromptCustomPreset {
+    /// 唯一标识
+    pub id: String,
+    /// 预设名称
+    pub name: String,
+    /// 预设内容
+    pub prompt: String,
+}
+
 /// 应用设置 —— 控制应用行为与外观
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(default)]
@@ -61,6 +73,12 @@ pub struct AppSettings {
     pub language: String,
     /// 主题模式（dark / light）
     pub theme: String,
+    /// 预设角色提示词 ID
+    pub system_prompt_preset: String,
+    /// 当前生效系统提示词
+    pub system_prompt: String,
+    /// 自定义系统提示词预设列表
+    pub system_prompt_custom_presets: Vec<SystemPromptCustomPreset>,
 }
 
 impl Default for AppSettings {
@@ -70,6 +88,9 @@ impl Default for AppSettings {
             shortcut: defaults::DEFAULT_SHORTCUT.to_string(),
             language: defaults::DEFAULT_LANGUAGE.to_string(),
             theme: defaults::DEFAULT_THEME.to_string(),
+            system_prompt_preset: defaults::DEFAULT_SYSTEM_PROMPT_PRESET.to_string(),
+            system_prompt: defaults::DEFAULT_SYSTEM_PROMPT.to_string(),
+            system_prompt_custom_presets: vec![],
         }
     }
 }

@@ -38,6 +38,22 @@ export interface AppSettings {
   language: string;
   /** 主题模式（dark / light） */
   theme: string;
+  /** 预设角色提示词 ID */
+  system_prompt_preset: string;
+  /** 当前生效的系统提示词 */
+  system_prompt: string;
+  /** 自定义系统提示词预设列表 */
+  system_prompt_custom_presets: SystemPromptCustomPreset[];
+}
+
+/** 自定义系统提示词预设项 */
+export interface SystemPromptCustomPreset {
+  /** 唯一标识 */
+  id: string;
+  /** 预设名称 */
+  name: string;
+  /** 预设内容 */
+  prompt: string;
 }
 
 /** 应用配置 —— 顶层聚合，包含 API 配置与应用设置 */

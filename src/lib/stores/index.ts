@@ -12,6 +12,8 @@ export {
   appendDelta,
   finishStreaming,
   setStreamError,
+  setSpeechStatus,
+  clearSpeechStatus,
 } from './chat.svelte';
 
 export {
