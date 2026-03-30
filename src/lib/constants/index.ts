@@ -6,6 +6,11 @@
 
 export {
   CHAT_DELTA_EVENT,
+  AUDIO_PLAYBACK_LEVEL_EVENT,
+} from './events';
+
+export type {
+  AudioPlaybackLevelDetail,
 } from './events';
 
 export {

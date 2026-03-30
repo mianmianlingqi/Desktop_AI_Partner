@@ -14,6 +14,7 @@
   import {
     chatState,
     addMessage,
+    buildContextMemoryMessages,
     startStreaming,
     appendDelta,
     finishStreaming,
@@ -188,15 +189,15 @@
    */
   function buildRequestMessagesWithSystemPrompt(messages: ChatMessage[]): ChatMessage[] {
     const prompt = configState.config.settings.system_prompt.trim();
-    const messagesWithoutSystem = messages.filter((message) => message.role !== 'system');
+    const memoryMessages = buildContextMemoryMessages(messages);
 
     if (!prompt) {
-      return messagesWithoutSystem;
+      return memoryMessages;
     }
 
     return [
       { role: 'system', content: prompt },
-      ...messagesWithoutSystem,
+      ...memoryMessages,
     ];
   }
 </script>

@@ -7,6 +7,7 @@
 export {
   chatState,
   addMessage,
+  buildContextMemoryMessages,
   clearMessages,
   startStreaming,
   appendDelta,

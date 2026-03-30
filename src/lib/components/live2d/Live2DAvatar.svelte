@@ -1,5 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { AUDIO_PLAYBACK_LEVEL_EVENT } from '$lib/constants';
+  import type { AudioPlaybackLevelDetail } from '$lib/constants';
 
   type RuntimeLogLevel = 'info' | 'warn' | 'error';
 
@@ -15,6 +17,8 @@
     stop: () => void;
     resize: () => void;
     setAutoBlink: (enabled: boolean) => void;
+    setPan: (x: number, y: number) => void;
+    setMouthOpen: (value: number) => void;
     destroy: () => Promise<void>;
   };
 
@@ -26,7 +30,18 @@
       coreBridgeScriptPath?: string;
       shaderDirectory?: string;
       autoBlink?: boolean;
+      idleMotionEnabled?: boolean;
+      idleMotionIntensity?: number;
+      idleMotionFiles?: string[];
+      mouthOpenScale?: number;
       modelScale?: number;
+      fitMode?: 'contain' | 'cover';
+      fitPadding?: number;
+      panLimitX?: number;
+      panLimitY?: number;
+      panOverflowX?: number;
+      panOverflowTop?: number;
+      panOverflowBottom?: number;
       logger?: (entry: RuntimeLogEntry) => void;
     }) => Promise<Cubism5AvatarHandle>;
   };
@@ -41,18 +56,59 @@
     Live2DCubismCore?: Live2DCubismCoreLike;
   };
 
+  interface Props {
+    mode?: 'floating' | 'panel';
+  }
+
+  const { mode = 'floating' }: Props = $props();
+
   const MODEL_PATH = encodeURI('/live2d/Mari-vts/玛丽立绘.model3.json');
   const CORE_SCRIPT_PATH = '/live2d/cubism5/core/live2dcubismcore.min.js';
   const CORE_BRIDGE_SCRIPT_PATH = '/live2d/cubism5/core/live2dcubismcore.bridge.js';
   const SHADER_DIRECTORY = '/live2d/cubism5/shaders/WebGL/';
   const RUNTIME_MODULE_PATH = '/live2d/cubism5/runtime/index.js';
   const MAX_STAGE_LOGS = 40;
+  const PANEL_PAN_LIMIT_X = 1.35;
+  const PANEL_PAN_LIMIT_Y = 1.95;
+  const PANEL_PAN_OVERFLOW_X = 0.22;
+  const PANEL_PAN_OVERFLOW_TOP = 0.18;
+  const PANEL_PAN_OVERFLOW_BOTTOM = 0.82;
+  const PANEL_IDLE_MOTION_INTENSITY = 1.12;
+  const FLOATING_IDLE_MOTION_INTENSITY = 0.98;
+  const PANEL_MOUTH_OPEN_SCALE = 0.5;
+  const FLOATING_MOUTH_OPEN_SCALE = 0.55;
+  // 关闭整套 motion3 待机轨道，避免头脸身体晃动，改由运行时仅驱动衣发轻摆。
+  const IDLE_MOTION_FILES: string[] = [];
+
+  const panLimitX = $derived(mode === 'panel' ? PANEL_PAN_LIMIT_X : 1);
+  const panLimitY = $derived(mode === 'panel' ? PANEL_PAN_LIMIT_Y : 1);
+  const panOverflowX = $derived(mode === 'panel' ? PANEL_PAN_OVERFLOW_X : 0);
+  const panOverflowTop = $derived(mode === 'panel' ? PANEL_PAN_OVERFLOW_TOP : 0);
+  const panOverflowBottom = $derived(mode === 'panel' ? PANEL_PAN_OVERFLOW_BOTTOM : 0);
+  const idleMotionIntensity = $derived(
+    mode === 'panel' ? PANEL_IDLE_MOTION_INTENSITY : FLOATING_IDLE_MOTION_INTENSITY
+  );
+  const mouthOpenScale = $derived(mode === 'panel' ? PANEL_MOUTH_OPEN_SCALE : FLOATING_MOUTH_OPEN_SCALE);
 
   let mountEl: HTMLDivElement;
   let canvasEl: HTMLCanvasElement;
-  let statusMessage = '模型加载中...';
-  let stageLogs: Array<{ id: number; level: RuntimeLogLevel; text: string }> = [];
+  let statusMessage = $state('模型加载中...');
+  let stageLogs = $state<Array<{ id: number; level: RuntimeLogLevel; text: string }>>([]);
   let nextLogId = 1;
+  let dragging = $state(false);
+
+  let pointerActive = false;
+  let pointerId = -1;
+  let panX = 0;
+  let panY = 0;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let dragOriginPanX = 0;
+  let dragOriginPanY = 0;
+
+  function clampPan(value: number, limit: number): number {
+    return Math.max(-limit, Math.min(limit, value));
+  }
 
   function appendStageLog(
     level: RuntimeLogLevel,
@@ -158,7 +214,103 @@
     let avatar: Cubism5AvatarHandle | null = null;
     let resizeObserver: ResizeObserver | null = null;
 
+    const applyPan = (): void => {
+      avatar?.setPan(panX, panY);
+    };
+
+    const stopPointerDrag = (): void => {
+      pointerActive = false;
+      pointerId = -1;
+      dragging = false;
+    };
+
+    const onPointerDown = (event: PointerEvent): void => {
+      if (!mountEl || (mode === 'floating' && event.button !== 0)) {
+        return;
+      }
+
+      if (event.button !== 0) {
+        return;
+      }
+
+      pointerActive = true;
+      pointerId = event.pointerId;
+      dragStartX = event.clientX;
+      dragStartY = event.clientY;
+      dragOriginPanX = panX;
+      dragOriginPanY = panY;
+      dragging = true;
+      mountEl.setPointerCapture(event.pointerId);
+      event.preventDefault();
+    };
+
+    const onPointerMove = (event: PointerEvent): void => {
+      if (!pointerActive || event.pointerId !== pointerId || !mountEl) {
+        return;
+      }
+
+      const rect = mountEl.getBoundingClientRect();
+      if (rect.width <= 0 || rect.height <= 0) {
+        return;
+      }
+
+      // 像素位移映射到 [-1, 1]，让拖拽与容器尺寸线性关联。
+      const deltaPanX = (event.clientX - dragStartX) / (rect.width * 0.5);
+      const deltaPanY = (dragStartY - event.clientY) / (rect.height * 0.5);
+
+      panX = clampPan(dragOriginPanX + deltaPanX, panLimitX);
+      panY = clampPan(dragOriginPanY + deltaPanY, panLimitY);
+      applyPan();
+    };
+
+    const onPointerUp = (event: PointerEvent): void => {
+      if (event.pointerId !== pointerId || !mountEl) {
+        return;
+      }
+
+      if (mountEl.hasPointerCapture(event.pointerId)) {
+        mountEl.releasePointerCapture(event.pointerId);
+      }
+
+      stopPointerDrag();
+    };
+
+    const onPointerCancel = (event: PointerEvent): void => {
+      if (event.pointerId !== pointerId || !mountEl) {
+        return;
+      }
+
+      if (mountEl.hasPointerCapture(event.pointerId)) {
+        mountEl.releasePointerCapture(event.pointerId);
+      }
+
+      stopPointerDrag();
+    };
+
+    const handlePlaybackLevel = (event: Event): void => {
+      if (!avatar) {
+        return;
+      }
+
+      const customEvent = event as CustomEvent<AudioPlaybackLevelDetail>;
+      const level = customEvent.detail?.level;
+      if (typeof level !== 'number' || Number.isNaN(level)) {
+        return;
+      }
+
+      avatar.setMouthOpen(Math.max(0, Math.min(1, level)));
+    };
+
     const resize = () => avatar?.resize();
+
+    window.addEventListener(AUDIO_PLAYBACK_LEVEL_EVENT, handlePlaybackLevel as EventListener);
+    appendStageLog('info', 'mouth', '已订阅音频口型事件');
+
+    mountEl.addEventListener('pointerdown', onPointerDown);
+    mountEl.addEventListener('pointermove', onPointerMove);
+    mountEl.addEventListener('pointerup', onPointerUp);
+    mountEl.addEventListener('pointercancel', onPointerCancel);
+    appendStageLog('info', 'drag', '已启用模型拖动');
 
     (async () => {
       try {
@@ -194,7 +346,18 @@
           coreBridgeScriptPath: CORE_BRIDGE_SCRIPT_PATH,
           shaderDirectory: SHADER_DIRECTORY,
           autoBlink: true,
+          idleMotionEnabled: true,
+          idleMotionIntensity,
+          idleMotionFiles: IDLE_MOTION_FILES,
+          mouthOpenScale,
           modelScale: 1,
+          fitMode: 'contain',
+          fitPadding: mode === 'panel' ? 0.05 : 0.04,
+          panLimitX,
+          panLimitY,
+          panOverflowX,
+          panOverflowTop,
+          panOverflowBottom,
           logger: (entry) => {
             appendStageLog(entry.level, entry.stage, entry.message, entry.timestamp);
           }
@@ -211,6 +374,7 @@
 
         coreMocVersion = getCoreSupportedMocVersion();
         avatar.start();
+        applyPan();
         avatar.resize();
         appendStageLog('info', 'loop', '渲染循环已启动并完成首次 resize');
 
@@ -237,15 +401,25 @@
     return () => {
       disposed = true;
       appendStageLog('info', 'ui', '组件卸载，开始清理资源');
+      window.removeEventListener(AUDIO_PLAYBACK_LEVEL_EVENT, handlePlaybackLevel as EventListener);
       resizeObserver?.disconnect();
       window.removeEventListener('resize', resize);
+      mountEl.removeEventListener('pointerdown', onPointerDown);
+      mountEl.removeEventListener('pointermove', onPointerMove);
+      mountEl.removeEventListener('pointerup', onPointerUp);
+      mountEl.removeEventListener('pointercancel', onPointerCancel);
+      stopPointerDrag();
+      panX = 0;
+      panY = 0;
+      avatar?.setMouthOpen(0);
+      avatar?.setPan(0, 0);
       void avatar?.destroy();
       avatar = null;
     };
   });
 </script>
 
-<div class="live2d-avatar" aria-label="Live2D Avatar">
+<div class="live2d-avatar" class:panel={mode === 'panel'} class:dragging aria-label="Live2D Avatar">
   <div class="canvas-host" bind:this={mountEl}>
     <canvas class="avatar-canvas" bind:this={canvasEl} aria-hidden="true"></canvas>
   </div>
@@ -277,6 +451,19 @@
     border-radius: 12px;
     overflow: hidden;
     background: radial-gradient(circle at 50% 20%, rgba(129, 140, 248, 0.2), rgba(8, 12, 24, 0.02));
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+  }
+
+  .live2d-avatar.dragging {
+    cursor: grabbing;
+  }
+
+  .live2d-avatar.panel {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
   }
 
   .canvas-host {
@@ -361,6 +548,12 @@
     .live2d-avatar {
       width: min(38vw, 220px);
       height: min(36vh, 280px);
+    }
+
+    .live2d-avatar.panel {
+      width: 100%;
+      height: 100%;
+      min-height: 220px;
     }
   }
 </style>

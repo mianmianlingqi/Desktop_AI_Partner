@@ -14,42 +14,66 @@
 </script>
 
 <div class="main-page">
-  <!-- 视图切换浮动按钮 -->
-  <div class="view-toggle">
-    {#if uiState.activeView === 'chat'}
-      <Tooltip text="设置">
-        <IconButton onclick={() => setActiveView('settings')} title="打开设置">
-          <Settings size={16} />
-        </IconButton>
-      </Tooltip>
-    {:else}
-      <Tooltip text="返回对话">
-        <IconButton onclick={() => setActiveView('chat')} title="返回对话">
-          <MessageSquare size={16} />
-        </IconButton>
-      </Tooltip>
-    {/if}
-  </div>
+  <div class="layout-grid">
+    <section class="primary-pane">
+      <!-- 视图切换浮动按钮 -->
+      <div class="view-toggle">
+        {#if uiState.activeView === 'chat'}
+          <Tooltip text="设置">
+            <IconButton onclick={() => setActiveView('settings')} title="打开设置">
+              <Settings size={16} />
+            </IconButton>
+          </Tooltip>
+        {:else}
+          <Tooltip text="返回对话">
+            <IconButton onclick={() => setActiveView('chat')} title="返回对话">
+              <MessageSquare size={16} />
+            </IconButton>
+          </Tooltip>
+        {/if}
+      </div>
 
-  <!-- 视图内容 -->
-  <div class="view-content">
-    {#if uiState.activeView === 'chat'}
-      <ChatContainer />
-    {:else}
-      <SettingsPanel />
-    {/if}
-  </div>
+      <!-- 主视图内容 -->
+      <div class="view-content">
+        {#if uiState.activeView === 'chat'}
+          <ChatContainer />
+        {:else}
+          <SettingsPanel />
+        {/if}
+      </div>
+    </section>
 
-  <!-- Live2D 形象挂件（不影响主交互区） -->
-  <div class="avatar-floating" aria-hidden="true">
-    <Live2DAvatar />
+    <!-- 右侧 Live2D 专用容器 -->
+    <aside class="live2d-pane" aria-label="Live2D 模型区域">
+      <div class="live2d-panel">
+        <Live2DAvatar mode="panel" />
+      </div>
+    </aside>
   </div>
 </div>
 
 <style>
   .main-page {
     position: relative;
+    width: 100%;
     height: 100%;
+    min-height: 0;
+  }
+
+  .layout-grid {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(240px, 32vw, 420px);
+    gap: 10px;
+    padding: 8px;
+  }
+
+  .primary-pane {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
     display: flex;
     flex-direction: column;
   }
@@ -64,21 +88,42 @@
   .view-content {
     flex: 1;
     min-height: 0;
+    min-width: 0;
     overflow: hidden;
   }
 
-  .avatar-floating {
-    position: absolute;
-    right: 8px;
-    bottom: 8px;
-    z-index: 3;
-    pointer-events: none;
+  .live2d-pane {
+    min-width: 0;
+    min-height: 0;
+    display: flex;
   }
 
-  @media (max-width: 900px) {
-    .avatar-floating {
+  .live2d-panel {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(160deg, rgba(15, 23, 42, 0.62), rgba(30, 41, 59, 0.38));
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    padding: 8px;
+  }
+
+  @media (max-width: 560px) {
+    .layout-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(150px, 42vw);
+      gap: 8px;
+      padding: 6px;
+    }
+
+    .view-toggle {
       right: 6px;
-      bottom: 6px;
+      top: 2px;
+    }
+
+    .live2d-panel {
+      padding: 6px;
     }
   }
 </style>

@@ -58,8 +58,8 @@ var CubismId = class _CubismId {
   // ID名
 };
 var Live2DCubismFramework;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.CubismId = CubismId;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismId = CubismId;
 })(Live2DCubismFramework || (Live2DCubismFramework = {}));
 
 // vendor/cubismwebframework/src/id/cubismidmanager.ts
@@ -145,8 +145,8 @@ var CubismIdManager = class {
   // 登録されているIDのリスト
 };
 var Live2DCubismFramework2;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.CubismIdManager = CubismIdManager;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismIdManager = CubismIdManager;
 })(Live2DCubismFramework2 || (Live2DCubismFramework2 = {}));
 
 // vendor/cubismwebframework/src/math/cubismvector2.ts
@@ -288,8 +288,8 @@ var CubismVector2 = class _CubismVector2 {
   }
 };
 var Live2DCubismFramework3;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.CubismVector2 = CubismVector2;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismVector2 = CubismVector2;
 })(Live2DCubismFramework3 || (Live2DCubismFramework3 = {}));
 
 // vendor/cubismwebframework/src/math/cubismmath.ts
@@ -588,8 +588,8 @@ var _CubismMath = class _CubismMath {
 _CubismMath.Epsilon = 1e-5;
 var CubismMath = _CubismMath;
 var Live2DCubismFramework4;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.CubismMath = CubismMath;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismMath = CubismMath;
 })(Live2DCubismFramework4 || (Live2DCubismFramework4 = {}));
 
 // vendor/cubismwebframework/src/math/cubismmatrix44.ts
@@ -915,8 +915,8 @@ var CubismMatrix44 = class _CubismMatrix44 {
   // 4x4行列データ
 };
 var Live2DCubismFramework5;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.CubismMatrix44 = CubismMatrix44;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismMatrix44 = CubismMatrix44;
 })(Live2DCubismFramework5 || (Live2DCubismFramework5 = {}));
 
 // vendor/cubismwebframework/src/type/csmrectf.ts
@@ -982,8 +982,8 @@ var csmRect = class {
   // 高さ
 };
 var Live2DCubismFramework6;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.csmRect = csmRect;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.csmRect = csmRect;
 })(Live2DCubismFramework6 || (Live2DCubismFramework6 = {}));
 
 // vendor/cubismwebframework/src/cubismframeworkconfig.ts
@@ -1103,8 +1103,8 @@ var CubismDebug = class {
   }
 };
 var Live2DCubismFramework7;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.CubismDebug = CubismDebug;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismDebug = CubismDebug;
 })(Live2DCubismFramework7 || (Live2DCubismFramework7 = {}));
 
 // vendor/cubismwebframework/src/rendering/cubismrenderer.ts
@@ -1377,10 +1377,10 @@ var CubismClippingContext = class {
   // このマスクが割り当てられるレンダーテクスチャ（フレームバッファ）やカラーバッファのインデックス
 };
 var Live2DCubismFramework8;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.CubismBlendMode = CubismBlendMode;
-  Live2DCubismFramework23.CubismRenderer = CubismRenderer;
-  Live2DCubismFramework23.CubismTextureColor = CubismTextureColor;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismBlendMode = CubismBlendMode;
+  Live2DCubismFramework29.CubismRenderer = CubismRenderer;
+  Live2DCubismFramework29.CubismTextureColor = CubismTextureColor;
 })(Live2DCubismFramework8 || (Live2DCubismFramework8 = {}));
 
 // vendor/cubismwebframework/src/utils/cubismjsonextension.ts
@@ -2395,16 +2395,16 @@ var JsonMap = class extends Value2 {
   // JSON要素の値
 };
 var Live2DCubismFramework9;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.CubismJson = CubismJson;
-  Live2DCubismFramework23.JsonArray = JsonArray;
-  Live2DCubismFramework23.JsonBoolean = JsonBoolean;
-  Live2DCubismFramework23.JsonError = JsonError;
-  Live2DCubismFramework23.JsonFloat = JsonFloat;
-  Live2DCubismFramework23.JsonMap = JsonMap;
-  Live2DCubismFramework23.JsonNullvalue = JsonNullvalue;
-  Live2DCubismFramework23.JsonString = JsonString;
-  Live2DCubismFramework23.Value = Value2;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismJson = CubismJson;
+  Live2DCubismFramework29.JsonArray = JsonArray;
+  Live2DCubismFramework29.JsonBoolean = JsonBoolean;
+  Live2DCubismFramework29.JsonError = JsonError;
+  Live2DCubismFramework29.JsonFloat = JsonFloat;
+  Live2DCubismFramework29.JsonMap = JsonMap;
+  Live2DCubismFramework29.JsonNullvalue = JsonNullvalue;
+  Live2DCubismFramework29.JsonString = JsonString;
+  Live2DCubismFramework29.Value = Value2;
 })(Live2DCubismFramework9 || (Live2DCubismFramework9 = {}));
 
 // vendor/cubismwebframework/src/live2dcubismframework.ts
@@ -2595,18 +2595,18 @@ var Option = class {
   // ログ出力レベルの設定
 };
 var Live2DCubismFramework10;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.Constant = Constant;
-  Live2DCubismFramework23.csmDelete = csmDelete;
-  Live2DCubismFramework23.CubismFramework = CubismFramework;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.Constant = Constant;
+  Live2DCubismFramework29.csmDelete = csmDelete;
+  Live2DCubismFramework29.CubismFramework = CubismFramework;
 })(Live2DCubismFramework10 || (Live2DCubismFramework10 = {}));
 
 // vendor/cubismwebframework/src/icubismmodelsetting.ts
 var ICubismModelSetting = class {
 };
 var Live2DCubismFramework11;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.ICubismModelSetting = ICubismModelSetting;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.ICubismModelSetting = ICubismModelSetting;
 })(Live2DCubismFramework11 || (Live2DCubismFramework11 = {}));
 
 // vendor/cubismwebframework/src/cubismmodelsettingjson.ts
@@ -3168,9 +3168,9 @@ var CubismModelSettingJson = class extends ICubismModelSetting {
   }
 };
 var Live2DCubismFramework12;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.CubismModelSettingJson = CubismModelSettingJson;
-  Live2DCubismFramework23.FrequestNode = FrequestNode;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismModelSettingJson = CubismModelSettingJson;
+  Live2DCubismFramework29.FrequestNode = FrequestNode;
 })(Live2DCubismFramework12 || (Live2DCubismFramework12 = {}));
 
 // vendor/cubismwebframework/src/effect/cubismeyeblink.ts
@@ -3330,9 +3330,9 @@ var EyeState = /* @__PURE__ */ ((EyeState2) => {
   return EyeState2;
 })(EyeState || {});
 var Live2DCubismFramework13;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.CubismEyeBlink = CubismEyeBlink;
-  Live2DCubismFramework23.EyeState = EyeState;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismEyeBlink = CubismEyeBlink;
+  Live2DCubismFramework29.EyeState = EyeState;
 })(Live2DCubismFramework13 || (Live2DCubismFramework13 = {}));
 
 // vendor/cubismwebframework/src/math/cubismmodelmatrix.ts
@@ -3507,8 +3507,8 @@ var CubismModelMatrix = class extends CubismMatrix44 {
   // 縦幅
 };
 var Live2DCubismFramework14;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.CubismModelMatrix = CubismModelMatrix;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismModelMatrix = CubismModelMatrix;
 })(Live2DCubismFramework14 || (Live2DCubismFramework14 = {}));
 
 // vendor/cubismwebframework/src/model/cubismmodel.ts
@@ -5773,8 +5773,8 @@ var CubismModel = class {
   // Offscreenのスクリーン色の配列
 };
 var Live2DCubismFramework15;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.CubismModel = CubismModel;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismModel = CubismModel;
 })(Live2DCubismFramework15 || (Live2DCubismFramework15 = {}));
 
 // vendor/cubismwebframework/src/model/cubismmoc.ts
@@ -5899,8 +5899,8 @@ var CubismMoc = class _CubismMoc {
   // 読み込んだモデルの.moc3 Version
 };
 var Live2DCubismFramework16;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.CubismMoc = CubismMoc;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismMoc = CubismMoc;
 })(Live2DCubismFramework16 || (Live2DCubismFramework16 = {}));
 
 // vendor/cubismwebframework/src/utils/cubismarrayutils.ts
@@ -5924,6 +5924,1844 @@ function updateSize(curArray, newSize, value = null, callPlacementNew = null) {
     curArray.length = newSize;
   }
 }
+
+// vendor/cubismwebframework/src/motion/acubismmotion.ts
+var ACubismMotion = class {
+  /**
+   * コンストラクタ
+   */
+  constructor() {
+    /**
+     * モーション再生開始コールバックの登録
+     *
+     * モーション再生開始コールバックを登録する。
+     * 以下の状態の際には呼び出されない:
+     *   1. 再生中のモーションが「ループ」として設定されているとき
+     *   2. コールバックが登録されていない時
+     *
+     * @param onBeganMotionHandler モーション再生開始コールバック関数
+     */
+    this.setBeganMotionHandler = (onBeganMotionHandler) => this._onBeganMotion = onBeganMotionHandler;
+    /**
+     * モーション再生開始コールバックの取得
+     *
+     * モーション再生開始コールバックを取得する。
+     *
+     * @return 登録されているモーション再生開始コールバック関数
+     */
+    this.getBeganMotionHandler = () => this._onBeganMotion;
+    /**
+     * モーション再生終了コールバックの登録
+     *
+     * モーション再生終了コールバックを登録する。
+     * isFinishedフラグを設定するタイミングで呼び出される。
+     * 以下の状態の際には呼び出されない:
+     *   1. 再生中のモーションが「ループ」として設定されているとき
+     *   2. コールバックが登録されていない時
+     *
+     * @param onFinishedMotionHandler モーション再生終了コールバック関数
+     */
+    this.setFinishedMotionHandler = (onFinishedMotionHandler) => this._onFinishedMotion = onFinishedMotionHandler;
+    /**
+     * モーション再生終了コールバックの取得
+     *
+     * モーション再生終了コールバックを取得する。
+     *
+     * @return 登録されているモーション再生終了コールバック関数
+     */
+    this.getFinishedMotionHandler = () => this._onFinishedMotion;
+    this._fadeInSeconds = -1;
+    this._fadeOutSeconds = -1;
+    this._weight = 1;
+    this._offsetSeconds = 0;
+    this._isLoop = false;
+    this._isLoopFadeIn = true;
+    this._previousLoopState = this._isLoop;
+    this._firedEventValues = new Array();
+  }
+  /**
+   * インスタンスの破棄
+   */
+  static delete(motion) {
+    motion.release();
+    motion = null;
+  }
+  /**
+   * デストラクタ相当の処理
+   */
+  release() {
+    this._weight = 0;
+  }
+  /**
+   * モデルのパラメータ
+   * @param model 対象のモデル
+   * @param motionQueueEntry CubismMotionQueueManagerで管理されているモーション
+   * @param userTimeSeconds デルタ時間の積算値[秒]
+   */
+  updateParameters(model, motionQueueEntry, userTimeSeconds) {
+    if (!motionQueueEntry.isAvailable() || motionQueueEntry.isFinished()) {
+      return;
+    }
+    this.setupMotionQueueEntry(motionQueueEntry, userTimeSeconds);
+    const fadeWeight = this.updateFadeWeight(motionQueueEntry, userTimeSeconds);
+    this.doUpdateParameters(
+      model,
+      userTimeSeconds,
+      fadeWeight,
+      motionQueueEntry
+    );
+    if (motionQueueEntry.getEndTime() > 0 && motionQueueEntry.getEndTime() < userTimeSeconds) {
+      motionQueueEntry.setIsFinished(true);
+    }
+  }
+  /**
+   * @brief モデルの再生開始処理
+   *
+   * モーションの再生を開始するためのセットアップを行う。
+   *
+   * @param[in]   motionQueueEntry    CubismMotionQueueManagerで管理されているモーション
+   * @param[in]   userTimeSeconds     デルタ時間の積算値[秒]
+   */
+  setupMotionQueueEntry(motionQueueEntry, userTimeSeconds) {
+    if (motionQueueEntry == null || motionQueueEntry.isStarted()) {
+      return;
+    }
+    if (!motionQueueEntry.isAvailable()) {
+      return;
+    }
+    motionQueueEntry.setIsStarted(true);
+    motionQueueEntry.setStartTime(userTimeSeconds - this._offsetSeconds);
+    motionQueueEntry.setFadeInStartTime(userTimeSeconds);
+    if (motionQueueEntry.getEndTime() < 0) {
+      this.adjustEndTime(motionQueueEntry);
+    }
+    if (motionQueueEntry._motion._onBeganMotion) {
+      motionQueueEntry._motion._onBeganMotion(motionQueueEntry._motion);
+    }
+  }
+  /**
+   * @brief モデルのウェイト更新
+   *
+   * モーションのウェイトを更新する。
+   *
+   * @param[in]   motionQueueEntry    CubismMotionQueueManagerで管理されているモーション
+   * @param[in]   userTimeSeconds     デルタ時間の積算値[秒]
+   */
+  updateFadeWeight(motionQueueEntry, userTimeSeconds) {
+    if (motionQueueEntry == null) {
+      CubismDebug.print(4 /* LogLevel_Error */, "motionQueueEntry is null.");
+    }
+    let fadeWeight = this._weight;
+    const fadeIn = this._fadeInSeconds == 0 ? 1 : CubismMath.getEasingSine(
+      (userTimeSeconds - motionQueueEntry.getFadeInStartTime()) / this._fadeInSeconds
+    );
+    const fadeOut = this._fadeOutSeconds == 0 || motionQueueEntry.getEndTime() < 0 ? 1 : CubismMath.getEasingSine(
+      (motionQueueEntry.getEndTime() - userTimeSeconds) / this._fadeOutSeconds
+    );
+    fadeWeight = fadeWeight * fadeIn * fadeOut;
+    motionQueueEntry.setState(userTimeSeconds, fadeWeight);
+    CSM_ASSERT(0 <= fadeWeight && fadeWeight <= 1);
+    return fadeWeight;
+  }
+  /**
+   * フェードインの時間を設定する
+   * @param fadeInSeconds フェードインにかかる時間[秒]
+   */
+  setFadeInTime(fadeInSeconds) {
+    this._fadeInSeconds = fadeInSeconds;
+  }
+  /**
+   * フェードアウトの時間を設定する
+   * @param fadeOutSeconds フェードアウトにかかる時間[秒]
+   */
+  setFadeOutTime(fadeOutSeconds) {
+    this._fadeOutSeconds = fadeOutSeconds;
+  }
+  /**
+   * フェードアウトにかかる時間の取得
+   * @return フェードアウトにかかる時間[秒]
+   */
+  getFadeOutTime() {
+    return this._fadeOutSeconds;
+  }
+  /**
+   * フェードインにかかる時間の取得
+   * @return フェードインにかかる時間[秒]
+   */
+  getFadeInTime() {
+    return this._fadeInSeconds;
+  }
+  /**
+   * モーション適用の重みの設定
+   * @param weight 重み（0.0 - 1.0）
+   */
+  setWeight(weight) {
+    this._weight = weight;
+  }
+  /**
+   * モーション適用の重みの取得
+   * @return 重み（0.0 - 1.0）
+   */
+  getWeight() {
+    return this._weight;
+  }
+  /**
+   * モーションの長さの取得
+   * @return モーションの長さ[秒]
+   *
+   * @note ループの時は「-1」。
+   *       ループでない場合は、オーバーライドする。
+   *       正の値の時は取得される時間で終了する。
+   *       「-1」の時は外部から停止命令がない限り終わらない処理となる。
+   */
+  getDuration() {
+    return -1;
+  }
+  /**
+   * モーションのループ1回分の長さの取得
+   * @return モーションのループ一回分の長さ[秒]
+   *
+   * @note ループしない場合は、getDuration()と同じ値を返す
+   *       ループ一回分の長さが定義できない場合(プログラム的に動き続けるサブクラスなど)の場合は「-1」を返す
+   */
+  getLoopDuration() {
+    return -1;
+  }
+  /**
+   * モーション再生の開始時刻の設定
+   * @param offsetSeconds モーション再生の開始時刻[秒]
+   */
+  setOffsetTime(offsetSeconds) {
+    this._offsetSeconds = offsetSeconds;
+  }
+  /**
+   * ループ情報の設定
+   * @param loop ループ情報
+   */
+  setLoop(loop) {
+    this._isLoop = loop;
+  }
+  /**
+   * ループ情報の取得
+   * @return true ループする
+   * @return false ループしない
+   */
+  getLoop() {
+    return this._isLoop;
+  }
+  /**
+   * ループ時のフェードイン情報の設定
+   * @param loopFadeIn  ループ時のフェードイン情報
+   */
+  setLoopFadeIn(loopFadeIn) {
+    this._isLoopFadeIn = loopFadeIn;
+  }
+  /**
+   * ループ時のフェードイン情報の取得
+   *
+   * @return  true    する
+   * @return  false   しない
+   */
+  getLoopFadeIn() {
+    return this._isLoopFadeIn;
+  }
+  /**
+   * モデルのパラメータ更新
+   *
+   * イベント発火のチェック。
+   * 入力する時間は呼ばれるモーションタイミングを０とした秒数で行う。
+   *
+   * @param beforeCheckTimeSeconds 前回のイベントチェック時間[秒]
+   * @param motionTimeSeconds 今回の再生時間[秒]
+   */
+  getFiredEvent(beforeCheckTimeSeconds, motionTimeSeconds) {
+    return this._firedEventValues;
+  }
+  /**
+   * 透明度のカーブが存在するかどうかを確認する
+   *
+   * @return true  -> キーが存在する
+   *          false -> キーが存在しない
+   */
+  isExistModelOpacity() {
+    return false;
+  }
+  /**
+   * 透明度のカーブのインデックスを返す
+   *
+   * @return success:透明度のカーブのインデックス
+   */
+  getModelOpacityIndex() {
+    return -1;
+  }
+  /**
+   * 透明度のIdを返す
+   *
+   * @param index モーションカーブのインデックス
+   * @return success:透明度のId
+   */
+  getModelOpacityId(index) {
+    return null;
+  }
+  /**
+   * 指定時間の透明度の値を返す
+   *
+   * @return success:モーションの現在時間におけるOpacityの値
+   *
+   * @note  更新後の値を取るにはUpdateParameters() の後に呼び出す。
+   */
+  getModelOpacityValue() {
+    return 1;
+  }
+  /**
+   * 終了時刻の調整
+   * @param motionQueueEntry CubismMotionQueueManagerで管理されているモーション
+   */
+  adjustEndTime(motionQueueEntry) {
+    const duration = this.getDuration();
+    const endTime = duration <= 0 ? -1 : motionQueueEntry.getStartTime() + duration;
+    motionQueueEntry.setEndTime(endTime);
+  }
+};
+var Live2DCubismFramework17;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.ACubismMotion = ACubismMotion;
+})(Live2DCubismFramework17 || (Live2DCubismFramework17 = {}));
+
+// vendor/cubismwebframework/src/motion/cubismmotioninternal.ts
+var CubismMotionCurveTarget = /* @__PURE__ */ ((CubismMotionCurveTarget2) => {
+  CubismMotionCurveTarget2[CubismMotionCurveTarget2["CubismMotionCurveTarget_Model"] = 0] = "CubismMotionCurveTarget_Model";
+  CubismMotionCurveTarget2[CubismMotionCurveTarget2["CubismMotionCurveTarget_Parameter"] = 1] = "CubismMotionCurveTarget_Parameter";
+  CubismMotionCurveTarget2[CubismMotionCurveTarget2["CubismMotionCurveTarget_PartOpacity"] = 2] = "CubismMotionCurveTarget_PartOpacity";
+  return CubismMotionCurveTarget2;
+})(CubismMotionCurveTarget || {});
+var CubismMotionSegmentType = /* @__PURE__ */ ((CubismMotionSegmentType2) => {
+  CubismMotionSegmentType2[CubismMotionSegmentType2["CubismMotionSegmentType_Linear"] = 0] = "CubismMotionSegmentType_Linear";
+  CubismMotionSegmentType2[CubismMotionSegmentType2["CubismMotionSegmentType_Bezier"] = 1] = "CubismMotionSegmentType_Bezier";
+  CubismMotionSegmentType2[CubismMotionSegmentType2["CubismMotionSegmentType_Stepped"] = 2] = "CubismMotionSegmentType_Stepped";
+  CubismMotionSegmentType2[CubismMotionSegmentType2["CubismMotionSegmentType_InverseStepped"] = 3] = "CubismMotionSegmentType_InverseStepped";
+  return CubismMotionSegmentType2;
+})(CubismMotionSegmentType || {});
+var CubismMotionPoint = class {
+  constructor() {
+    this.time = 0;
+    // 時間[秒]
+    this.value = 0;
+  }
+  // 値
+};
+var CubismMotionSegment = class {
+  /**
+   * @brief コンストラクタ
+   *
+   * コンストラクタ。
+   */
+  constructor() {
+    this.evaluate = null;
+    this.basePointIndex = 0;
+    this.segmentType = 0;
+  }
+  // セグメントの種類
+};
+var CubismMotionCurve = class {
+  constructor() {
+    this.type = 0 /* CubismMotionCurveTarget_Model */;
+    this.segmentCount = 0;
+    this.baseSegmentIndex = 0;
+    this.fadeInTime = 0;
+    this.fadeOutTime = 0;
+  }
+  // フェードアウトにかかる時間[秒]
+};
+var CubismMotionEvent = class {
+  constructor() {
+    this.fireTime = 0;
+  }
+};
+var CubismMotionData = class {
+  constructor() {
+    this.duration = 0;
+    this.loop = false;
+    this.curveCount = 0;
+    this.eventCount = 0;
+    this.fps = 0;
+    this.curves = new Array();
+    this.segments = new Array();
+    this.points = new Array();
+    this.events = new Array();
+  }
+  // イベントのリスト
+};
+var Live2DCubismFramework18;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismMotionCurve = CubismMotionCurve;
+  Live2DCubismFramework29.CubismMotionCurveTarget = CubismMotionCurveTarget;
+  Live2DCubismFramework29.CubismMotionData = CubismMotionData;
+  Live2DCubismFramework29.CubismMotionEvent = CubismMotionEvent;
+  Live2DCubismFramework29.CubismMotionPoint = CubismMotionPoint;
+  Live2DCubismFramework29.CubismMotionSegment = CubismMotionSegment;
+  Live2DCubismFramework29.CubismMotionSegmentType = CubismMotionSegmentType;
+})(Live2DCubismFramework18 || (Live2DCubismFramework18 = {}));
+
+// vendor/cubismwebframework/src/motion/cubismmotionjson.ts
+var Meta = "Meta";
+var Duration = "Duration";
+var Loop = "Loop";
+var AreBeziersRestricted = "AreBeziersRestricted";
+var CurveCount = "CurveCount";
+var Fps = "Fps";
+var TotalSegmentCount = "TotalSegmentCount";
+var TotalPointCount = "TotalPointCount";
+var Curves = "Curves";
+var Target = "Target";
+var Id = "Id";
+var FadeInTime = "FadeInTime";
+var FadeOutTime = "FadeOutTime";
+var Segments = "Segments";
+var UserData = "UserData";
+var UserDataCount = "UserDataCount";
+var TotalUserDataSize = "TotalUserDataSize";
+var Time = "Time";
+var Value4 = "Value";
+var CubismMotionJson = class {
+  /**
+   * コンストラクタ
+   * @param buffer motion3.jsonが読み込まれているバッファ
+   * @param size バッファのサイズ
+   */
+  constructor(buffer, size) {
+    this._json = CubismJson.create(buffer, size);
+  }
+  /**
+   * デストラクタ相当の処理
+   */
+  release() {
+    CubismJson.delete(this._json);
+  }
+  /**
+   * モーションの長さを取得する
+   * @return モーションの長さ[秒]
+   */
+  getMotionDuration() {
+    return this._json.getRoot().getValueByString(Meta).getValueByString(Duration).toFloat();
+  }
+  /**
+   * モーションのループ情報の取得
+   * @return true ループする
+   * @return false ループしない
+   */
+  isMotionLoop() {
+    return this._json.getRoot().getValueByString(Meta).getValueByString(Loop).toBoolean();
+  }
+  /**
+   *  motion3.jsonファイルの整合性チェック
+   *
+   * @return 正常なファイルの場合はtrueを返す。
+   */
+  hasConsistency() {
+    let result = true;
+    if (!this._json || !this._json.getRoot()) {
+      return false;
+    }
+    const actualCurveListSize = this._json.getRoot().getValueByString(Curves).getVector().length;
+    let actualTotalSegmentCount = 0;
+    let actualTotalPointCount = 0;
+    for (let curvePosition = 0; curvePosition < actualCurveListSize; ++curvePosition) {
+      for (let segmentPosition = 0; segmentPosition < this.getMotionCurveSegmentCount(curvePosition); ) {
+        if (segmentPosition == 0) {
+          actualTotalPointCount += 1;
+          segmentPosition += 2;
+        }
+        const segment = this.getMotionCurveSegment(
+          curvePosition,
+          segmentPosition
+        );
+        switch (segment) {
+          case 0 /* CubismMotionSegmentType_Linear */:
+            actualTotalPointCount += 1;
+            segmentPosition += 3;
+            break;
+          case 1 /* CubismMotionSegmentType_Bezier */:
+            actualTotalPointCount += 3;
+            segmentPosition += 7;
+            break;
+          case 2 /* CubismMotionSegmentType_Stepped */:
+            actualTotalPointCount += 1;
+            segmentPosition += 3;
+            break;
+          case 3 /* CubismMotionSegmentType_InverseStepped */:
+            actualTotalPointCount += 1;
+            segmentPosition += 3;
+            break;
+          default:
+            CSM_ASSERT(0);
+            break;
+        }
+        ++actualTotalSegmentCount;
+      }
+    }
+    if (actualCurveListSize != this.getMotionCurveCount()) {
+      CubismLogWarning("The number of curves does not match the metadata.");
+      result = false;
+    }
+    if (actualTotalSegmentCount != this.getMotionTotalSegmentCount()) {
+      CubismLogWarning("The number of segment does not match the metadata.");
+      result = false;
+    }
+    if (actualTotalPointCount != this.getMotionTotalPointCount()) {
+      CubismLogWarning("The number of point does not match the metadata.");
+      result = false;
+    }
+    return result;
+  }
+  getEvaluationOptionFlag(flagType) {
+    if (0 /* EvaluationOptionFlag_AreBeziersRistricted */ == flagType) {
+      return this._json.getRoot().getValueByString(Meta).getValueByString(AreBeziersRestricted).toBoolean();
+    }
+    return false;
+  }
+  /**
+   * モーションカーブの個数の取得
+   * @return モーションカーブの個数
+   */
+  getMotionCurveCount() {
+    return this._json.getRoot().getValueByString(Meta).getValueByString(CurveCount).toInt();
+  }
+  /**
+   * モーションのフレームレートの取得
+   * @return フレームレート[FPS]
+   */
+  getMotionFps() {
+    return this._json.getRoot().getValueByString(Meta).getValueByString(Fps).toFloat();
+  }
+  /**
+   * モーションのセグメントの総合計の取得
+   * @return モーションのセグメントの取得
+   */
+  getMotionTotalSegmentCount() {
+    return this._json.getRoot().getValueByString(Meta).getValueByString(TotalSegmentCount).toInt();
+  }
+  /**
+   * モーションのカーブの制御店の総合計の取得
+   * @return モーションのカーブの制御点の総合計
+   */
+  getMotionTotalPointCount() {
+    return this._json.getRoot().getValueByString(Meta).getValueByString(TotalPointCount).toInt();
+  }
+  /**
+   * モーションのフェードイン時間の存在
+   * @return true 存在する
+   * @return false 存在しない
+   */
+  isExistMotionFadeInTime() {
+    return !this._json.getRoot().getValueByString(Meta).getValueByString(FadeInTime).isNull();
+  }
+  /**
+   * モーションのフェードアウト時間の存在
+   * @return true 存在する
+   * @return false 存在しない
+   */
+  isExistMotionFadeOutTime() {
+    return !this._json.getRoot().getValueByString(Meta).getValueByString(FadeOutTime).isNull();
+  }
+  /**
+   * モーションのフェードイン時間の取得
+   * @return フェードイン時間[秒]
+   */
+  getMotionFadeInTime() {
+    return this._json.getRoot().getValueByString(Meta).getValueByString(FadeInTime).toFloat();
+  }
+  /**
+   * モーションのフェードアウト時間の取得
+   * @return フェードアウト時間[秒]
+   */
+  getMotionFadeOutTime() {
+    return this._json.getRoot().getValueByString(Meta).getValueByString(FadeOutTime).toFloat();
+  }
+  /**
+   * モーションのカーブの種類の取得
+   * @param curveIndex カーブのインデックス
+   * @return カーブの種類
+   */
+  getMotionCurveTarget(curveIndex) {
+    return this._json.getRoot().getValueByString(Curves).getValueByIndex(curveIndex).getValueByString(Target).getRawString();
+  }
+  /**
+   * モーションのカーブのIDの取得
+   * @param curveIndex カーブのインデックス
+   * @return カーブのID
+   */
+  getMotionCurveId(curveIndex) {
+    return CubismFramework.getIdManager().getId(
+      this._json.getRoot().getValueByString(Curves).getValueByIndex(curveIndex).getValueByString(Id).getRawString()
+    );
+  }
+  /**
+   * モーションのカーブのフェードイン時間の存在
+   * @param curveIndex カーブのインデックス
+   * @return true 存在する
+   * @return false 存在しない
+   */
+  isExistMotionCurveFadeInTime(curveIndex) {
+    return !this._json.getRoot().getValueByString(Curves).getValueByIndex(curveIndex).getValueByString(FadeInTime).isNull();
+  }
+  /**
+   * モーションのカーブのフェードアウト時間の存在
+   * @param curveIndex カーブのインデックス
+   * @return true 存在する
+   * @return false 存在しない
+   */
+  isExistMotionCurveFadeOutTime(curveIndex) {
+    return !this._json.getRoot().getValueByString(Curves).getValueByIndex(curveIndex).getValueByString(FadeOutTime).isNull();
+  }
+  /**
+   * モーションのカーブのフェードイン時間の取得
+   * @param curveIndex カーブのインデックス
+   * @return フェードイン時間[秒]
+   */
+  getMotionCurveFadeInTime(curveIndex) {
+    return this._json.getRoot().getValueByString(Curves).getValueByIndex(curveIndex).getValueByString(FadeInTime).toFloat();
+  }
+  /**
+   * モーションのカーブのフェードアウト時間の取得
+   * @param curveIndex カーブのインデックス
+   * @return フェードアウト時間[秒]
+   */
+  getMotionCurveFadeOutTime(curveIndex) {
+    return this._json.getRoot().getValueByString(Curves).getValueByIndex(curveIndex).getValueByString(FadeOutTime).toFloat();
+  }
+  /**
+   * モーションのカーブのセグメントの個数を取得する
+   * @param curveIndex カーブのインデックス
+   * @return モーションのカーブのセグメントの個数
+   */
+  getMotionCurveSegmentCount(curveIndex) {
+    return this._json.getRoot().getValueByString(Curves).getValueByIndex(curveIndex).getValueByString(Segments).getVector().length;
+  }
+  /**
+   * モーションのカーブのセグメントの値の取得
+   * @param curveIndex カーブのインデックス
+   * @param segmentIndex セグメントのインデックス
+   * @return セグメントの値
+   */
+  getMotionCurveSegment(curveIndex, segmentIndex) {
+    return this._json.getRoot().getValueByString(Curves).getValueByIndex(curveIndex).getValueByString(Segments).getValueByIndex(segmentIndex).toFloat();
+  }
+  /**
+   * イベントの個数の取得
+   * @return イベントの個数
+   */
+  getEventCount() {
+    return this._json.getRoot().getValueByString(Meta).getValueByString(UserDataCount).toInt();
+  }
+  /**
+   *  イベントの総文字数の取得
+   * @return イベントの総文字数
+   */
+  getTotalEventValueSize() {
+    return this._json.getRoot().getValueByString(Meta).getValueByString(TotalUserDataSize).toInt();
+  }
+  /**
+   * イベントの時間の取得
+   * @param userDataIndex イベントのインデックス
+   * @return イベントの時間[秒]
+   */
+  getEventTime(userDataIndex) {
+    return this._json.getRoot().getValueByString(UserData).getValueByIndex(userDataIndex).getValueByString(Time).toFloat();
+  }
+  /**
+   * イベントの取得
+   * @param userDataIndex イベントのインデックス
+   * @return イベントの文字列
+   */
+  getEventValue(userDataIndex) {
+    return this._json.getRoot().getValueByString(UserData).getValueByIndex(userDataIndex).getValueByString(Value4).getRawString();
+  }
+  // motion3.jsonのデータ
+};
+var Live2DCubismFramework19;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismMotionJson = CubismMotionJson;
+})(Live2DCubismFramework19 || (Live2DCubismFramework19 = {}));
+
+// vendor/cubismwebframework/src/motion/cubismmotion.ts
+var EffectNameEyeBlink = "EyeBlink";
+var EffectNameLipSync = "LipSync";
+var TargetNameModel = "Model";
+var TargetNameParameter = "Parameter";
+var TargetNamePartOpacity = "PartOpacity";
+var IdNameOpacity = "Opacity";
+var UseOldBeziersCurveMotion = false;
+function lerpPoints(a, b, t) {
+  const result = new CubismMotionPoint();
+  result.time = a.time + (b.time - a.time) * t;
+  result.value = a.value + (b.value - a.value) * t;
+  return result;
+}
+function linearEvaluate(points, time) {
+  let t = (time - points[0].time) / (points[1].time - points[0].time);
+  if (t < 0) {
+    t = 0;
+  }
+  return points[0].value + (points[1].value - points[0].value) * t;
+}
+function bezierEvaluate(points, time) {
+  let t = (time - points[0].time) / (points[3].time - points[0].time);
+  if (t < 0) {
+    t = 0;
+  }
+  const p01 = lerpPoints(points[0], points[1], t);
+  const p12 = lerpPoints(points[1], points[2], t);
+  const p23 = lerpPoints(points[2], points[3], t);
+  const p012 = lerpPoints(p01, p12, t);
+  const p123 = lerpPoints(p12, p23, t);
+  return lerpPoints(p012, p123, t).value;
+}
+function bezierEvaluateCardanoInterpretation(points, time) {
+  const x = time;
+  const x1 = points[0].time;
+  const x2 = points[3].time;
+  const cx1 = points[1].time;
+  const cx2 = points[2].time;
+  const a = x2 - 3 * cx2 + 3 * cx1 - x1;
+  const b = 3 * cx2 - 6 * cx1 + 3 * x1;
+  const c = 3 * cx1 - 3 * x1;
+  const d = x1 - x;
+  const t = CubismMath.cardanoAlgorithmForBezier(a, b, c, d);
+  const p01 = lerpPoints(points[0], points[1], t);
+  const p12 = lerpPoints(points[1], points[2], t);
+  const p23 = lerpPoints(points[2], points[3], t);
+  const p012 = lerpPoints(p01, p12, t);
+  const p123 = lerpPoints(p12, p23, t);
+  return lerpPoints(p012, p123, t).value;
+}
+function steppedEvaluate(points, time) {
+  return points[0].value;
+}
+function inverseSteppedEvaluate(points, time) {
+  return points[1].value;
+}
+function evaluateCurve(motionData, index, time, isCorrection, endTime) {
+  const curve = motionData.curves[index];
+  let target = -1;
+  const totalSegmentCount = curve.baseSegmentIndex + curve.segmentCount;
+  let pointPosition = 0;
+  for (let i = curve.baseSegmentIndex; i < totalSegmentCount; ++i) {
+    pointPosition = motionData.segments[i].basePointIndex + (motionData.segments[i].segmentType == 1 /* CubismMotionSegmentType_Bezier */ ? 3 : 1);
+    if (motionData.points[pointPosition].time > time) {
+      target = i;
+      break;
+    }
+  }
+  if (target == -1) {
+    if (isCorrection && time < endTime) {
+      return correctEndPoint(
+        motionData,
+        totalSegmentCount - 1,
+        motionData.segments[curve.baseSegmentIndex].basePointIndex,
+        pointPosition,
+        time,
+        endTime
+      );
+    }
+    return motionData.points[pointPosition].value;
+  }
+  const segment = motionData.segments[target];
+  return segment.evaluate(
+    motionData.points.slice(segment.basePointIndex),
+    time
+  );
+}
+function correctEndPoint(motionData, segmentIndex, beginIndex, endIndex, time, endTime) {
+  const motionPoint = [
+    new CubismMotionPoint(),
+    new CubismMotionPoint()
+  ];
+  {
+    const src = motionData.points[endIndex];
+    motionPoint[0].time = src.time;
+    motionPoint[0].value = src.value;
+  }
+  {
+    const src = motionData.points[beginIndex];
+    motionPoint[1].time = endTime;
+    motionPoint[1].value = src.value;
+  }
+  switch (motionData.segments[segmentIndex].segmentType) {
+    case 0 /* CubismMotionSegmentType_Linear */:
+    case 1 /* CubismMotionSegmentType_Bezier */:
+    default:
+      return linearEvaluate(motionPoint, time);
+    case 2 /* CubismMotionSegmentType_Stepped */:
+      return steppedEvaluate(motionPoint, time);
+    case 3 /* CubismMotionSegmentType_InverseStepped */:
+      return inverseSteppedEvaluate(motionPoint, time);
+  }
+}
+var CubismMotion = class _CubismMotion extends ACubismMotion {
+  /**
+   * コンストラクタ
+   */
+  constructor() {
+    super();
+    // mtnファイルで定義される一連のモーションの長さ
+    this._motionBehavior = 1 /* MotionBehavior_V2 */;
+    this._sourceFrameRate = 30;
+    this._loopDurationSeconds = -1;
+    this._isLoop = false;
+    this._isLoopFadeIn = true;
+    this._lastWeight = 0;
+    this._motionData = null;
+    this._modelCurveIdEyeBlink = null;
+    this._modelCurveIdLipSync = null;
+    this._modelCurveIdOpacity = null;
+    this._eyeBlinkParameterIds = null;
+    this._lipSyncParameterIds = null;
+    this._modelOpacity = 1;
+    this._debugMode = false;
+  }
+  /**
+   * インスタンスを作成する
+   *
+   * @param buffer motion3.jsonが読み込まれているバッファ
+   * @param size バッファのサイズ
+   * @param onFinishedMotionHandler モーション再生終了時に呼び出されるコールバック関数
+   * @param onBeganMotionHandler モーション再生開始時に呼び出されるコールバック関数
+   * @param shouldCheckMotionConsistency motion3.json整合性チェックするかどうか
+   * @return 作成されたインスタンス
+   */
+  static create(buffer, size, onFinishedMotionHandler, onBeganMotionHandler, shouldCheckMotionConsistency = false) {
+    const ret = new _CubismMotion();
+    ret.parse(buffer, size, shouldCheckMotionConsistency);
+    if (ret._motionData) {
+      ret._sourceFrameRate = ret._motionData.fps;
+      ret._loopDurationSeconds = ret._motionData.duration;
+      ret._onFinishedMotion = onFinishedMotionHandler;
+      ret._onBeganMotion = onBeganMotionHandler;
+    } else {
+      csmDelete(ret);
+      return null;
+    }
+    return ret;
+  }
+  /**
+   * モデルのパラメータの更新の実行
+   * @param model             対象のモデル
+   * @param userTimeSeconds   現在の時刻[秒]
+   * @param fadeWeight        モーションの重み
+   * @param motionQueueEntry  CubismMotionQueueManagerで管理されているモーション
+   */
+  doUpdateParameters(model, userTimeSeconds, fadeWeight, motionQueueEntry) {
+    if (this._modelCurveIdEyeBlink == null) {
+      this._modelCurveIdEyeBlink = CubismFramework.getIdManager().getId(EffectNameEyeBlink);
+    }
+    if (this._modelCurveIdLipSync == null) {
+      this._modelCurveIdLipSync = CubismFramework.getIdManager().getId(EffectNameLipSync);
+    }
+    if (this._modelCurveIdOpacity == null) {
+      this._modelCurveIdOpacity = CubismFramework.getIdManager().getId(IdNameOpacity);
+    }
+    if (this._motionBehavior === 1 /* MotionBehavior_V2 */) {
+      if (this._previousLoopState !== this._isLoop) {
+        this.adjustEndTime(motionQueueEntry);
+        this._previousLoopState = this._isLoop;
+      }
+    }
+    let timeOffsetSeconds = userTimeSeconds - motionQueueEntry.getStartTime();
+    if (timeOffsetSeconds < 0) {
+      timeOffsetSeconds = 0;
+    }
+    let lipSyncValue = Number.MAX_VALUE;
+    let eyeBlinkValue = Number.MAX_VALUE;
+    const maxTargetSize = 64;
+    let lipSyncFlags = 0;
+    let eyeBlinkFlags = 0;
+    if (this._eyeBlinkParameterIds.length > maxTargetSize) {
+      CubismLogDebug(
+        "too many eye blink targets : {0}",
+        this._eyeBlinkParameterIds.length
+      );
+    }
+    if (this._lipSyncParameterIds.length > maxTargetSize) {
+      CubismLogDebug(
+        "too many lip sync targets : {0}",
+        this._lipSyncParameterIds.length
+      );
+    }
+    const tmpFadeIn = this._fadeInSeconds <= 0 ? 1 : CubismMath.getEasingSine(
+      (userTimeSeconds - motionQueueEntry.getFadeInStartTime()) / this._fadeInSeconds
+    );
+    const tmpFadeOut = this._fadeOutSeconds <= 0 || motionQueueEntry.getEndTime() < 0 ? 1 : CubismMath.getEasingSine(
+      (motionQueueEntry.getEndTime() - userTimeSeconds) / this._fadeOutSeconds
+    );
+    let value;
+    let c, parameterIndex;
+    let time = timeOffsetSeconds;
+    let duration = this._motionData.duration;
+    const isCorrection = this._motionBehavior === 1 /* MotionBehavior_V2 */ && this._isLoop;
+    if (this._isLoop) {
+      if (this._motionBehavior === 1 /* MotionBehavior_V2 */) {
+        duration += 1 / this._motionData.fps;
+      }
+      while (time > duration) {
+        time -= duration;
+      }
+    }
+    const curves = this._motionData.curves;
+    for (c = 0; c < this._motionData.curveCount && curves[c].type == 0 /* CubismMotionCurveTarget_Model */; ++c) {
+      value = evaluateCurve(this._motionData, c, time, isCorrection, duration);
+      if (curves[c].id == this._modelCurveIdEyeBlink) {
+        eyeBlinkValue = value;
+      } else if (curves[c].id == this._modelCurveIdLipSync) {
+        lipSyncValue = value;
+      } else if (curves[c].id == this._modelCurveIdOpacity) {
+        this._modelOpacity = value;
+        model.setModelOapcity(this.getModelOpacityValue());
+      }
+    }
+    let parameterMotionCurveCount = 0;
+    for (; c < this._motionData.curveCount && curves[c].type == 1 /* CubismMotionCurveTarget_Parameter */; ++c) {
+      parameterMotionCurveCount++;
+      parameterIndex = model.getParameterIndex(curves[c].id);
+      if (parameterIndex == -1) {
+        continue;
+      }
+      const sourceValue = model.getParameterValueByIndex(parameterIndex);
+      value = evaluateCurve(this._motionData, c, time, isCorrection, duration);
+      if (eyeBlinkValue != Number.MAX_VALUE) {
+        for (let i = 0; i < this._eyeBlinkParameterIds.length && i < maxTargetSize; ++i) {
+          if (this._eyeBlinkParameterIds[i] == curves[c].id) {
+            value *= eyeBlinkValue;
+            eyeBlinkFlags |= 1 << i;
+            break;
+          }
+        }
+      }
+      if (lipSyncValue != Number.MAX_VALUE) {
+        for (let i = 0; i < this._lipSyncParameterIds.length && i < maxTargetSize; ++i) {
+          if (this._lipSyncParameterIds[i] == curves[c].id) {
+            value += lipSyncValue;
+            lipSyncFlags |= 1 << i;
+            break;
+          }
+        }
+      }
+      if (model.isRepeat(parameterIndex)) {
+        value = model.getParameterRepeatValue(parameterIndex, value);
+      }
+      let v;
+      if (curves[c].fadeInTime < 0 && curves[c].fadeOutTime < 0) {
+        v = sourceValue + (value - sourceValue) * fadeWeight;
+      } else {
+        let fin;
+        let fout;
+        if (curves[c].fadeInTime < 0) {
+          fin = tmpFadeIn;
+        } else {
+          fin = curves[c].fadeInTime == 0 ? 1 : CubismMath.getEasingSine(
+            (userTimeSeconds - motionQueueEntry.getFadeInStartTime()) / curves[c].fadeInTime
+          );
+        }
+        if (curves[c].fadeOutTime < 0) {
+          fout = tmpFadeOut;
+        } else {
+          fout = curves[c].fadeOutTime == 0 || motionQueueEntry.getEndTime() < 0 ? 1 : CubismMath.getEasingSine(
+            (motionQueueEntry.getEndTime() - userTimeSeconds) / curves[c].fadeOutTime
+          );
+        }
+        const paramWeight = this._weight * fin * fout;
+        v = sourceValue + (value - sourceValue) * paramWeight;
+      }
+      model.setParameterValueByIndex(parameterIndex, v, 1);
+    }
+    {
+      if (eyeBlinkValue != Number.MAX_VALUE) {
+        for (let i = 0; i < this._eyeBlinkParameterIds.length && i < maxTargetSize; ++i) {
+          const sourceValue = model.getParameterValueById(
+            this._eyeBlinkParameterIds[i]
+          );
+          if (eyeBlinkFlags >> i & 1) {
+            continue;
+          }
+          const v = sourceValue + (eyeBlinkValue - sourceValue) * fadeWeight;
+          model.setParameterValueById(this._eyeBlinkParameterIds[i], v);
+        }
+      }
+      if (lipSyncValue != Number.MAX_VALUE) {
+        for (let i = 0; i < this._lipSyncParameterIds.length && i < maxTargetSize; ++i) {
+          const sourceValue = model.getParameterValueById(
+            this._lipSyncParameterIds[i]
+          );
+          if (lipSyncFlags >> i & 1) {
+            continue;
+          }
+          const v = sourceValue + (lipSyncValue - sourceValue) * fadeWeight;
+          model.setParameterValueById(this._lipSyncParameterIds[i], v);
+        }
+      }
+    }
+    for (; c < this._motionData.curveCount && curves[c].type == 2 /* CubismMotionCurveTarget_PartOpacity */; ++c) {
+      parameterIndex = model.getParameterIndex(curves[c].id);
+      if (parameterIndex == -1) {
+        continue;
+      }
+      value = evaluateCurve(this._motionData, c, time, isCorrection, duration);
+      model.setParameterValueByIndex(parameterIndex, value);
+    }
+    if (timeOffsetSeconds >= duration) {
+      if (this._isLoop) {
+        this.updateForNextLoop(motionQueueEntry, userTimeSeconds, time);
+      } else {
+        if (this._onFinishedMotion) {
+          this._onFinishedMotion(this);
+        }
+        motionQueueEntry.setIsFinished(true);
+      }
+    }
+    this._lastWeight = fadeWeight;
+  }
+  /**
+   * ループ情報の設定
+   * @param loop ループ情報
+   */
+  setIsLoop(loop) {
+    CubismLogWarning(
+      "setIsLoop() is a deprecated function. Please use setLoop()."
+    );
+    this._isLoop = loop;
+  }
+  /**
+   * ループ情報の取得
+   * @return true ループする
+   * @return false ループしない
+   */
+  isLoop() {
+    CubismLogWarning(
+      "isLoop() is a deprecated function. Please use getLoop()."
+    );
+    return this._isLoop;
+  }
+  /**
+   * ループ時のフェードイン情報の設定
+   * @param loopFadeIn  ループ時のフェードイン情報
+   */
+  setIsLoopFadeIn(loopFadeIn) {
+    CubismLogWarning(
+      "setIsLoopFadeIn() is a deprecated function. Please use setLoopFadeIn()."
+    );
+    this._isLoopFadeIn = loopFadeIn;
+  }
+  /**
+   * ループ時のフェードイン情報の取得
+   *
+   * @return  true    する
+   * @return  false   しない
+   */
+  isLoopFadeIn() {
+    CubismLogWarning(
+      "isLoopFadeIn() is a deprecated function. Please use getLoopFadeIn()."
+    );
+    return this._isLoopFadeIn;
+  }
+  /**
+   * Sets the version of the Motion Behavior.
+   *
+   * @param Specifies the version of the Motion Behavior.
+   */
+  setMotionBehavior(motionBehavior) {
+    this._motionBehavior = motionBehavior;
+  }
+  /**
+   * Gets the version of the Motion Behavior.
+   *
+   * @return Returns the version of the Motion Behavior.
+   */
+  getMotionBehavior() {
+    return this._motionBehavior;
+  }
+  /**
+   * モーションの長さを取得する。
+   *
+   * @return  モーションの長さ[秒]
+   */
+  getDuration() {
+    return this._isLoop ? -1 : this._loopDurationSeconds;
+  }
+  /**
+   * モーションのループ時の長さを取得する。
+   *
+   * @return  モーションのループ時の長さ[秒]
+   */
+  getLoopDuration() {
+    return this._loopDurationSeconds;
+  }
+  /**
+   * パラメータに対するフェードインの時間を設定する。
+   *
+   * @param parameterId     パラメータID
+   * @param value           フェードインにかかる時間[秒]
+   */
+  setParameterFadeInTime(parameterId, value) {
+    const curves = this._motionData.curves;
+    for (let i = 0; i < this._motionData.curveCount; ++i) {
+      if (parameterId == curves[i].id) {
+        curves[i].fadeInTime = value;
+        return;
+      }
+    }
+  }
+  /**
+   * パラメータに対するフェードアウトの時間の設定
+   * @param parameterId     パラメータID
+   * @param value           フェードアウトにかかる時間[秒]
+   */
+  setParameterFadeOutTime(parameterId, value) {
+    const curves = this._motionData.curves;
+    for (let i = 0; i < this._motionData.curveCount; ++i) {
+      if (parameterId == curves[i].id) {
+        curves[i].fadeOutTime = value;
+        return;
+      }
+    }
+  }
+  /**
+   * パラメータに対するフェードインの時間の取得
+   * @param    parameterId     パラメータID
+   * @return   フェードインにかかる時間[秒]
+   */
+  getParameterFadeInTime(parameterId) {
+    const curves = this._motionData.curves;
+    for (let i = 0; i < this._motionData.curveCount; ++i) {
+      if (parameterId == curves[i].id) {
+        return curves[i].fadeInTime;
+      }
+    }
+    return -1;
+  }
+  /**
+   * パラメータに対するフェードアウトの時間を取得
+   *
+   * @param   parameterId     パラメータID
+   * @return   フェードアウトにかかる時間[秒]
+   */
+  getParameterFadeOutTime(parameterId) {
+    const curves = this._motionData.curves;
+    for (let i = 0; i < this._motionData.curveCount; ++i) {
+      if (parameterId == curves[i].id) {
+        return curves[i].fadeOutTime;
+      }
+    }
+    return -1;
+  }
+  /**
+   * 自動エフェクトがかかっているパラメータIDリストの設定
+   * @param eyeBlinkParameterIds    自動まばたきがかかっているパラメータIDのリスト
+   * @param lipSyncParameterIds     リップシンクがかかっているパラメータIDのリスト
+   */
+  setEffectIds(eyeBlinkParameterIds, lipSyncParameterIds) {
+    this._eyeBlinkParameterIds = eyeBlinkParameterIds;
+    this._lipSyncParameterIds = lipSyncParameterIds;
+  }
+  /**
+   * デストラクタ相当の処理
+   */
+  release() {
+    this._motionData = void 0;
+    this._motionData = null;
+  }
+  /**
+   *
+   * @param motionQueueEntry
+   * @param userTimeSeconds
+   * @param time
+   */
+  updateForNextLoop(motionQueueEntry, userTimeSeconds, time) {
+    switch (this._motionBehavior) {
+      case 1 /* MotionBehavior_V2 */:
+      default:
+        motionQueueEntry.setStartTime(userTimeSeconds - time);
+        if (this._isLoopFadeIn) {
+          motionQueueEntry.setFadeInStartTime(userTimeSeconds - time);
+        }
+        if (this._onFinishedMotion != null) {
+          this._onFinishedMotion(this);
+        }
+        break;
+      case 0 /* MotionBehavior_V1 */:
+        motionQueueEntry.setStartTime(userTimeSeconds);
+        if (this._isLoopFadeIn) {
+          motionQueueEntry.setFadeInStartTime(userTimeSeconds);
+        }
+        break;
+    }
+  }
+  /**
+   * motion3.jsonをパースする。
+   *
+   * @param motionJson  motion3.jsonが読み込まれているバッファ
+   * @param size        バッファのサイズ
+   * @param shouldCheckMotionConsistency motion3.json整合性チェックするかどうか
+   */
+  parse(motionJson, size, shouldCheckMotionConsistency = false) {
+    let json = new CubismMotionJson(motionJson, size);
+    if (!json) {
+      json.release();
+      json = void 0;
+      return;
+    }
+    if (shouldCheckMotionConsistency) {
+      const consistency = json.hasConsistency();
+      if (!consistency) {
+        json.release();
+        CubismLogError("Inconsistent motion3.json.");
+        return;
+      }
+    }
+    this._motionData = new CubismMotionData();
+    this._motionData.duration = json.getMotionDuration();
+    this._motionData.loop = json.isMotionLoop();
+    this._motionData.curveCount = json.getMotionCurveCount();
+    this._motionData.fps = json.getMotionFps();
+    this._motionData.eventCount = json.getEventCount();
+    const areBeziersRestructed = json.getEvaluationOptionFlag(
+      0 /* EvaluationOptionFlag_AreBeziersRistricted */
+    );
+    if (json.isExistMotionFadeInTime()) {
+      this._fadeInSeconds = json.getMotionFadeInTime() < 0 ? 1 : json.getMotionFadeInTime();
+    } else {
+      this._fadeInSeconds = 1;
+    }
+    if (json.isExistMotionFadeOutTime()) {
+      this._fadeOutSeconds = json.getMotionFadeOutTime() < 0 ? 1 : json.getMotionFadeOutTime();
+    } else {
+      this._fadeOutSeconds = 1;
+    }
+    updateSize(
+      this._motionData.curves,
+      this._motionData.curveCount,
+      CubismMotionCurve,
+      true
+    );
+    updateSize(
+      this._motionData.segments,
+      json.getMotionTotalSegmentCount(),
+      CubismMotionSegment,
+      true
+    );
+    updateSize(
+      this._motionData.points,
+      json.getMotionTotalPointCount(),
+      CubismMotionPoint,
+      true
+    );
+    updateSize(
+      this._motionData.events,
+      this._motionData.eventCount,
+      CubismMotionEvent,
+      true
+    );
+    let totalPointCount = 0;
+    let totalSegmentCount = 0;
+    for (let curveCount = 0; curveCount < this._motionData.curveCount; ++curveCount) {
+      if (json.getMotionCurveTarget(curveCount) == TargetNameModel) {
+        this._motionData.curves[curveCount].type = 0 /* CubismMotionCurveTarget_Model */;
+      } else if (json.getMotionCurveTarget(curveCount) == TargetNameParameter) {
+        this._motionData.curves[curveCount].type = 1 /* CubismMotionCurveTarget_Parameter */;
+      } else if (json.getMotionCurveTarget(curveCount) == TargetNamePartOpacity) {
+        this._motionData.curves[curveCount].type = 2 /* CubismMotionCurveTarget_PartOpacity */;
+      } else {
+        CubismLogWarning(
+          'Warning : Unable to get segment type from Curve! The number of "CurveCount" may be incorrect!'
+        );
+      }
+      this._motionData.curves[curveCount].id = json.getMotionCurveId(curveCount);
+      this._motionData.curves[curveCount].baseSegmentIndex = totalSegmentCount;
+      this._motionData.curves[curveCount].fadeInTime = json.isExistMotionCurveFadeInTime(curveCount) ? json.getMotionCurveFadeInTime(curveCount) : -1;
+      this._motionData.curves[curveCount].fadeOutTime = json.isExistMotionCurveFadeOutTime(curveCount) ? json.getMotionCurveFadeOutTime(curveCount) : -1;
+      for (let segmentPosition = 0; segmentPosition < json.getMotionCurveSegmentCount(curveCount); ) {
+        if (segmentPosition == 0) {
+          this._motionData.segments[totalSegmentCount].basePointIndex = totalPointCount;
+          this._motionData.points[totalPointCount].time = json.getMotionCurveSegment(curveCount, segmentPosition);
+          this._motionData.points[totalPointCount].value = json.getMotionCurveSegment(curveCount, segmentPosition + 1);
+          totalPointCount += 1;
+          segmentPosition += 2;
+        } else {
+          this._motionData.segments[totalSegmentCount].basePointIndex = totalPointCount - 1;
+        }
+        const segment = json.getMotionCurveSegment(
+          curveCount,
+          segmentPosition
+        );
+        const segmentType = segment;
+        switch (segmentType) {
+          case 0 /* CubismMotionSegmentType_Linear */: {
+            this._motionData.segments[totalSegmentCount].segmentType = 0 /* CubismMotionSegmentType_Linear */;
+            this._motionData.segments[totalSegmentCount].evaluate = linearEvaluate;
+            this._motionData.points[totalPointCount].time = json.getMotionCurveSegment(curveCount, segmentPosition + 1);
+            this._motionData.points[totalPointCount].value = json.getMotionCurveSegment(curveCount, segmentPosition + 2);
+            totalPointCount += 1;
+            segmentPosition += 3;
+            break;
+          }
+          case 1 /* CubismMotionSegmentType_Bezier */: {
+            this._motionData.segments[totalSegmentCount].segmentType = 1 /* CubismMotionSegmentType_Bezier */;
+            if (areBeziersRestructed || UseOldBeziersCurveMotion) {
+              this._motionData.segments[totalSegmentCount].evaluate = bezierEvaluate;
+            } else {
+              this._motionData.segments[totalSegmentCount].evaluate = bezierEvaluateCardanoInterpretation;
+            }
+            this._motionData.points[totalPointCount].time = json.getMotionCurveSegment(curveCount, segmentPosition + 1);
+            this._motionData.points[totalPointCount].value = json.getMotionCurveSegment(curveCount, segmentPosition + 2);
+            this._motionData.points[totalPointCount + 1].time = json.getMotionCurveSegment(curveCount, segmentPosition + 3);
+            this._motionData.points[totalPointCount + 1].value = json.getMotionCurveSegment(curveCount, segmentPosition + 4);
+            this._motionData.points[totalPointCount + 2].time = json.getMotionCurveSegment(curveCount, segmentPosition + 5);
+            this._motionData.points[totalPointCount + 2].value = json.getMotionCurveSegment(curveCount, segmentPosition + 6);
+            totalPointCount += 3;
+            segmentPosition += 7;
+            break;
+          }
+          case 2 /* CubismMotionSegmentType_Stepped */: {
+            this._motionData.segments[totalSegmentCount].segmentType = 2 /* CubismMotionSegmentType_Stepped */;
+            this._motionData.segments[totalSegmentCount].evaluate = steppedEvaluate;
+            this._motionData.points[totalPointCount].time = json.getMotionCurveSegment(curveCount, segmentPosition + 1);
+            this._motionData.points[totalPointCount].value = json.getMotionCurveSegment(curveCount, segmentPosition + 2);
+            totalPointCount += 1;
+            segmentPosition += 3;
+            break;
+          }
+          case 3 /* CubismMotionSegmentType_InverseStepped */: {
+            this._motionData.segments[totalSegmentCount].segmentType = 3 /* CubismMotionSegmentType_InverseStepped */;
+            this._motionData.segments[totalSegmentCount].evaluate = inverseSteppedEvaluate;
+            this._motionData.points[totalPointCount].time = json.getMotionCurveSegment(curveCount, segmentPosition + 1);
+            this._motionData.points[totalPointCount].value = json.getMotionCurveSegment(curveCount, segmentPosition + 2);
+            totalPointCount += 1;
+            segmentPosition += 3;
+            break;
+          }
+          default: {
+            CSM_ASSERT(0);
+            break;
+          }
+        }
+        ++this._motionData.curves[curveCount].segmentCount;
+        ++totalSegmentCount;
+      }
+    }
+    for (let userdatacount = 0; userdatacount < json.getEventCount(); ++userdatacount) {
+      this._motionData.events[userdatacount].fireTime = json.getEventTime(userdatacount);
+      this._motionData.events[userdatacount].value = json.getEventValue(userdatacount);
+    }
+    json.release();
+    json = void 0;
+    json = null;
+  }
+  /**
+   * モデルのパラメータ更新
+   *
+   * イベント発火のチェック。
+   * 入力する時間は呼ばれるモーションタイミングを０とした秒数で行う。
+   *
+   * @param beforeCheckTimeSeconds   前回のイベントチェック時間[秒]
+   * @param motionTimeSeconds        今回の再生時間[秒]
+   */
+  getFiredEvent(beforeCheckTimeSeconds, motionTimeSeconds) {
+    updateSize(this._firedEventValues, 0);
+    for (let u = 0; u < this._motionData.eventCount; ++u) {
+      if (this._motionData.events[u].fireTime > beforeCheckTimeSeconds && this._motionData.events[u].fireTime <= motionTimeSeconds) {
+        this._firedEventValues.push(this._motionData.events[u].value);
+      }
+    }
+    return this._firedEventValues;
+  }
+  /**
+   * 透明度のカーブが存在するかどうかを確認する
+   *
+   * @return true  -> キーが存在する
+   *          false -> キーが存在しない
+   */
+  isExistModelOpacity() {
+    for (let i = 0; i < this._motionData.curveCount; i++) {
+      const curve = this._motionData.curves[i];
+      if (curve.type != 0 /* CubismMotionCurveTarget_Model */) {
+        continue;
+      }
+      if (curve.id.getString().localeCompare(IdNameOpacity) == 0) {
+        return true;
+      }
+    }
+    return false;
+  }
+  /**
+   * 透明度のカーブのインデックスを返す
+   *
+   * @return success:透明度のカーブのインデックス
+   */
+  getModelOpacityIndex() {
+    if (this.isExistModelOpacity()) {
+      for (let i = 0; i < this._motionData.curveCount; i++) {
+        const curve = this._motionData.curves[i];
+        if (curve.type != 0 /* CubismMotionCurveTarget_Model */) {
+          continue;
+        }
+        if (curve.id.getString().localeCompare(IdNameOpacity) == 0) {
+          return i;
+        }
+      }
+    }
+    return -1;
+  }
+  /**
+   * 透明度のIdを返す
+   *
+   * @param index モーションカーブのインデックス
+   * @return success:透明度のカーブのインデックス
+   */
+  getModelOpacityId(index) {
+    if (index != -1) {
+      const curve = this._motionData.curves[index];
+      if (curve.type == 0 /* CubismMotionCurveTarget_Model */) {
+        if (curve.id.getString().localeCompare(IdNameOpacity) == 0) {
+          return CubismFramework.getIdManager().getId(curve.id.getString());
+        }
+      }
+    }
+    return null;
+  }
+  /**
+   * 現在時間の透明度の値を返す
+   *
+   * @return success:モーションの当該時間におけるOpacityの値
+   */
+  getModelOpacityValue() {
+    return this._modelOpacity;
+  }
+  /**
+   * デバッグ用フラグを設定する
+   *
+   * @param debugMode デバッグモードの有効・無効
+   */
+  setDebugMode(debugMode) {
+    this._debugMode = debugMode;
+  }
+  // デバッグモードかどうか
+};
+var Live2DCubismFramework20;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismMotion = CubismMotion;
+})(Live2DCubismFramework20 || (Live2DCubismFramework20 = {}));
+
+// vendor/cubismwebframework/src/motion/cubismmotionqueueentry.ts
+var CubismMotionQueueEntry = class {
+  /**
+   * コンストラクタ
+   */
+  constructor() {
+    this._autoDelete = false;
+    this._motion = null;
+    this._available = true;
+    this._finished = false;
+    this._started = false;
+    this._startTimeSeconds = -1;
+    this._fadeInStartTimeSeconds = 0;
+    this._endTimeSeconds = -1;
+    this._stateTimeSeconds = 0;
+    this._stateWeight = 0;
+    this._lastEventCheckSeconds = 0;
+    this._motionQueueEntryHandle = this;
+    this._fadeOutSeconds = 0;
+    this._isTriggeredFadeOut = false;
+  }
+  /**
+   * デストラクタ相当の処理
+   */
+  release() {
+    if (this._autoDelete && this._motion) {
+      ACubismMotion.delete(this._motion);
+    }
+  }
+  /**
+   * フェードアウト時間と開始判定の設定
+   * @param fadeOutSeconds フェードアウトにかかる時間[秒]
+   */
+  setFadeOut(fadeOutSeconds) {
+    this._fadeOutSeconds = fadeOutSeconds;
+    this._isTriggeredFadeOut = true;
+  }
+  /**
+   * フェードアウトの開始
+   * @param fadeOutSeconds フェードアウトにかかる時間[秒]
+   * @param userTimeSeconds デルタ時間の積算値[秒]
+   */
+  startFadeOut(fadeOutSeconds, userTimeSeconds) {
+    const newEndTimeSeconds = userTimeSeconds + fadeOutSeconds;
+    this._isTriggeredFadeOut = true;
+    if (this._endTimeSeconds < 0 || newEndTimeSeconds < this._endTimeSeconds) {
+      this._endTimeSeconds = newEndTimeSeconds;
+    }
+  }
+  /**
+   * モーションの終了の確認
+   *
+   * @return true モーションが終了した
+   * @return false 終了していない
+   */
+  isFinished() {
+    return this._finished;
+  }
+  /**
+   * モーションの開始の確認
+   * @return true モーションが開始した
+   * @return false 開始していない
+   */
+  isStarted() {
+    return this._started;
+  }
+  /**
+   * モーションの開始時刻の取得
+   * @return モーションの開始時刻[秒]
+   */
+  getStartTime() {
+    return this._startTimeSeconds;
+  }
+  /**
+   * フェードインの開始時刻の取得
+   * @return フェードインの開始時刻[秒]
+   */
+  getFadeInStartTime() {
+    return this._fadeInStartTimeSeconds;
+  }
+  /**
+   * フェードインの終了時刻の取得
+   * @return フェードインの終了時刻の取得
+   */
+  getEndTime() {
+    return this._endTimeSeconds;
+  }
+  /**
+   * モーションの開始時刻の設定
+   * @param startTime モーションの開始時刻
+   */
+  setStartTime(startTime) {
+    this._startTimeSeconds = startTime;
+  }
+  /**
+   * フェードインの開始時刻の設定
+   * @param startTime フェードインの開始時刻[秒]
+   */
+  setFadeInStartTime(startTime) {
+    this._fadeInStartTimeSeconds = startTime;
+  }
+  /**
+   * フェードインの終了時刻の設定
+   * @param endTime フェードインの終了時刻[秒]
+   */
+  setEndTime(endTime) {
+    this._endTimeSeconds = endTime;
+  }
+  /**
+   * モーションの終了の設定
+   * @param f trueならモーションの終了
+   */
+  setIsFinished(f) {
+    this._finished = f;
+  }
+  /**
+   * モーション開始の設定
+   * @param f trueならモーションの開始
+   */
+  setIsStarted(f) {
+    this._started = f;
+  }
+  /**
+   * モーションの有効性の確認
+   * @return true モーションは有効
+   * @return false モーションは無効
+   */
+  isAvailable() {
+    return this._available;
+  }
+  /**
+   * モーションの有効性の設定
+   * @param v trueならモーションは有効
+   */
+  setIsAvailable(v) {
+    this._available = v;
+  }
+  /**
+   * モーションの状態の設定
+   * @param timeSeconds 現在時刻[秒]
+   * @param weight モーション尾重み
+   */
+  setState(timeSeconds, weight) {
+    this._stateTimeSeconds = timeSeconds;
+    this._stateWeight = weight;
+  }
+  /**
+   * モーションの現在時刻の取得
+   * @return モーションの現在時刻[秒]
+   */
+  getStateTime() {
+    return this._stateTimeSeconds;
+  }
+  /**
+   * モーションの重みの取得
+   * @return モーションの重み
+   */
+  getStateWeight() {
+    return this._stateWeight;
+  }
+  /**
+   * 最後にイベントの発火をチェックした時間を取得
+   *
+   * @return 最後にイベントの発火をチェックした時間[秒]
+   */
+  getLastCheckEventSeconds() {
+    return this._lastEventCheckSeconds;
+  }
+  /**
+   * 最後にイベントをチェックした時間を設定
+   * @param checkSeconds 最後にイベントをチェックした時間[秒]
+   */
+  setLastCheckEventSeconds(checkSeconds) {
+    this._lastEventCheckSeconds = checkSeconds;
+  }
+  /**
+   * フェードアウト開始判定の取得
+   * @return フェードアウト開始するかどうか
+   */
+  isTriggeredFadeOut() {
+    return this._isTriggeredFadeOut;
+  }
+  /**
+   * フェードアウト時間の取得
+   * @return フェードアウト時間[秒]
+   */
+  getFadeOutSeconds() {
+    return this._fadeOutSeconds;
+  }
+  /**
+   * モーションの取得
+   *
+   * @return モーション
+   */
+  getCubismMotion() {
+    return this._motion;
+  }
+  // インスタンスごとに一意の値を持つ識別番号
+};
+var Live2DCubismFramework21;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismMotionQueueEntry = CubismMotionQueueEntry;
+})(Live2DCubismFramework21 || (Live2DCubismFramework21 = {}));
+
+// vendor/cubismwebframework/src/motion/cubismmotionqueuemanager.ts
+var CubismMotionQueueManager = class {
+  /**
+   * コンストラクタ
+   */
+  constructor() {
+    this._userTimeSeconds = 0;
+    this._eventCallBack = null;
+    this._eventCustomData = null;
+    this._motions = new Array();
+  }
+  /**
+   * デストラクタ
+   */
+  release() {
+    for (let i = 0; i < this._motions.length; ++i) {
+      if (this._motions[i]) {
+        this._motions[i].release();
+        this._motions[i] = null;
+      }
+    }
+    this._motions = null;
+  }
+  /**
+   * 指定したモーションの開始
+   *
+   * 指定したモーションを開始する。同じタイプのモーションが既にある場合は、既存のモーションに終了フラグを立て、フェードアウトを開始させる。
+   *
+   * @param   motion          開始するモーション
+   * @param   autoDelete      再生が終了したモーションのインスタンスを削除するなら true
+   * @param   userTimeSeconds Deprecated: デルタ時間の積算値[秒] 関数内で参照していないため使用は非推奨。
+   * @return                      開始したモーションの識別番号を返す。個別のモーションが終了したか否かを判定するIsFinished()の引数で使用する。開始できない時は「-1」
+   */
+  startMotion(motion, autoDelete, userTimeSeconds) {
+    if (motion == null) {
+      return InvalidMotionQueueEntryHandleValue;
+    }
+    let motionQueueEntry = null;
+    for (let i = 0; i < this._motions.length; ++i) {
+      motionQueueEntry = this._motions[i];
+      if (motionQueueEntry == null) {
+        continue;
+      }
+      motionQueueEntry.setFadeOut(motionQueueEntry._motion.getFadeOutTime());
+    }
+    motionQueueEntry = new CubismMotionQueueEntry();
+    motionQueueEntry._autoDelete = autoDelete;
+    motionQueueEntry._motion = motion;
+    this._motions.push(motionQueueEntry);
+    return motionQueueEntry._motionQueueEntryHandle;
+  }
+  /**
+   * 全てのモーションの終了の確認
+   * @return true 全て終了している
+   * @return false 終了していない
+   */
+  isFinished() {
+    for (let i = 0; i < this._motions.length; ) {
+      let motionQueueEntry = this._motions[i];
+      if (motionQueueEntry == null) {
+        this._motions.splice(i, 1);
+        continue;
+      }
+      const motion = motionQueueEntry._motion;
+      if (motion == null) {
+        motionQueueEntry.release();
+        motionQueueEntry = null;
+        this._motions.splice(i, 1);
+        continue;
+      }
+      if (!motionQueueEntry.isFinished()) {
+        return false;
+      } else {
+        i++;
+      }
+    }
+    return true;
+  }
+  /**
+   * 指定したモーションの終了の確認
+   * @param motionQueueEntryNumber モーションの識別番号
+   * @return true 全て終了している
+   * @return false 終了していない
+   */
+  isFinishedByHandle(motionQueueEntryNumber) {
+    for (let i = 0; i < this._motions.length; i++) {
+      const motionQueueEntry = this._motions[i];
+      if (motionQueueEntry == null) {
+        continue;
+      }
+      if (motionQueueEntry._motionQueueEntryHandle == motionQueueEntryNumber && !motionQueueEntry.isFinished()) {
+        return false;
+      }
+    }
+    return true;
+  }
+  /**
+   * 全てのモーションを停止する
+   */
+  stopAllMotions() {
+    for (let i = 0; i < this._motions.length; i++) {
+      const motionQueueEntry = this._motions[i];
+      if (motionQueueEntry == null) {
+        this._motions.splice(i, 1);
+        continue;
+      }
+      motionQueueEntry.release();
+      this._motions.splice(i, 1);
+      continue;
+    }
+  }
+  /**
+   * @brief CubismMotionQueueEntryの配列の取得
+   *
+   * CubismMotionQueueEntryの配列を取得する。
+   *
+   * @return  CubismMotionQueueEntryの配列へのポインタ
+   *          NULL   見つからなかった
+   */
+  getCubismMotionQueueEntries() {
+    return this._motions;
+  }
+  /**
+     * 指定したCubismMotionQueueEntryの取得
+  
+     * @param   motionQueueEntryNumber  モーションの識別番号
+     * @return  指定したCubismMotionQueueEntry
+     * @return  null   見つからなかった
+     */
+  getCubismMotionQueueEntry(motionQueueEntryNumber) {
+    for (let i = 0; i < this._motions.length; i++) {
+      const motionQueueEntry = this._motions[i];
+      if (motionQueueEntry == null) {
+        continue;
+      }
+      if (motionQueueEntry._motionQueueEntryHandle == motionQueueEntryNumber) {
+        return motionQueueEntry;
+      }
+    }
+    return null;
+  }
+  /**
+   * イベントを受け取るCallbackの登録
+   *
+   * @param callback コールバック関数
+   * @param customData コールバックに返されるデータ
+   */
+  setEventCallback(callback, customData = null) {
+    this._eventCallBack = callback;
+    this._eventCustomData = customData;
+  }
+  /**
+   * モーションを更新して、モデルにパラメータ値を反映する。
+   *
+   * @param   model   対象のモデル
+   * @param   userTimeSeconds   デルタ時間の積算値[秒]
+   * @return  true    モデルへパラメータ値の反映あり
+   * @return  false   モデルへパラメータ値の反映なし(モーションの変化なし)
+   */
+  doUpdateMotion(model, userTimeSeconds) {
+    let updated = false;
+    for (let i = 0; i < this._motions.length; ) {
+      let motionQueueEntry = this._motions[i];
+      if (motionQueueEntry == null) {
+        this._motions.splice(i, 1);
+        continue;
+      }
+      const motion = motionQueueEntry._motion;
+      if (motion == null) {
+        motionQueueEntry.release();
+        motionQueueEntry = null;
+        this._motions.splice(i, 1);
+        continue;
+      }
+      motion.updateParameters(model, motionQueueEntry, userTimeSeconds);
+      updated = true;
+      const firedList = motion.getFiredEvent(
+        motionQueueEntry.getLastCheckEventSeconds() - motionQueueEntry.getStartTime(),
+        userTimeSeconds - motionQueueEntry.getStartTime()
+      );
+      for (let i2 = 0; i2 < firedList.length; ++i2) {
+        this._eventCallBack(this, firedList[i2], this._eventCustomData);
+      }
+      motionQueueEntry.setLastCheckEventSeconds(userTimeSeconds);
+      if (motionQueueEntry.isFinished()) {
+        motionQueueEntry.release();
+        motionQueueEntry = null;
+        this._motions.splice(i, 1);
+      } else {
+        if (motionQueueEntry.isTriggeredFadeOut()) {
+          motionQueueEntry.startFadeOut(
+            motionQueueEntry.getFadeOutSeconds(),
+            userTimeSeconds
+          );
+        }
+        i++;
+      }
+    }
+    return updated;
+  }
+  // コールバックに戻されるデータ
+};
+var InvalidMotionQueueEntryHandleValue = -1;
+var Live2DCubismFramework22;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismMotionQueueManager = CubismMotionQueueManager;
+  Live2DCubismFramework29.InvalidMotionQueueEntryHandleValue = InvalidMotionQueueEntryHandleValue;
+})(Live2DCubismFramework22 || (Live2DCubismFramework22 = {}));
 
 // vendor/cubismwebframework/src/physics/cubismphysicsinternal.ts
 var CubismPhysicsTargetType = /* @__PURE__ */ ((CubismPhysicsTargetType2) => {
@@ -5992,19 +7830,19 @@ var CubismPhysicsRig = class {
   }
   //物理演算動作FPS
 };
-var Live2DCubismFramework17;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.CubismPhysicsInput = CubismPhysicsInput;
-  Live2DCubismFramework23.CubismPhysicsNormalization = CubismPhysicsNormalization;
-  Live2DCubismFramework23.CubismPhysicsOutput = CubismPhysicsOutput;
-  Live2DCubismFramework23.CubismPhysicsParameter = CubismPhysicsParameter;
-  Live2DCubismFramework23.CubismPhysicsParticle = CubismPhysicsParticle;
-  Live2DCubismFramework23.CubismPhysicsRig = CubismPhysicsRig;
-  Live2DCubismFramework23.CubismPhysicsSource = CubismPhysicsSource;
-  Live2DCubismFramework23.CubismPhysicsSubRig = CubismPhysicsSubRig;
-  Live2DCubismFramework23.CubismPhysicsTargetType = CubismPhysicsTargetType;
-  Live2DCubismFramework23.PhysicsJsonEffectiveForces = PhysicsJsonEffectiveForces;
-})(Live2DCubismFramework17 || (Live2DCubismFramework17 = {}));
+var Live2DCubismFramework23;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismPhysicsInput = CubismPhysicsInput;
+  Live2DCubismFramework29.CubismPhysicsNormalization = CubismPhysicsNormalization;
+  Live2DCubismFramework29.CubismPhysicsOutput = CubismPhysicsOutput;
+  Live2DCubismFramework29.CubismPhysicsParameter = CubismPhysicsParameter;
+  Live2DCubismFramework29.CubismPhysicsParticle = CubismPhysicsParticle;
+  Live2DCubismFramework29.CubismPhysicsRig = CubismPhysicsRig;
+  Live2DCubismFramework29.CubismPhysicsSource = CubismPhysicsSource;
+  Live2DCubismFramework29.CubismPhysicsSubRig = CubismPhysicsSubRig;
+  Live2DCubismFramework29.CubismPhysicsTargetType = CubismPhysicsTargetType;
+  Live2DCubismFramework29.PhysicsJsonEffectiveForces = PhysicsJsonEffectiveForces;
+})(Live2DCubismFramework23 || (Live2DCubismFramework23 = {}));
 
 // vendor/cubismwebframework/src/physics/cubismphysicsjson.ts
 var Position = "Position";
@@ -6012,8 +7850,8 @@ var X = "X";
 var Y = "Y";
 var Angle = "Angle";
 var Type = "Type";
-var Id = "Id";
-var Meta = "Meta";
+var Id2 = "Id";
+var Meta2 = "Meta";
 var EffectiveForces = "EffectiveForces";
 var TotalInputCount = "TotalInputCount";
 var TotalOutputCount = "TotalOutputCount";
@@ -6021,7 +7859,7 @@ var PhysicsSettingCount = "PhysicsSettingCount";
 var Gravity = "Gravity";
 var Wind = "Wind";
 var VertexCount = "VertexCount";
-var Fps = "Fps";
+var Fps2 = "Fps";
 var PhysicsSettings = "PhysicsSettings";
 var Normalization = "Normalization";
 var Minimum = "Minimum";
@@ -6061,8 +7899,8 @@ var CubismPhysicsJson = class {
    */
   getGravity() {
     const ret = new CubismVector2(0, 0);
-    ret.x = this._json.getRoot().getValueByString(Meta).getValueByString(EffectiveForces).getValueByString(Gravity).getValueByString(X).toFloat();
-    ret.y = this._json.getRoot().getValueByString(Meta).getValueByString(EffectiveForces).getValueByString(Gravity).getValueByString(Y).toFloat();
+    ret.x = this._json.getRoot().getValueByString(Meta2).getValueByString(EffectiveForces).getValueByString(Gravity).getValueByString(X).toFloat();
+    ret.y = this._json.getRoot().getValueByString(Meta2).getValueByString(EffectiveForces).getValueByString(Gravity).getValueByString(Y).toFloat();
     return ret;
   }
   /**
@@ -6071,8 +7909,8 @@ var CubismPhysicsJson = class {
    */
   getWind() {
     const ret = new CubismVector2(0, 0);
-    ret.x = this._json.getRoot().getValueByString(Meta).getValueByString(EffectiveForces).getValueByString(Wind).getValueByString(X).toFloat();
-    ret.y = this._json.getRoot().getValueByString(Meta).getValueByString(EffectiveForces).getValueByString(Wind).getValueByString(Y).toFloat();
+    ret.x = this._json.getRoot().getValueByString(Meta2).getValueByString(EffectiveForces).getValueByString(Wind).getValueByString(X).toFloat();
+    ret.y = this._json.getRoot().getValueByString(Meta2).getValueByString(EffectiveForces).getValueByString(Wind).getValueByString(Y).toFloat();
     return ret;
   }
   /**
@@ -6080,35 +7918,35 @@ var CubismPhysicsJson = class {
    * @return 物理演算設定FPS
    */
   getFps() {
-    return this._json.getRoot().getValueByString(Meta).getValueByString(Fps).toFloat(0);
+    return this._json.getRoot().getValueByString(Meta2).getValueByString(Fps2).toFloat(0);
   }
   /**
    * 物理店の管理の個数の取得
    * @return 物理店の管理の個数
    */
   getSubRigCount() {
-    return this._json.getRoot().getValueByString(Meta).getValueByString(PhysicsSettingCount).toInt();
+    return this._json.getRoot().getValueByString(Meta2).getValueByString(PhysicsSettingCount).toInt();
   }
   /**
    * 入力の総合計の取得
    * @return 入力の総合計
    */
   getTotalInputCount() {
-    return this._json.getRoot().getValueByString(Meta).getValueByString(TotalInputCount).toInt();
+    return this._json.getRoot().getValueByString(Meta2).getValueByString(TotalInputCount).toInt();
   }
   /**
    * 出力の総合計の取得
    * @return 出力の総合計
    */
   getTotalOutputCount() {
-    return this._json.getRoot().getValueByString(Meta).getValueByString(TotalOutputCount).toInt();
+    return this._json.getRoot().getValueByString(Meta2).getValueByString(TotalOutputCount).toInt();
   }
   /**
    * 物理点の個数の取得
    * @return 物理点の個数
    */
   getVertexCount() {
-    return this._json.getRoot().getValueByString(Meta).getValueByString(VertexCount).toInt();
+    return this._json.getRoot().getValueByString(Meta2).getValueByString(VertexCount).toInt();
   }
   /**
    * 正規化された位置の最小値の取得
@@ -6201,7 +8039,7 @@ var CubismPhysicsJson = class {
    */
   getInputSourceId(physicsSettingIndex, inputIndex) {
     return CubismFramework.getIdManager().getId(
-      this._json.getRoot().getValueByString(PhysicsSettings).getValueByIndex(physicsSettingIndex).getValueByString(Input).getValueByIndex(inputIndex).getValueByString(Source).getValueByString(Id).getRawString()
+      this._json.getRoot().getValueByString(PhysicsSettings).getValueByIndex(physicsSettingIndex).getValueByString(Input).getValueByIndex(inputIndex).getValueByString(Source).getValueByString(Id2).getRawString()
     );
   }
   /**
@@ -6247,7 +8085,7 @@ var CubismPhysicsJson = class {
    */
   getOutputDestinationId(physicsSettingIndex, outputIndex) {
     return CubismFramework.getIdManager().getId(
-      this._json.getRoot().getValueByString(PhysicsSettings).getValueByIndex(physicsSettingIndex).getValueByString(Output).getValueByIndex(outputIndex).getValueByString(Destination).getValueByString(Id).getRawString()
+      this._json.getRoot().getValueByString(PhysicsSettings).getValueByIndex(physicsSettingIndex).getValueByString(Output).getValueByIndex(outputIndex).getValueByString(Destination).getValueByString(Id2).getRawString()
     );
   }
   /**
@@ -6326,10 +8164,10 @@ var CubismPhysicsJson = class {
   }
   // physics3.jsonデータ
 };
-var Live2DCubismFramework18;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.CubismPhysicsJson = CubismPhysicsJson;
-})(Live2DCubismFramework18 || (Live2DCubismFramework18 = {}));
+var Live2DCubismFramework24;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismPhysicsJson = CubismPhysicsJson;
+})(Live2DCubismFramework24 || (Live2DCubismFramework24 = {}));
 
 // vendor/cubismwebframework/src/physics/cubismphysics.ts
 var PhysicsTypeTagX = "X";
@@ -7181,11 +9019,11 @@ function normalizeParameterValue(value, parameterMinimum, parameterMaximum, para
   }
   return isInverted ? result : result * -1;
 }
-var Live2DCubismFramework19;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.CubismPhysics = CubismPhysics;
-  Live2DCubismFramework23.Options = Options;
-})(Live2DCubismFramework19 || (Live2DCubismFramework19 = {}));
+var Live2DCubismFramework25;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismPhysics = CubismPhysics;
+  Live2DCubismFramework29.Options = Options;
+})(Live2DCubismFramework25 || (Live2DCubismFramework25 = {}));
 
 // vendor/cubismwebframework/src/rendering/cubismclippingmanager.ts
 var ColorChannelCount = 4;
@@ -8043,10 +9881,10 @@ var CubismRenderTarget_WebGL = class {
   }
   // 以前のフレームバッファ
 };
-var Live2DCubismFramework20;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.CubismOffscreenSurface_WebGL = CubismRenderTarget_WebGL;
-})(Live2DCubismFramework20 || (Live2DCubismFramework20 = {}));
+var Live2DCubismFramework26;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismOffscreenSurface_WebGL = CubismRenderTarget_WebGL;
+})(Live2DCubismFramework26 || (Live2DCubismFramework26 = {}));
 
 // vendor/cubismwebframework/src/rendering/cubismshader_webgl.ts
 var VertShaderSrcPath = "vertshadersrc.vert";
@@ -9588,13 +11426,13 @@ var ShaderNames = /* @__PURE__ */ ((ShaderNames2) => {
   ShaderNames2[ShaderNames2["ShaderNames_ShaderCount"] = 10] = "ShaderNames_ShaderCount";
   return ShaderNames2;
 })(ShaderNames || {});
-var Live2DCubismFramework21;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.CubismShaderSet = CubismShaderSet;
-  Live2DCubismFramework23.CubismShader_WebGL = CubismShader_WebGL;
-  Live2DCubismFramework23.CubismShaderManager_WebGL = CubismShaderManager_WebGL;
-  Live2DCubismFramework23.ShaderNames = ShaderNames;
-})(Live2DCubismFramework21 || (Live2DCubismFramework21 = {}));
+var Live2DCubismFramework27;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismShaderSet = CubismShaderSet;
+  Live2DCubismFramework29.CubismShader_WebGL = CubismShader_WebGL;
+  Live2DCubismFramework29.CubismShaderManager_WebGL = CubismShaderManager_WebGL;
+  Live2DCubismFramework29.ShaderNames = ShaderNames;
+})(Live2DCubismFramework27 || (Live2DCubismFramework27 = {}));
 
 // vendor/cubismwebframework/src/rendering/cubismoffscreenmanager.ts
 var CubismRenderTargetContainer = class {
@@ -11378,18 +13216,33 @@ var CubismRenderer_WebGL = class extends CubismRenderer {
 CubismRenderer.staticRelease = () => {
   CubismRenderer_WebGL.doStaticRelease();
 };
-var Live2DCubismFramework22;
-((Live2DCubismFramework23) => {
-  Live2DCubismFramework23.CubismClippingContext = CubismClippingContext_WebGL;
-  Live2DCubismFramework23.CubismClippingManager_WebGL = CubismClippingManager_WebGL;
-  Live2DCubismFramework23.CubismRenderer_WebGL = CubismRenderer_WebGL;
-})(Live2DCubismFramework22 || (Live2DCubismFramework22 = {}));
+var Live2DCubismFramework28;
+((Live2DCubismFramework29) => {
+  Live2DCubismFramework29.CubismClippingContext = CubismClippingContext_WebGL;
+  Live2DCubismFramework29.CubismClippingManager_WebGL = CubismClippingManager_WebGL;
+  Live2DCubismFramework29.CubismRenderer_WebGL = CubismRenderer_WebGL;
+})(Live2DCubismFramework28 || (Live2DCubismFramework28 = {}));
 
 // scripts/cubism5-runtime-entry.ts
 var DEFAULT_CORE_SCRIPT = "/live2d/cubism5/core/live2dcubismcore.min.js";
 var DEFAULT_CORE_BRIDGE_SCRIPT = "/live2d/cubism5/core/live2dcubismcore.bridge.js";
 var DEFAULT_SHADER_DIR = "/live2d/cubism5/shaders/WebGL/";
 var MAX_FRAME_DELTA_SECONDS = 0.1;
+var MOUTH_SMOOTH_SPEED = 18;
+var MOUTH_HIGH_LEVEL_THRESHOLD = 0.56;
+var MOUTH_HIGH_LEVEL_HOLD_SECONDS = 0.14;
+var MOUTH_HIGH_LEVEL_WOBBLE_SPEED = 18;
+var MOUTH_HIGH_LEVEL_WOBBLE_AMOUNT = 0.19;
+var MOUTH_SPEECH_WOBBLE_AMOUNT = 0.08;
+var MOUTH_FORM_WOBBLE_AMOUNT = 0.52;
+var DEFAULT_MOUTH_OPEN_SCALE = 0.5;
+var DEFAULT_IDLE_MOTION_INTENSITY = 1;
+var DEFAULT_IDLE_MOTION_FILES = [
+  "animations/待机姿势.motion3.json",
+  "animations/随机说话待机.motion3.json"
+];
+var IDLE_MOTION_SWITCH_MIN_SECONDS = 11;
+var IDLE_MOTION_SWITCH_MAX_SECONDS = 18;
 var coreScriptPromise = null;
 var coreBridgeScriptPromise = null;
 var frameworkReferenceCount = 0;
@@ -11404,6 +13257,206 @@ function toAbsoluteUrl(path) {
 }
 function resolveAssetUrl(baseDirectoryUrl, relativePath) {
   return new URL(relativePath, baseDirectoryUrl).toString();
+}
+function clamp01(value) {
+  return Math.max(0, Math.min(1, value));
+}
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+function normalizeFitPadding(value) {
+  if (Number.isNaN(value)) {
+    return 0;
+  }
+  return clamp(value, 0, 0.45);
+}
+function normalizePanLimit(value) {
+  if (Number.isNaN(value)) {
+    return 1;
+  }
+  return clamp(value, 0.2, 3);
+}
+function normalizePanOverflow(value) {
+  if (Number.isNaN(value)) {
+    return 0;
+  }
+  return clamp(value, 0, 2);
+}
+function normalizeMouthOpenScale(value) {
+  if (Number.isNaN(value)) {
+    return DEFAULT_MOUTH_OPEN_SCALE;
+  }
+  return clamp(value, 0, 1.5);
+}
+function normalizeIdleMotionIntensity(value) {
+  if (Number.isNaN(value)) {
+    return DEFAULT_IDLE_MOTION_INTENSITY;
+  }
+  return clamp(value, 0, 2);
+}
+function normalizeIdleMotionFiles(files) {
+  const uniqueFiles = /* @__PURE__ */ new Set();
+  for (const file of files) {
+    if (typeof file !== "string") {
+      continue;
+    }
+    const trimmed = file.trim();
+    if (!trimmed) {
+      continue;
+    }
+    uniqueFiles.add(trimmed);
+  }
+  return Array.from(uniqueFiles);
+}
+function chooseNextIdleMotionIndex(count, currentIndex) {
+  if (count <= 1) {
+    return 0;
+  }
+  let nextIndex = Math.floor(Math.random() * count);
+  if (nextIndex === currentIndex) {
+    nextIndex = (nextIndex + 1 + Math.floor(Math.random() * (count - 1))) % count;
+  }
+  return nextIndex;
+}
+function getRandomIdleMotionSwitchInterval() {
+  const span = Math.max(0, IDLE_MOTION_SWITCH_MAX_SECONDS - IDLE_MOTION_SWITCH_MIN_SECONDS);
+  return IDLE_MOTION_SWITCH_MIN_SECONDS + Math.random() * span;
+}
+function createBoundsRect(minX, maxX, minY, maxY) {
+  const width = Math.max(1e-6, maxX - minX);
+  const height = Math.max(1e-6, maxY - minY);
+  return {
+    minX,
+    maxX,
+    minY,
+    maxY,
+    width,
+    height,
+    centerX: (minX + maxX) * 0.5,
+    centerY: (minY + maxY) * 0.5
+  };
+}
+function collectDrawableBounds(model, onlyVisible) {
+  const drawableCount = model.getDrawableCount();
+  let minX = Number.POSITIVE_INFINITY;
+  let maxX = Number.NEGATIVE_INFINITY;
+  let minY = Number.POSITIVE_INFINITY;
+  let maxY = Number.NEGATIVE_INFINITY;
+  for (let drawableIndex = 0; drawableIndex < drawableCount; drawableIndex += 1) {
+    if (onlyVisible) {
+      if (!model.getDrawableDynamicFlagIsVisible(drawableIndex)) {
+        continue;
+      }
+      if (model.getDrawableOpacity(drawableIndex) <= 1e-3) {
+        continue;
+      }
+    }
+    const vertices = model.getDrawableVertexPositions(drawableIndex);
+    if (!vertices || vertices.length < 2) {
+      continue;
+    }
+    for (let i = 0; i < vertices.length - 1; i += 2) {
+      const x = vertices[i];
+      const y = vertices[i + 1];
+      if (!Number.isFinite(x) || !Number.isFinite(y)) {
+        continue;
+      }
+      minX = Math.min(minX, x);
+      maxX = Math.max(maxX, x);
+      minY = Math.min(minY, y);
+      maxY = Math.max(maxY, y);
+    }
+  }
+  if (!Number.isFinite(minX) || !Number.isFinite(maxX) || !Number.isFinite(minY) || !Number.isFinite(maxY)) {
+    return null;
+  }
+  return createBoundsRect(minX, maxX, minY, maxY);
+}
+function collectModelBounds(model) {
+  return collectDrawableBounds(model, true) ?? collectDrawableBounds(model, false);
+}
+function transformBoundsByScaleAndTranslation(bounds, scaleX, scaleY, translateX, translateY) {
+  const x1 = bounds.minX * scaleX + translateX;
+  const x2 = bounds.maxX * scaleX + translateX;
+  const y1 = bounds.minY * scaleY + translateY;
+  const y2 = bounds.maxY * scaleY + translateY;
+  return createBoundsRect(
+    Math.min(x1, x2),
+    Math.max(x1, x2),
+    Math.min(y1, y2),
+    Math.max(y1, y2)
+  );
+}
+function getVisibleWorldSize(canvas) {
+  const width = Math.max(1, canvas.width);
+  const height = Math.max(1, canvas.height);
+  const aspect = width / height;
+  if (aspect >= 1) {
+    return {
+      width: 2 * aspect,
+      height: 2
+    };
+  }
+  return {
+    width: 2,
+    height: 2 / aspect
+  };
+}
+function createAdaptiveFitMatrix(bounds, canvas, fitMode, fitPadding) {
+  const visibleWorld = getVisibleWorldSize(canvas);
+  const contentScale = Math.max(1e-6, 1 - fitPadding * 2);
+  const targetWidth = Math.max(1e-6, visibleWorld.width * contentScale);
+  const targetHeight = Math.max(1e-6, visibleWorld.height * contentScale);
+  const scaleByWidth = targetWidth / bounds.width;
+  const scaleByHeight = targetHeight / bounds.height;
+  const scale = fitMode === "cover" ? Math.max(scaleByWidth, scaleByHeight) : Math.min(scaleByWidth, scaleByHeight);
+  const matrix = new CubismMatrix44();
+  matrix.scale(scale, scale);
+  matrix.translate(-bounds.centerX * scale, -bounds.centerY * scale);
+  return matrix;
+}
+function normalizeTranslationRange(min, max) {
+  if (!Number.isFinite(min) || !Number.isFinite(max)) {
+    return { min: 0, max: 0 };
+  }
+  if (min <= max) {
+    return { min, max };
+  }
+  const center = (min + max) * 0.5;
+  return { min: center, max: center };
+}
+function getContainTranslationRange(minBound, maxBound, halfVisible) {
+  const min = -halfVisible - minBound;
+  const max = halfVisible - maxBound;
+  return normalizeTranslationRange(min, max);
+}
+function getCoverTranslationRange(minBound, maxBound, halfVisible) {
+  const min = halfVisible - maxBound;
+  const max = -halfVisible - minBound;
+  return normalizeTranslationRange(min, max);
+}
+function resolvePanTranslation(fittedBounds, visibleWorld, fitMode, panX, panY, panLimitX, panLimitY, panOverflowX, panOverflowTop, panOverflowBottom) {
+  const halfVisibleWidth = visibleWorld.width * 0.5;
+  const halfVisibleHeight = visibleWorld.height * 0.5;
+  const desiredX = clamp(panX, -panLimitX, panLimitX) * halfVisibleWidth;
+  const desiredY = clamp(panY, -panLimitY, panLimitY) * halfVisibleHeight;
+  const baseXRange = fitMode === "cover" ? getCoverTranslationRange(fittedBounds.minX, fittedBounds.maxX, halfVisibleWidth) : getContainTranslationRange(fittedBounds.minX, fittedBounds.maxX, halfVisibleWidth);
+  const baseYRange = fitMode === "cover" ? getCoverTranslationRange(fittedBounds.minY, fittedBounds.maxY, halfVisibleHeight) : getContainTranslationRange(fittedBounds.minY, fittedBounds.maxY, halfVisibleHeight);
+  const overflowX = halfVisibleWidth * panOverflowX;
+  const overflowTop = halfVisibleHeight * panOverflowTop;
+  const overflowBottom = halfVisibleHeight * panOverflowBottom;
+  const xRange = {
+    min: baseXRange.min - overflowX,
+    max: baseXRange.max + overflowX
+  };
+  const yRange = {
+    min: baseYRange.min - overflowBottom,
+    max: baseYRange.max + overflowTop
+  };
+  return {
+    x: clamp(desiredX, xRange.min, xRange.max),
+    y: clamp(desiredY, yRange.min, yRange.max)
+  };
 }
 function logSafe(logger, level, stage, message) {
   const entry = {
@@ -11424,6 +13477,74 @@ function logSafe(logger, level, stage, message) {
   } else {
     console.info(`${prefix} ${message}`);
   }
+}
+function resolveParameterIndex(model, parameterName) {
+  const parameterId = CubismFramework.getIdManager().getId(parameterName);
+  return model.getParameterIndex(parameterId);
+}
+function addParameterOffset(model, parameterIndex, offsetValue, weight) {
+  if (parameterIndex < 0) {
+    return;
+  }
+  const min = model.getParameterMinimumValue(parameterIndex);
+  const max = model.getParameterMaximumValue(parameterIndex);
+  const range = Number.isFinite(min) && Number.isFinite(max) ? Math.abs(max - min) : 1;
+  const adaptiveScale = clamp(range * 0.18, 0.9, 4.2);
+  model.addParameterValueByIndex(parameterIndex, offsetValue * adaptiveScale, weight);
+}
+function applyIdleMotion(model, elapsedSeconds, intensity, indices) {
+  if (intensity <= 0) {
+    return;
+  }
+  const gustSlow = Math.sin(elapsedSeconds * 0.72 + 0.2);
+  const gustMid = Math.sin(elapsedSeconds * 1.12 + 1.4);
+  const gustFast = Math.sin(elapsedSeconds * 1.75 + 2.1);
+  const flutter = Math.sin(elapsedSeconds * 2.45 + 0.8);
+  const shimmer = Math.sin(elapsedSeconds * 3.9 + 0.45);
+  const gustEnvelope = Math.pow((Math.sin(elapsedSeconds * 0.34 - 0.8) + 1) * 0.5, 1.6);
+  const hairBoost = 2.15;
+  addParameterOffset(
+    model,
+    indices.hairFront,
+    (gustMid * 0.98 + gustFast * 0.44 + flutter * 0.38 + gustEnvelope * 0.46 + shimmer * 0.2) * hairBoost * intensity,
+    0.7
+  );
+  addParameterOffset(
+    model,
+    indices.hairSide,
+    (gustSlow * 1.02 + gustMid * 0.32 + gustFast * 0.42 + gustEnvelope * 0.41 + shimmer * 0.18) * hairBoost * intensity,
+    0.68
+  );
+  addParameterOffset(
+    model,
+    indices.hairBack,
+    (gustSlow * 1.08 + gustMid * 0.4 + flutter * 0.34 + gustEnvelope * 0.38 + shimmer * 0.16) * hairBoost * intensity,
+    0.66
+  );
+  addParameterOffset(
+    model,
+    indices.dress1,
+    (gustSlow * 0.5 + flutter * 0.24 + gustEnvelope * 0.16) * intensity,
+    0.42
+  );
+  addParameterOffset(
+    model,
+    indices.dress2,
+    (gustMid * 0.48 + flutter * 0.22 + gustEnvelope * 0.15) * intensity,
+    0.4
+  );
+  addParameterOffset(
+    model,
+    indices.dress3,
+    (gustFast * 0.46 + flutter * 0.21) * intensity,
+    0.37
+  );
+  addParameterOffset(
+    model,
+    indices.dress4,
+    (gustMid * 0.38 + flutter * 0.18) * intensity,
+    0.34
+  );
 }
 function hasCubismCore() {
   return Boolean(globalThis.Live2DCubismCore);
@@ -11617,9 +13738,30 @@ async function createCubism5Avatar(options) {
     coreBridgeScriptPath = DEFAULT_CORE_BRIDGE_SCRIPT,
     shaderDirectory = DEFAULT_SHADER_DIR,
     autoBlink = true,
+    idleMotionEnabled = true,
+    idleMotionIntensity = DEFAULT_IDLE_MOTION_INTENSITY,
+    idleMotionFiles = DEFAULT_IDLE_MOTION_FILES,
+    mouthOpenScale = DEFAULT_MOUTH_OPEN_SCALE,
     modelScale = 1,
+    fitMode = "contain",
+    fitPadding = 0,
+    panLimitX = 1,
+    panLimitY = 1,
+    panOverflowX = 0,
+    panOverflowTop = 0,
+    panOverflowBottom = 0,
     logger
   } = options;
+  const resolvedFitMode = fitMode === "cover" ? "cover" : "contain";
+  const resolvedFitPadding = normalizeFitPadding(fitPadding);
+  const resolvedPanLimitX = normalizePanLimit(panLimitX);
+  const resolvedPanLimitY = normalizePanLimit(panLimitY);
+  const resolvedPanOverflowX = normalizePanOverflow(panOverflowX);
+  const resolvedPanOverflowTop = normalizePanOverflow(panOverflowTop);
+  const resolvedPanOverflowBottom = normalizePanOverflow(panOverflowBottom);
+  const resolvedMouthOpenScale = normalizeMouthOpenScale(mouthOpenScale);
+  const resolvedIdleMotionIntensity = normalizeIdleMotionIntensity(idleMotionIntensity);
+  const resolvedIdleMotionFiles = normalizeIdleMotionFiles(idleMotionFiles);
   if (!canvas) {
     throw new Error("createCubism5Avatar 缺少 canvas 参数。");
   }
@@ -11647,11 +13789,59 @@ async function createCubism5Avatar(options) {
   let model = null;
   let physics = null;
   let eyeBlink = null;
+  let mouthOpenParameterIndex = -1;
+  let mouthFormParameterIndex = -1;
+  const lipSyncParameterIndices = [];
+  let mouthTargetValue = 0;
+  let mouthCurrentValue = 0;
+  let mouthStableHighSeconds = 0;
+  let mouthHighLevelPhase = Math.random() * Math.PI * 2;
+  let mouthSpeechPhase = Math.random() * Math.PI * 2;
+  let idleElapsedSeconds = 0;
+  let idleMotionElapsedSeconds = 0;
+  let idleMotionNextSwitchSeconds = Number.POSITIVE_INFINITY;
+  let idleMotionCurrentIndex = -1;
+  let panNormalizedX = 0;
+  let panNormalizedY = 0;
   let renderer = null;
   let modelMatrix = null;
+  let baseModelMatrix = null;
+  let modelBoundsInBaseWorld = null;
+  let idleMotionManager = null;
+  const idleMotions = [];
+  const idleMotionNames = [];
+  let idleMotionParameterIndices = {
+    hairFront: -1,
+    hairSide: -1,
+    hairBack: -1,
+    dress1: -1,
+    dress2: -1,
+    dress3: -1,
+    dress4: -1
+  };
   const textures = [];
   const modelJsonUrl = toAbsoluteUrl(modelJsonPath);
   const modelDirectoryUrl = new URL("./", modelJsonUrl).toString();
+  const hasIdleMotionTracks = () => Boolean(idleMotionEnabled && idleMotionManager && idleMotions.length > 0);
+  const scheduleNextIdleMotionSwitch = () => {
+    if (idleMotions.length <= 1) {
+      idleMotionNextSwitchSeconds = Number.POSITIVE_INFINITY;
+      return;
+    }
+    idleMotionNextSwitchSeconds = idleMotionElapsedSeconds + getRandomIdleMotionSwitchInterval();
+  };
+  const startIdleMotion = (targetIndex) => {
+    if (!idleMotionManager || idleMotions.length === 0) {
+      return;
+    }
+    const nextIndex = typeof targetIndex === "number" && targetIndex >= 0 && targetIndex < idleMotions.length ? targetIndex : chooseNextIdleMotionIndex(idleMotions.length, idleMotionCurrentIndex);
+    const motion = idleMotions[nextIndex];
+    idleMotionManager.startMotion(motion, false);
+    idleMotionCurrentIndex = nextIndex;
+    scheduleNextIdleMotionSwitch();
+    const motionName = idleMotionNames[nextIndex] ?? `#${nextIndex + 1}`;
+    logSafe(logger, "info", "idle-motion", `切换待机动作: ${motionName}`);
+  };
   const setupResources = async () => {
     logSafe(logger, "info", "model", `开始加载模型配置: ${modelJsonUrl}`);
     const modelSettingsBuffer = await fetchArrayBuffer(modelJsonUrl);
@@ -11720,6 +13910,139 @@ async function createCubism5Avatar(options) {
     } else {
       logSafe(logger, "info", "effects", "模型未配置眨眼参数，跳过自动眨眼");
     }
+    const parameterCount = model.getParameterCount();
+    const collectedLipSyncIndices = /* @__PURE__ */ new Set();
+    if (modelSetting.getLipSyncParameterCount() > 0) {
+      for (let i = 0; i < modelSetting.getLipSyncParameterCount(); i += 1) {
+        const lipSyncParameterId = modelSetting.getLipSyncParameterId(i);
+        const index = model.getParameterIndex(lipSyncParameterId);
+        if (index >= 0 && index < parameterCount) {
+          collectedLipSyncIndices.add(index);
+        }
+      }
+      if (collectedLipSyncIndices.size > 0) {
+        logSafe(
+          logger,
+          "info",
+          "mouth",
+          `检测到 LipSync 参数数量=${collectedLipSyncIndices.size}`
+        );
+      }
+    }
+    const mouthOpenParameterId = CubismFramework.getIdManager().getId("ParamMouthOpenY");
+    const directMouthOpenIndex = model.getParameterIndex(mouthOpenParameterId);
+    if (directMouthOpenIndex >= 0 && directMouthOpenIndex < parameterCount) {
+      mouthOpenParameterIndex = directMouthOpenIndex;
+      collectedLipSyncIndices.add(directMouthOpenIndex);
+      logSafe(
+        logger,
+        "info",
+        "mouth",
+        `优先使用 ParamMouthOpenY，index=${directMouthOpenIndex}`
+      );
+    }
+    if (mouthOpenParameterIndex < 0 && collectedLipSyncIndices.size > 0) {
+      mouthOpenParameterIndex = Array.from(collectedLipSyncIndices)[0];
+      logSafe(
+        logger,
+        "warn",
+        "mouth",
+        `未找到 ParamMouthOpenY，回退到 LipSync 参数 index=${mouthOpenParameterIndex}`
+      );
+    }
+    lipSyncParameterIndices.length = 0;
+    for (const index of collectedLipSyncIndices) {
+      lipSyncParameterIndices.push(index);
+    }
+    if (mouthOpenParameterIndex < 0) {
+      logSafe(logger, "warn", "mouth", "未找到可用口型参数，口型联动将禁用");
+    } else if (lipSyncParameterIndices.length > 1) {
+      logSafe(
+        logger,
+        "info",
+        "mouth",
+        `将同步驱动 ${lipSyncParameterIndices.length} 个口型参数`
+      );
+    }
+    if (mouthOpenParameterIndex < 0) {
+      mouthTargetValue = 0;
+      mouthCurrentValue = 0;
+    }
+    mouthFormParameterIndex = resolveParameterIndex(model, "ParamMouthForm");
+    if (mouthFormParameterIndex >= 0) {
+      logSafe(logger, "info", "mouth", `检测到 ParamMouthForm，index=${mouthFormParameterIndex}`);
+    }
+    idleMotionParameterIndices = {
+      hairFront: resolveParameterIndex(model, "ParamHairFront"),
+      hairSide: resolveParameterIndex(model, "ParamHairSide"),
+      hairBack: resolveParameterIndex(model, "ParamHairBack"),
+      dress1: resolveParameterIndex(model, "ParamDress1"),
+      dress2: resolveParameterIndex(model, "ParamDress2"),
+      dress3: resolveParameterIndex(model, "ParamDress3"),
+      dress4: resolveParameterIndex(model, "ParamDress4")
+    };
+    if (idleMotionEnabled && resolvedIdleMotionFiles.length > 0) {
+      idleMotionManager = new CubismMotionQueueManager();
+      const eyeBlinkEffectIds = [];
+      for (let i = 0; i < modelSetting.getEyeBlinkParameterCount(); i += 1) {
+        eyeBlinkEffectIds.push(modelSetting.getEyeBlinkParameterId(i));
+      }
+      const lipSyncEffectIds = [];
+      for (let i = 0; i < modelSetting.getLipSyncParameterCount(); i += 1) {
+        lipSyncEffectIds.push(modelSetting.getLipSyncParameterId(i));
+      }
+      for (const motionFile of resolvedIdleMotionFiles) {
+        try {
+          const motionUrl = resolveAssetUrl(modelDirectoryUrl, motionFile);
+          const motionBuffer = await fetchArrayBuffer(motionUrl);
+          const motion = CubismMotion.create(motionBuffer, motionBuffer.byteLength);
+          if (!motion) {
+            logSafe(logger, "warn", "idle-motion", `待机动作创建失败: ${motionFile}`);
+            continue;
+          }
+          motion.setLoop(true);
+          motion.setLoopFadeIn(true);
+          motion.setFadeInTime(1.2);
+          motion.setFadeOutTime(1.2);
+          motion.setWeight(clamp(0.58 + resolvedIdleMotionIntensity * 0.28, 0.25, 1));
+          motion.setEffectIds(eyeBlinkEffectIds, lipSyncEffectIds);
+          idleMotions.push(motion);
+          idleMotionNames.push(motionFile);
+          logSafe(logger, "info", "idle-motion", `待机动作加载成功: ${motionFile}`);
+        } catch (error) {
+          logSafe(
+            logger,
+            "warn",
+            "idle-motion",
+            `待机动作加载失败，已跳过 ${motionFile}: ${stringifyUnknownError(error)}`
+          );
+        }
+      }
+      if (idleMotions.length > 0) {
+        idleMotionElapsedSeconds = 0;
+        idleMotionCurrentIndex = -1;
+        idleMotionNextSwitchSeconds = 0;
+        startIdleMotion();
+        logSafe(logger, "info", "idle-motion", `待机动作系统已启用，共 ${idleMotions.length} 条`);
+      } else {
+        idleMotionManager.release();
+        idleMotionManager = null;
+        logSafe(logger, "warn", "idle-motion", "未加载到可用待机动作，回退参数微动作模式");
+      }
+    }
+    if (hasIdleMotionTracks()) {
+      logSafe(logger, "info", "effects", "已启用 motion3 待机动作循环");
+    } else if (idleMotionEnabled && resolvedIdleMotionIntensity > 0) {
+      logSafe(
+        logger,
+        "info",
+        "effects",
+        `已启用待机微动作，强度=${resolvedIdleMotionIntensity.toFixed(2)}`
+      );
+    } else {
+      logSafe(logger, "info", "effects", "待机微动作已禁用");
+    }
+    logSafe(logger, "info", "mouth", `口型输入缩放系数=${resolvedMouthOpenScale.toFixed(2)}`);
     modelMatrix = new CubismModelMatrix(
       model.getCanvasWidth(),
       model.getCanvasHeight()
@@ -11738,6 +14061,35 @@ async function createCubism5Avatar(options) {
       modelMatrix.scaleRelative(modelScale, modelScale);
       logSafe(logger, "info", "layout", `应用外部缩放: ${modelScale}`);
     }
+    baseModelMatrix = new CubismMatrix44();
+    baseModelMatrix.setMatrix(new Float32Array(modelMatrix.getArray()));
+    model.update();
+    const modelBounds = collectModelBounds(model);
+    if (modelBounds) {
+      modelBoundsInBaseWorld = transformBoundsByScaleAndTranslation(
+        modelBounds,
+        baseModelMatrix.getScaleX(),
+        baseModelMatrix.getScaleY(),
+        baseModelMatrix.getTranslateX(),
+        baseModelMatrix.getTranslateY()
+      );
+      logSafe(
+        logger,
+        "info",
+        "layout",
+        `模型边界已计算: ${modelBoundsInBaseWorld.width.toFixed(3)}x${modelBoundsInBaseWorld.height.toFixed(3)} (${resolvedFitMode})`
+      );
+    } else {
+      const fallbackBounds = createBoundsRect(0, model.getCanvasWidth(), 0, model.getCanvasHeight());
+      modelBoundsInBaseWorld = transformBoundsByScaleAndTranslation(
+        fallbackBounds,
+        baseModelMatrix.getScaleX(),
+        baseModelMatrix.getScaleY(),
+        baseModelMatrix.getTranslateX(),
+        baseModelMatrix.getTranslateY()
+      );
+      logSafe(logger, "warn", "layout", "无法从 Drawable 计算边界，已回退到画布边界");
+    }
     model.saveParameters();
     logSafe(logger, "info", "setup", "模型资源初始化完成");
   };
@@ -11753,10 +14105,70 @@ async function createCubism5Avatar(options) {
     } else if (height > width) {
       projection.scale(1, width / height);
     }
+    let modelTransform = new CubismMatrix44();
+    const visibleWorld = getVisibleWorldSize(canvas);
+    let fittedModelBounds = null;
+    if (baseModelMatrix && modelBoundsInBaseWorld) {
+      const adaptiveFitMatrix = createAdaptiveFitMatrix(
+        modelBoundsInBaseWorld,
+        canvas,
+        resolvedFitMode,
+        resolvedFitPadding
+      );
+      fittedModelBounds = transformBoundsByScaleAndTranslation(
+        modelBoundsInBaseWorld,
+        adaptiveFitMatrix.getScaleX(),
+        adaptiveFitMatrix.getScaleY(),
+        adaptiveFitMatrix.getTranslateX(),
+        adaptiveFitMatrix.getTranslateY()
+      );
+      CubismMatrix44.multiply(
+        adaptiveFitMatrix.getArray(),
+        baseModelMatrix.getArray(),
+        modelTransform.getArray()
+      );
+    } else {
+      modelTransform.setMatrix(new Float32Array(modelMatrix.getArray()));
+    }
+    if (fittedModelBounds) {
+      const resolvedTranslation = resolvePanTranslation(
+        fittedModelBounds,
+        visibleWorld,
+        resolvedFitMode,
+        panNormalizedX,
+        panNormalizedY,
+        resolvedPanLimitX,
+        resolvedPanLimitY,
+        resolvedPanOverflowX,
+        resolvedPanOverflowTop,
+        resolvedPanOverflowBottom
+      );
+      const halfVisibleWidth = Math.max(1e-6, visibleWorld.width * 0.5);
+      const halfVisibleHeight = Math.max(1e-6, visibleWorld.height * 0.5);
+      panNormalizedX = clamp(
+        resolvedTranslation.x / halfVisibleWidth,
+        -resolvedPanLimitX,
+        resolvedPanLimitX
+      );
+      panNormalizedY = clamp(
+        resolvedTranslation.y / halfVisibleHeight,
+        -resolvedPanLimitY,
+        resolvedPanLimitY
+      );
+      const panMatrix = new CubismMatrix44();
+      panMatrix.translate(resolvedTranslation.x, resolvedTranslation.y);
+      const panAppliedTransform = new CubismMatrix44();
+      CubismMatrix44.multiply(
+        panMatrix.getArray(),
+        modelTransform.getArray(),
+        panAppliedTransform.getArray()
+      );
+      modelTransform = panAppliedTransform;
+    }
     const mvp = new CubismMatrix44();
     CubismMatrix44.multiply(
       projection.getArray(),
-      modelMatrix.getArray(),
+      modelTransform.getArray(),
       mvp.getArray()
     );
     renderer.setMvpMatrix(mvp);
@@ -11787,8 +14199,70 @@ async function createCubism5Avatar(options) {
     if (blinkEnabled && eyeBlink) {
       eyeBlink.updateParameters(model, deltaSeconds);
     }
+    const useIdleMotionTracks = hasIdleMotionTracks();
+    if (useIdleMotionTracks && idleMotionManager) {
+      idleMotionElapsedSeconds += deltaSeconds;
+      if (idleMotionElapsedSeconds >= idleMotionNextSwitchSeconds) {
+        startIdleMotion();
+      }
+      idleMotionManager.doUpdateMotion(model, idleMotionElapsedSeconds);
+    }
     if (physics) {
       physics.evaluate(model, deltaSeconds);
+    }
+    if (!useIdleMotionTracks && idleMotionEnabled && resolvedIdleMotionIntensity > 0) {
+      idleElapsedSeconds += deltaSeconds;
+      applyIdleMotion(
+        model,
+        idleElapsedSeconds,
+        resolvedIdleMotionIntensity,
+        idleMotionParameterIndices
+      );
+    }
+    if (mouthOpenParameterIndex >= 0) {
+      const blend = Math.min(1, deltaSeconds * MOUTH_SMOOTH_SPEED);
+      mouthCurrentValue += (mouthTargetValue - mouthCurrentValue) * blend;
+      const speakingStrength = clamp01((mouthTargetValue + mouthCurrentValue) * 0.5);
+      if (speakingStrength > 0.02) {
+        mouthSpeechPhase += deltaSeconds * (10 + speakingStrength * 16);
+      }
+      const keepHighMouthOpen = mouthTargetValue >= MOUTH_HIGH_LEVEL_THRESHOLD && mouthCurrentValue >= MOUTH_HIGH_LEVEL_THRESHOLD;
+      if (keepHighMouthOpen) {
+        mouthStableHighSeconds += deltaSeconds;
+      } else {
+        mouthStableHighSeconds = 0;
+      }
+      let mouthOutputValue = mouthCurrentValue;
+      if (speakingStrength > 0.05) {
+        const speechWobble = (Math.sin(mouthSpeechPhase) + Math.sin(mouthSpeechPhase * 0.47 + 1.3) * 0.62) * (0.018 + speakingStrength * MOUTH_SPEECH_WOBBLE_AMOUNT);
+        mouthOutputValue = clamp01(mouthOutputValue + speechWobble);
+      }
+      if (mouthStableHighSeconds > MOUTH_HIGH_LEVEL_HOLD_SECONDS) {
+        mouthHighLevelPhase += deltaSeconds * (MOUTH_HIGH_LEVEL_WOBBLE_SPEED + mouthCurrentValue * 9);
+        const holdStrength = clamp01(
+          (mouthStableHighSeconds - MOUTH_HIGH_LEVEL_HOLD_SECONDS) / 0.7
+        );
+        const levelStrength = clamp01(
+          (mouthCurrentValue - MOUTH_HIGH_LEVEL_THRESHOLD) / Math.max(1e-4, 1 - MOUTH_HIGH_LEVEL_THRESHOLD)
+        );
+        const wobbleStrength = holdStrength * levelStrength;
+        const wobble = Math.sin(mouthHighLevelPhase) * MOUTH_HIGH_LEVEL_WOBBLE_AMOUNT + Math.sin(mouthHighLevelPhase * 0.43 + 1.1) * (MOUTH_HIGH_LEVEL_WOBBLE_AMOUNT * 0.46);
+        mouthOutputValue = clamp01(mouthOutputValue + wobble * wobbleStrength);
+      }
+      model.setParameterValueByIndex(mouthOpenParameterIndex, mouthOutputValue, 1);
+      if (mouthFormParameterIndex >= 0) {
+        const formStrength = clamp01((speakingStrength - 0.08) / 0.92);
+        if (formStrength > 0) {
+          const mouthFormWobble = (Math.sin(mouthSpeechPhase * 0.58 + 0.4) * 0.72 + Math.sin(mouthSpeechPhase * 0.23 - 0.9) * 0.38) * MOUTH_FORM_WOBBLE_AMOUNT * formStrength;
+          addParameterOffset(model, mouthFormParameterIndex, mouthFormWobble, 0.56);
+        }
+      }
+      for (const lipSyncIndex of lipSyncParameterIndices) {
+        if (lipSyncIndex === mouthOpenParameterIndex) {
+          continue;
+        }
+        model.addParameterValueByIndex(lipSyncIndex, mouthOutputValue * 0.45, 0.45);
+      }
     }
     model.update();
     renderer.drawModel(shaderDirectory);
@@ -11851,6 +14325,30 @@ async function createCubism5Avatar(options) {
     setAutoBlink(enabled) {
       blinkEnabled = enabled;
     },
+    setPan(x, y) {
+      if (released) {
+        return;
+      }
+      panNormalizedX = clamp(x, -resolvedPanLimitX, resolvedPanLimitX);
+      panNormalizedY = clamp(y, -resolvedPanLimitY, resolvedPanLimitY);
+      updateMvp();
+      if (!running && renderer && model) {
+        renderer.setRenderState(
+          gl.getParameter(gl.FRAMEBUFFER_BINDING),
+          [0, 0, canvas.width, canvas.height]
+        );
+        gl.clearColor(0, 0, 0, 0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        model.update();
+        renderer.drawModel(shaderDirectory);
+      }
+    },
+    setMouthOpen(value) {
+      if (released) {
+        return;
+      }
+      mouthTargetValue = clamp01(value) * resolvedMouthOpenScale;
+    },
     async destroy() {
       if (released) {
         return;
@@ -11858,9 +14356,30 @@ async function createCubism5Avatar(options) {
       logSafe(logger, "info", "destroy", "开始释放 Avatar 资源");
       released = true;
       stopLoop();
+      panNormalizedX = 0;
+      panNormalizedY = 0;
+      mouthTargetValue = 0;
+      mouthCurrentValue = 0;
+      mouthStableHighSeconds = 0;
+      mouthHighLevelPhase = Math.random() * Math.PI * 2;
+      mouthSpeechPhase = Math.random() * Math.PI * 2;
+      idleElapsedSeconds = 0;
+      idleMotionElapsedSeconds = 0;
+      idleMotionNextSwitchSeconds = Number.POSITIVE_INFINITY;
+      idleMotionCurrentIndex = -1;
       for (const texture of textures) {
         gl.deleteTexture(texture);
       }
+      if (idleMotionManager) {
+        idleMotionManager.stopAllMotions();
+        idleMotionManager.release();
+        idleMotionManager = null;
+      }
+      for (const idleMotion of idleMotions) {
+        idleMotion.release();
+      }
+      idleMotions.length = 0;
+      idleMotionNames.length = 0;
       if (eyeBlink) {
         CubismEyeBlink.delete(eyeBlink);
         eyeBlink = null;

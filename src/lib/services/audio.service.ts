@@ -1,4 +1,6 @@
 import { invoke } from '@tauri-apps/api/core';
+import { AUDIO_PLAYBACK_LEVEL_EVENT } from '$lib/constants';
+import type { AudioPlaybackLevelDetail } from '$lib/constants';
 import { extractErrorMessage } from '$lib/utils';
 import type { ApiConfig } from '$lib/types';
 
@@ -16,9 +18,171 @@ export class AudioService {
     private stream: MediaStream | null = null;
     private onDataCallback: ((base64Chunk: string) => void) | null = null;
     private playbackContext: AudioContext | null = null;
+    private playbackMonitorStopper: (() => void) | null = null;
+
+    /**
+     * 释放录音相关资源，避免麦克风句柄泄漏导致后续报 Device in use。
+     */
+    private releaseRecordingResources(forceStopRecorder: boolean = false): void {
+        if (this.mediaRecorder) {
+            try {
+                this.mediaRecorder.ondataavailable = null;
+                this.mediaRecorder.onstop = null;
+
+                if (forceStopRecorder && this.mediaRecorder.state !== 'inactive') {
+                    this.mediaRecorder.stop();
+                }
+            } catch (error) {
+                console.warn('释放 MediaRecorder 资源时出现异常:', error);
+            }
+        }
+
+        if (this.stream) {
+            this.stream.getTracks().forEach((track) => track.stop());
+        }
+
+        this.mediaRecorder = null;
+        this.stream = null;
+        this.audioChunks = [];
+        this.onDataCallback = null;
+    }
+
+    /**
+     * 将浏览器录音启动错误归一化为可行动的提示文案。
+     */
+    private formatRecordingStartError(error: unknown): string {
+        const rawMessage = extractErrorMessage(error, '无法启动录音');
+        const name =
+            error instanceof DOMException
+                ? error.name
+                : (typeof error === 'object' && error !== null && 'name' in error)
+                    ? String((error as { name?: unknown }).name ?? '')
+                    : '';
+        const lower = `${name} ${rawMessage}`.toLowerCase();
+
+        if (name === 'NotAllowedError' || lower.includes('permission denied') || lower.includes('denied')) {
+            return '麦克风权限被拒绝，请在系统或浏览器权限中允许本应用访问麦克风。';
+        }
+
+        if (name === 'NotFoundError' || lower.includes('not found') || lower.includes('no device')) {
+            return '未检测到可用麦克风，请检查设备连接与系统输入设备设置。';
+        }
+
+        if (
+            name === 'NotReadableError' ||
+            lower.includes('device in use') ||
+            lower.includes('could not start audio source') ||
+            lower.includes('trackstarterror')
+        ) {
+            return '麦克风被占用（Device in use）。请关闭占用麦克风的软件后重试，若仍失败可重启本应用。';
+        }
+
+        if (name === 'NotSupportedError' || lower.includes('not supported')) {
+            return '当前环境不支持录音格式或录音接口，请检查系统与浏览器兼容性。';
+        }
+
+        return rawMessage;
+    }
+
+    /**
+     * 广播当前播放音量（0-1），供 Live2D 组件驱动嘴型。
+     */
+    private emitPlaybackLevel(level: number): void {
+        if (typeof window === 'undefined') {
+            return;
+        }
+
+        const normalizedLevel = Number.isFinite(level)
+            ? Math.max(0, Math.min(1, level))
+            : 0;
+
+        const detail: AudioPlaybackLevelDetail = { level: normalizedLevel };
+        window.dispatchEvent(new CustomEvent<AudioPlaybackLevelDetail>(AUDIO_PLAYBACK_LEVEL_EVENT, { detail }));
+    }
+
+    /**
+     * 停止上一段音频的口型监控，避免多段播放时相互干扰。
+     */
+    private stopPlaybackMonitor(): void {
+        if (this.playbackMonitorStopper) {
+            this.playbackMonitorStopper();
+            this.playbackMonitorStopper = null;
+            return;
+        }
+
+        this.emitPlaybackLevel(0);
+    }
+
+    /**
+     * 启动播放音量监控，按帧推送音频 RMS 到口型事件。
+     */
+    private startPlaybackMonitor(analyser: AnalyserNode): () => void {
+        const timeDomain = new Uint8Array(analyser.fftSize);
+        let rafId = 0;
+        let active = true;
+        let lastRms = 0;
+        let peakEnvelope = 0;
+
+        const tick = () => {
+            if (!active) {
+                return;
+            }
+
+            analyser.getByteTimeDomainData(timeDomain);
+
+            let sumSquares = 0;
+            for (let i = 0; i < timeDomain.length; i += 1) {
+                const sample = (timeDomain[i] - 128) / 128;
+                sumSquares += sample * sample;
+            }
+
+            const rms = Math.sqrt(sumSquares / timeDomain.length);
+            peakEnvelope = Math.max(rms, peakEnvelope * 0.82);
+            const flux = Math.max(0, rms - lastRms);
+            lastRms = rms;
+
+            // 语音 RMS 在真实场景里通常偏小，先做噪声门限再非线性放大，避免口型几乎不动。
+            const gatedRms = Math.max(0, rms - 0.01);
+            const amplified = Math.min(1, gatedRms * 8);
+            const mappedLevel = Math.pow(amplified, 0.65);
+            const nowSeconds = performance.now() / 1000;
+            const dynamicLift = Math.min(
+                0.26,
+                flux * 4.6 + Math.max(0, peakEnvelope - rms) * 1.15
+            );
+            const plateauWobble =
+                mappedLevel > 0.72
+                    ? (Math.sin(nowSeconds * 17.5) + Math.sin(nowSeconds * 9.2 + 1.2) * 0.55) * 0.045
+                    : 0;
+            this.emitPlaybackLevel(
+                Math.min(1, Math.max(0, mappedLevel + dynamicLift + plateauWobble))
+            );
+
+            rafId = window.requestAnimationFrame(tick);
+        };
+
+        rafId = window.requestAnimationFrame(tick);
+
+        return () => {
+            if (!active) {
+                return;
+            }
+
+            active = false;
+            window.cancelAnimationFrame(rafId);
+            this.emitPlaybackLevel(0);
+        };
+    }
 
     async startRecording(timeslice?: number, onData?: (base64Chunk: string) => void): Promise<void> {
         try {
+            if (this.mediaRecorder && this.mediaRecorder.state === 'recording') {
+                throw new Error('已有录音任务正在进行，请先停止当前录音。');
+            }
+
+            // 兜底清理历史残留，避免上次异常后句柄未释放导致设备占用。
+            this.releaseRecordingResources(true);
+
             this.stream = await navigator.mediaDevices.getUserMedia({ audio: true });
             this.mediaRecorder = new MediaRecorder(this.stream);
             this.audioChunks = [];
@@ -37,36 +201,48 @@ export class AudioService {
             }
         } catch (error) {
             console.error('Error starting audio recording:', error);
-            throw new Error(extractErrorMessage(error, '无法启动录音'));
+
+            // 启动失败后立刻清理，避免僵尸流占住麦克风。
+            this.releaseRecordingResources(true);
+            throw new Error(this.formatRecordingStartError(error));
         }
     }
 
     stopRecording(): Promise<string> {
         return new Promise((resolve, reject) => {
             if (!this.mediaRecorder) {
+                this.releaseRecordingResources();
                 reject(new Error('No recording in progress.'));
                 return;
             }
 
-            this.mediaRecorder.onstop = async () => {
+            if (this.mediaRecorder.state === 'inactive') {
+                this.releaseRecordingResources();
+                reject(new Error('录音已结束，请重新开始录音。'));
+                return;
+            }
+
+            const recorder = this.mediaRecorder;
+
+            recorder.onstop = async () => {
                 try {
                     const audioBlob = new Blob(this.audioChunks, { type: 'audio/webm' });
                     const base64Audio = await this.blobToWavBase64(audioBlob);
-                    
-                    if (this.stream) {
-                        this.stream.getTracks().forEach(track => track.stop());
-                        this.stream = null;
-                    }
-                    this.mediaRecorder = null;
-                    this.audioChunks = [];
 
                     resolve(base64Audio);
                 } catch (error) {
                     reject(new Error(extractErrorMessage(error, '音频处理失败')));
+                } finally {
+                    this.releaseRecordingResources();
                 }
             };
 
-            this.mediaRecorder.stop();
+            try {
+                recorder.stop();
+            } catch (error) {
+                this.releaseRecordingResources(true);
+                reject(new Error(extractErrorMessage(error, '停止录音失败')));
+            }
         });
     }
 
@@ -188,9 +364,12 @@ export class AudioService {
         return new Promise((resolve) => {
             if (!audioBytes.length) {
                 console.warn('播放音频被跳过：后端未返回音频数据');
+                this.emitPlaybackLevel(0);
                 resolve();
                 return;
             }
+
+            this.stopPlaybackMonitor();
 
             console.info('开始播放音频', { bytesLength: audioBytes.length });
             this.getPlaybackContext()
@@ -198,16 +377,33 @@ export class AudioService {
                     const arrayBuffer = new Uint8Array(audioBytes).buffer;
                     const audioBuffer = await context.decodeAudioData(arrayBuffer.slice(0));
                     const source = context.createBufferSource();
+                    const analyser = context.createAnalyser();
+                    analyser.fftSize = 1024;
+                    analyser.smoothingTimeConstant = 0.38;
+
                     source.buffer = audioBuffer;
-                    source.connect(context.destination);
+                    source.connect(analyser);
+                    analyser.connect(context.destination);
+
+                    const stopMonitor = this.startPlaybackMonitor(analyser);
+                    this.playbackMonitorStopper = stopMonitor;
+
                     source.onended = () => {
                         console.info('音频播放结束');
+
+                        if (this.playbackMonitorStopper === stopMonitor) {
+                            stopMonitor();
+                            this.playbackMonitorStopper = null;
+                        }
+
                         resolve();
                     };
                     source.start();
                 })
                 .catch((error) => {
                     console.error('Failed to play audio', error);
+
+                    this.stopPlaybackMonitor();
                     resolve();
                 });
         });
