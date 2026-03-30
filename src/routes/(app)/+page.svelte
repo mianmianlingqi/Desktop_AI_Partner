@@ -9,6 +9,7 @@
   import { ChatContainer } from '$lib/components/chat';
   import { SettingsPanel } from '$lib/components/settings';
   import { IconButton, Tooltip } from '$lib/components/shared';
+  import Live2DAvatar from '$lib/components/live2d/Live2DAvatar.svelte';
   import { uiState, setActiveView } from '$lib/stores';
 </script>
 
@@ -38,6 +39,11 @@
       <SettingsPanel />
     {/if}
   </div>
+
+  <!-- Live2D 形象挂件（不影响主交互区） -->
+  <div class="avatar-floating" aria-hidden="true">
+    <Live2DAvatar />
+  </div>
 </div>
 
 <style>
@@ -59,5 +65,20 @@
     flex: 1;
     min-height: 0;
     overflow: hidden;
+  }
+
+  .avatar-floating {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  @media (max-width: 900px) {
+    .avatar-floating {
+      right: 6px;
+      bottom: 6px;
+    }
   }
 </style>
