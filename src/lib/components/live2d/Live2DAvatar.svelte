@@ -73,12 +73,15 @@
   const PANEL_PAN_OVERFLOW_X = 0.22;
   const PANEL_PAN_OVERFLOW_TOP = 0.18;
   const PANEL_PAN_OVERFLOW_BOTTOM = 0.82;
-  const PANEL_IDLE_MOTION_INTENSITY = 1.12;
-  const FLOATING_IDLE_MOTION_INTENSITY = 0.98;
-  const PANEL_MOUTH_OPEN_SCALE = 0.5;
-  const FLOATING_MOUTH_OPEN_SCALE = 0.55;
-  // 关闭整套 motion3 待机轨道，避免头脸身体晃动，改由运行时仅驱动衣发轻摆。
-  const IDLE_MOTION_FILES: string[] = [];
+  const PANEL_IDLE_MOTION_INTENSITY = 0.58;
+  const FLOATING_IDLE_MOTION_INTENSITY = 0.52;
+  const PANEL_MOUTH_OPEN_SCALE = 0.42;
+  const FLOATING_MOUTH_OPEN_SCALE = 0.45;
+  // 启用待机轨道以获得更强衣发动态，头身锁定由运行时执行。
+  const IDLE_MOTION_FILES: string[] = [
+    'animations/待机姿势.motion3.json',
+    'animations/随机说话待机.motion3.json'
+  ];
 
   const panLimitX = $derived(mode === 'panel' ? PANEL_PAN_LIMIT_X : 1);
   const panLimitY = $derived(mode === 'panel' ? PANEL_PAN_LIMIT_Y : 1);

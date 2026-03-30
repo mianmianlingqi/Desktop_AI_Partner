@@ -13231,10 +13231,10 @@ var MAX_FRAME_DELTA_SECONDS = 0.1;
 var MOUTH_SMOOTH_SPEED = 18;
 var MOUTH_HIGH_LEVEL_THRESHOLD = 0.56;
 var MOUTH_HIGH_LEVEL_HOLD_SECONDS = 0.14;
-var MOUTH_HIGH_LEVEL_WOBBLE_SPEED = 18;
-var MOUTH_HIGH_LEVEL_WOBBLE_AMOUNT = 0.19;
-var MOUTH_SPEECH_WOBBLE_AMOUNT = 0.08;
-var MOUTH_FORM_WOBBLE_AMOUNT = 0.52;
+var MOUTH_HIGH_LEVEL_WOBBLE_SPEED = 14;
+var MOUTH_HIGH_LEVEL_WOBBLE_AMOUNT = 0.075;
+var MOUTH_SPEECH_WOBBLE_AMOUNT = 0.03;
+var MOUTH_FORM_WOBBLE_AMOUNT = 0.2;
 var DEFAULT_MOUTH_OPEN_SCALE = 0.5;
 var DEFAULT_IDLE_MOTION_INTENSITY = 1;
 var DEFAULT_IDLE_MOTION_FILES = [
@@ -13480,7 +13480,15 @@ function logSafe(logger, level, stage, message) {
 }
 function resolveParameterIndex(model, parameterName) {
   const parameterId = CubismFramework.getIdManager().getId(parameterName);
-  return model.getParameterIndex(parameterId);
+  const parameterIndex = model.getParameterIndex(parameterId);
+  return parameterIndex >= 0 && parameterIndex < model.getParameterCount() ? parameterIndex : -1;
+}
+function setParameterToDefault(model, parameterIndex, weight = 1) {
+  if (parameterIndex < 0) {
+    return;
+  }
+  const defaultValue = model.getParameterDefaultValue(parameterIndex);
+  model.setParameterValueByIndex(parameterIndex, defaultValue, weight);
 }
 function addParameterOffset(model, parameterIndex, offsetValue, weight) {
   if (parameterIndex < 0) {
@@ -13489,7 +13497,7 @@ function addParameterOffset(model, parameterIndex, offsetValue, weight) {
   const min = model.getParameterMinimumValue(parameterIndex);
   const max = model.getParameterMaximumValue(parameterIndex);
   const range = Number.isFinite(min) && Number.isFinite(max) ? Math.abs(max - min) : 1;
-  const adaptiveScale = clamp(range * 0.18, 0.9, 4.2);
+  const adaptiveScale = clamp(range * 0.11, 0.55, 2.2);
   model.addParameterValueByIndex(parameterIndex, offsetValue * adaptiveScale, weight);
 }
 function applyIdleMotion(model, elapsedSeconds, intensity, indices) {
@@ -13502,48 +13510,48 @@ function applyIdleMotion(model, elapsedSeconds, intensity, indices) {
   const flutter = Math.sin(elapsedSeconds * 2.45 + 0.8);
   const shimmer = Math.sin(elapsedSeconds * 3.9 + 0.45);
   const gustEnvelope = Math.pow((Math.sin(elapsedSeconds * 0.34 - 0.8) + 1) * 0.5, 1.6);
-  const hairBoost = 2.15;
+  const hairBoost = 1.05;
   addParameterOffset(
     model,
     indices.hairFront,
-    (gustMid * 0.98 + gustFast * 0.44 + flutter * 0.38 + gustEnvelope * 0.46 + shimmer * 0.2) * hairBoost * intensity,
-    0.7
+    (gustMid * 0.44 + gustFast * 0.2 + flutter * 0.16 + gustEnvelope * 0.2 + shimmer * 0.09) * hairBoost * intensity,
+    0.38
   );
   addParameterOffset(
     model,
     indices.hairSide,
-    (gustSlow * 1.02 + gustMid * 0.32 + gustFast * 0.42 + gustEnvelope * 0.41 + shimmer * 0.18) * hairBoost * intensity,
-    0.68
+    (gustSlow * 0.46 + gustMid * 0.14 + gustFast * 0.18 + gustEnvelope * 0.18 + shimmer * 0.08) * hairBoost * intensity,
+    0.36
   );
   addParameterOffset(
     model,
     indices.hairBack,
-    (gustSlow * 1.08 + gustMid * 0.4 + flutter * 0.34 + gustEnvelope * 0.38 + shimmer * 0.16) * hairBoost * intensity,
-    0.66
+    (gustSlow * 0.5 + gustMid * 0.2 + flutter * 0.15 + gustEnvelope * 0.18 + shimmer * 0.07) * hairBoost * intensity,
+    0.35
   );
   addParameterOffset(
     model,
     indices.dress1,
-    (gustSlow * 0.5 + flutter * 0.24 + gustEnvelope * 0.16) * intensity,
-    0.42
+    (gustSlow * 0.22 + flutter * 0.1 + gustEnvelope * 0.08) * intensity,
+    0.26
   );
   addParameterOffset(
     model,
     indices.dress2,
-    (gustMid * 0.48 + flutter * 0.22 + gustEnvelope * 0.15) * intensity,
-    0.4
+    (gustMid * 0.21 + flutter * 0.1 + gustEnvelope * 0.07) * intensity,
+    0.24
   );
   addParameterOffset(
     model,
     indices.dress3,
-    (gustFast * 0.46 + flutter * 0.21) * intensity,
-    0.37
+    (gustFast * 0.2 + flutter * 0.09) * intensity,
+    0.22
   );
   addParameterOffset(
     model,
     indices.dress4,
-    (gustMid * 0.38 + flutter * 0.18) * intensity,
-    0.34
+    (gustMid * 0.17 + flutter * 0.08) * intensity,
+    0.2
   );
 }
 function hasCubismCore() {
@@ -13819,6 +13827,15 @@ async function createCubism5Avatar(options) {
     dress3: -1,
     dress4: -1
   };
+  let freezePoseParameterIndices = {
+    angleX: -1,
+    angleY: -1,
+    angleZ: -1,
+    bodyAngleX: -1,
+    bodyAngleY: -1,
+    bodyAngleZ: -1,
+    breath: -1
+  };
   const textures = [];
   const modelJsonUrl = toAbsoluteUrl(modelJsonPath);
   const modelDirectoryUrl = new URL("./", modelJsonUrl).toString();
@@ -13981,6 +13998,24 @@ async function createCubism5Avatar(options) {
       dress3: resolveParameterIndex(model, "ParamDress3"),
       dress4: resolveParameterIndex(model, "ParamDress4")
     };
+    freezePoseParameterIndices = {
+      angleX: resolveParameterIndex(model, "ParamAngleX"),
+      angleY: resolveParameterIndex(model, "ParamAngleY"),
+      angleZ: resolveParameterIndex(model, "ParamAngleZ"),
+      bodyAngleX: resolveParameterIndex(model, "ParamBodyAngleX"),
+      bodyAngleY: resolveParameterIndex(model, "ParamBodyAngleY"),
+      bodyAngleZ: resolveParameterIndex(model, "ParamBodyAngleZ"),
+      breath: resolveParameterIndex(model, "ParamBreath")
+    };
+    logSafe(
+      logger,
+      "info",
+      "idle-motion",
+      `衣发参数索引 hair=(${idleMotionParameterIndices.hairFront},${idleMotionParameterIndices.hairSide},${idleMotionParameterIndices.hairBack}) dress=(${idleMotionParameterIndices.dress1},${idleMotionParameterIndices.dress2},${idleMotionParameterIndices.dress3},${idleMotionParameterIndices.dress4})`
+    );
+    if (idleMotionParameterIndices.hairFront < 0 && idleMotionParameterIndices.hairSide < 0 && idleMotionParameterIndices.hairBack < 0) {
+      logSafe(logger, "warn", "idle-motion", "未解析到任何头发参数，衣发风场将无法生效");
+    }
     if (idleMotionEnabled && resolvedIdleMotionFiles.length > 0) {
       idleMotionManager = new CubismMotionQueueManager();
       const eyeBlinkEffectIds = [];
@@ -14004,7 +14039,7 @@ async function createCubism5Avatar(options) {
           motion.setLoopFadeIn(true);
           motion.setFadeInTime(1.2);
           motion.setFadeOutTime(1.2);
-          motion.setWeight(clamp(0.58 + resolvedIdleMotionIntensity * 0.28, 0.25, 1));
+          motion.setWeight(clamp(0.22 + resolvedIdleMotionIntensity * 0.18, 0.1, 0.55));
           motion.setEffectIds(eyeBlinkEffectIds, lipSyncEffectIds);
           idleMotions.push(motion);
           idleMotionNames.push(motionFile);
@@ -14210,12 +14245,22 @@ async function createCubism5Avatar(options) {
     if (physics) {
       physics.evaluate(model, deltaSeconds);
     }
-    if (!useIdleMotionTracks && idleMotionEnabled && resolvedIdleMotionIntensity > 0) {
+    if (useIdleMotionTracks) {
+      setParameterToDefault(model, freezePoseParameterIndices.angleX);
+      setParameterToDefault(model, freezePoseParameterIndices.angleY);
+      setParameterToDefault(model, freezePoseParameterIndices.angleZ);
+      setParameterToDefault(model, freezePoseParameterIndices.bodyAngleX);
+      setParameterToDefault(model, freezePoseParameterIndices.bodyAngleY);
+      setParameterToDefault(model, freezePoseParameterIndices.bodyAngleZ);
+      setParameterToDefault(model, freezePoseParameterIndices.breath);
+    }
+    if (idleMotionEnabled && resolvedIdleMotionIntensity > 0) {
+      const additiveIdleIntensity = useIdleMotionTracks ? resolvedIdleMotionIntensity * 0.36 : resolvedIdleMotionIntensity;
       idleElapsedSeconds += deltaSeconds;
       applyIdleMotion(
         model,
         idleElapsedSeconds,
-        resolvedIdleMotionIntensity,
+        additiveIdleIntensity,
         idleMotionParameterIndices
       );
     }

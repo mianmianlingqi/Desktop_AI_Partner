@@ -147,12 +147,12 @@ export class AudioService {
             const mappedLevel = Math.pow(amplified, 0.65);
             const nowSeconds = performance.now() / 1000;
             const dynamicLift = Math.min(
-                0.26,
-                flux * 4.6 + Math.max(0, peakEnvelope - rms) * 1.15
+                0.12,
+                flux * 2.2 + Math.max(0, peakEnvelope - rms) * 0.55
             );
             const plateauWobble =
-                mappedLevel > 0.72
-                    ? (Math.sin(nowSeconds * 17.5) + Math.sin(nowSeconds * 9.2 + 1.2) * 0.55) * 0.045
+                mappedLevel > 0.78
+                    ? (Math.sin(nowSeconds * 15.2) + Math.sin(nowSeconds * 8.1 + 1.2) * 0.45) * 0.018
                     : 0;
             this.emitPlaybackLevel(
                 Math.min(1, Math.max(0, mappedLevel + dynamicLift + plateauWobble))

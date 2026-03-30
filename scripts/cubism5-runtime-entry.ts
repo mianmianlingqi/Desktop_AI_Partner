@@ -89,6 +89,16 @@ type IdleMotionParameterIndices = {
 	dress4: number;
 };
 
+type FreezePoseParameterIndices = {
+	angleX: number;
+	angleY: number;
+	angleZ: number;
+	bodyAngleX: number;
+	bodyAngleY: number;
+	bodyAngleZ: number;
+	breath: number;
+};
+
 type CubismModelInstance = NonNullable<ReturnType<CubismMoc['createModel']>>;
 
 const DEFAULT_CORE_SCRIPT = '/live2d/cubism5/core/live2dcubismcore.min.js';
@@ -98,10 +108,10 @@ const MAX_FRAME_DELTA_SECONDS = 0.1;
 const MOUTH_SMOOTH_SPEED = 18;
 const MOUTH_HIGH_LEVEL_THRESHOLD = 0.56;
 const MOUTH_HIGH_LEVEL_HOLD_SECONDS = 0.14;
-const MOUTH_HIGH_LEVEL_WOBBLE_SPEED = 18;
-const MOUTH_HIGH_LEVEL_WOBBLE_AMOUNT = 0.19;
-const MOUTH_SPEECH_WOBBLE_AMOUNT = 0.08;
-const MOUTH_FORM_WOBBLE_AMOUNT = 0.52;
+const MOUTH_HIGH_LEVEL_WOBBLE_SPEED = 14;
+const MOUTH_HIGH_LEVEL_WOBBLE_AMOUNT = 0.075;
+const MOUTH_SPEECH_WOBBLE_AMOUNT = 0.03;
+const MOUTH_FORM_WOBBLE_AMOUNT = 0.2;
 const DEFAULT_MOUTH_OPEN_SCALE = 0.5;
 const DEFAULT_IDLE_MOTION_INTENSITY = 1;
 const DEFAULT_IDLE_MOTION_FILES = [
@@ -443,7 +453,21 @@ function logSafe(
 
 function resolveParameterIndex(model: CubismModelInstance, parameterName: string): number {
 	const parameterId = CubismFramework.getIdManager().getId(parameterName);
-	return model.getParameterIndex(parameterId);
+	const parameterIndex = model.getParameterIndex(parameterId);
+	return parameterIndex >= 0 && parameterIndex < model.getParameterCount() ? parameterIndex : -1;
+}
+
+function setParameterToDefault(
+	model: CubismModelInstance,
+	parameterIndex: number,
+	weight = 1
+): void {
+	if (parameterIndex < 0) {
+		return;
+	}
+
+	const defaultValue = model.getParameterDefaultValue(parameterIndex);
+	model.setParameterValueByIndex(parameterIndex, defaultValue, weight);
 }
 
 function addParameterOffset(
@@ -459,7 +483,7 @@ function addParameterOffset(
 	const min = model.getParameterMinimumValue(parameterIndex);
 	const max = model.getParameterMaximumValue(parameterIndex);
 	const range = Number.isFinite(min) && Number.isFinite(max) ? Math.abs(max - min) : 1;
-	const adaptiveScale = clamp(range * 0.18, 0.9, 4.2);
+	const adaptiveScale = clamp(range * 0.11, 0.55, 2.2);
 
 	model.addParameterValueByIndex(parameterIndex, offsetValue * adaptiveScale, weight);
 }
@@ -480,57 +504,57 @@ function applyIdleMotion(
 	const flutter = Math.sin(elapsedSeconds * 2.45 + 0.8);
 	const shimmer = Math.sin(elapsedSeconds * 3.9 + 0.45);
 	const gustEnvelope = Math.pow((Math.sin(elapsedSeconds * 0.34 - 0.8) + 1) * 0.5, 1.6);
-	const hairBoost = 2.15;
+	const hairBoost = 1.05;
 
 	// 只驱动衣服与头发，避免头脸身体晃动导致恐怖谷效应。
 	addParameterOffset(
 		model,
 		indices.hairFront,
-		(gustMid * 0.98 + gustFast * 0.44 + flutter * 0.38 + gustEnvelope * 0.46 + shimmer * 0.2) *
+		(gustMid * 0.44 + gustFast * 0.2 + flutter * 0.16 + gustEnvelope * 0.2 + shimmer * 0.09) *
 			hairBoost *
 			intensity,
-		0.7
+		0.38
 	);
 	addParameterOffset(
 		model,
 		indices.hairSide,
-		(gustSlow * 1.02 + gustMid * 0.32 + gustFast * 0.42 + gustEnvelope * 0.41 + shimmer * 0.18) *
+		(gustSlow * 0.46 + gustMid * 0.14 + gustFast * 0.18 + gustEnvelope * 0.18 + shimmer * 0.08) *
 			hairBoost *
 			intensity,
-		0.68
+		0.36
 	);
 	addParameterOffset(
 		model,
 		indices.hairBack,
-		(gustSlow * 1.08 + gustMid * 0.4 + flutter * 0.34 + gustEnvelope * 0.38 + shimmer * 0.16) *
+		(gustSlow * 0.5 + gustMid * 0.2 + flutter * 0.15 + gustEnvelope * 0.18 + shimmer * 0.07) *
 			hairBoost *
 			intensity,
-		0.66
+		0.35
 	);
 
 	addParameterOffset(
 		model,
 		indices.dress1,
-		(gustSlow * 0.5 + flutter * 0.24 + gustEnvelope * 0.16) * intensity,
-		0.42
+		(gustSlow * 0.22 + flutter * 0.1 + gustEnvelope * 0.08) * intensity,
+		0.26
 	);
 	addParameterOffset(
 		model,
 		indices.dress2,
-		(gustMid * 0.48 + flutter * 0.22 + gustEnvelope * 0.15) * intensity,
-		0.4
+		(gustMid * 0.21 + flutter * 0.1 + gustEnvelope * 0.07) * intensity,
+		0.24
 	);
 	addParameterOffset(
 		model,
 		indices.dress3,
-		(gustFast * 0.46 + flutter * 0.21) * intensity,
-		0.37
+		(gustFast * 0.2 + flutter * 0.09) * intensity,
+		0.22
 	);
 	addParameterOffset(
 		model,
 		indices.dress4,
-		(gustMid * 0.38 + flutter * 0.18) * intensity,
-		0.34
+		(gustMid * 0.17 + flutter * 0.08) * intensity,
+		0.2
 	);
 }
 
@@ -860,6 +884,15 @@ export async function createCubism5Avatar(options: Cubism5AvatarOptions): Promis
 		dress3: -1,
 		dress4: -1
 	};
+	let freezePoseParameterIndices: FreezePoseParameterIndices = {
+		angleX: -1,
+		angleY: -1,
+		angleZ: -1,
+		bodyAngleX: -1,
+		bodyAngleY: -1,
+		bodyAngleZ: -1,
+		breath: -1
+	};
 	const textures: WebGLTexture[] = [];
 
 	const modelJsonUrl = toAbsoluteUrl(modelJsonPath);
@@ -1067,6 +1100,31 @@ export async function createCubism5Avatar(options: Cubism5AvatarOptions): Promis
 			dress4: resolveParameterIndex(model, 'ParamDress4')
 		};
 
+		freezePoseParameterIndices = {
+			angleX: resolveParameterIndex(model, 'ParamAngleX'),
+			angleY: resolveParameterIndex(model, 'ParamAngleY'),
+			angleZ: resolveParameterIndex(model, 'ParamAngleZ'),
+			bodyAngleX: resolveParameterIndex(model, 'ParamBodyAngleX'),
+			bodyAngleY: resolveParameterIndex(model, 'ParamBodyAngleY'),
+			bodyAngleZ: resolveParameterIndex(model, 'ParamBodyAngleZ'),
+			breath: resolveParameterIndex(model, 'ParamBreath')
+		};
+
+		logSafe(
+			logger,
+			'info',
+			'idle-motion',
+			`衣发参数索引 hair=(${idleMotionParameterIndices.hairFront},${idleMotionParameterIndices.hairSide},${idleMotionParameterIndices.hairBack}) dress=(${idleMotionParameterIndices.dress1},${idleMotionParameterIndices.dress2},${idleMotionParameterIndices.dress3},${idleMotionParameterIndices.dress4})`
+		);
+
+		if (
+			idleMotionParameterIndices.hairFront < 0 &&
+			idleMotionParameterIndices.hairSide < 0 &&
+			idleMotionParameterIndices.hairBack < 0
+		) {
+			logSafe(logger, 'warn', 'idle-motion', '未解析到任何头发参数，衣发风场将无法生效');
+		}
+
 		if (idleMotionEnabled && resolvedIdleMotionFiles.length > 0) {
 			idleMotionManager = new CubismMotionQueueManager();
 
@@ -1094,7 +1152,7 @@ export async function createCubism5Avatar(options: Cubism5AvatarOptions): Promis
 					motion.setLoopFadeIn(true);
 					motion.setFadeInTime(1.2);
 					motion.setFadeOutTime(1.2);
-					motion.setWeight(clamp(0.58 + resolvedIdleMotionIntensity * 0.28, 0.25, 1));
+					motion.setWeight(clamp(0.22 + resolvedIdleMotionIntensity * 0.18, 0.1, 0.55));
 					motion.setEffectIds(eyeBlinkEffectIds, lipSyncEffectIds);
 
 					idleMotions.push(motion);
@@ -1332,12 +1390,25 @@ export async function createCubism5Avatar(options: Cubism5AvatarOptions): Promis
 			physics.evaluate(model, deltaSeconds);
 		}
 
-		if (!useIdleMotionTracks && idleMotionEnabled && resolvedIdleMotionIntensity > 0) {
+		if (useIdleMotionTracks) {
+			// 启用 motion3 待机轨道时，锁定头身基础姿态，仅保留衣发动态。
+			setParameterToDefault(model, freezePoseParameterIndices.angleX);
+			setParameterToDefault(model, freezePoseParameterIndices.angleY);
+			setParameterToDefault(model, freezePoseParameterIndices.angleZ);
+			setParameterToDefault(model, freezePoseParameterIndices.bodyAngleX);
+			setParameterToDefault(model, freezePoseParameterIndices.bodyAngleY);
+			setParameterToDefault(model, freezePoseParameterIndices.bodyAngleZ);
+			setParameterToDefault(model, freezePoseParameterIndices.breath);
+		}
+
+		if (idleMotionEnabled && resolvedIdleMotionIntensity > 0) {
+			const additiveIdleIntensity =
+				useIdleMotionTracks ? resolvedIdleMotionIntensity * 0.36 : resolvedIdleMotionIntensity;
 			idleElapsedSeconds += deltaSeconds;
 			applyIdleMotion(
 				model,
 				idleElapsedSeconds,
-				resolvedIdleMotionIntensity,
+				additiveIdleIntensity,
 				idleMotionParameterIndices
 			);
 		}
