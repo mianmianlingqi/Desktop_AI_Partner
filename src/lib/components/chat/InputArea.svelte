@@ -72,6 +72,10 @@
     // 4. 注册 delta 事件监听
     unlistenDelta = await listenChatDelta((event) => {
       if (event.error) {
+        // 出错前若已收到部分内容，先落库，避免用户看到“被吞掉”的截断回复。
+        if (chatState.currentStreamContent) {
+          finishStreaming();
+        }
         setStreamError(event.error);
         cleanupListener();
         return;
@@ -82,6 +86,10 @@
       if (event.done) {
         finishStreaming();
         cleanupListener();
+
+        if (event.finish_reason === 'length') {
+          chatState.error = '检测到模型输出达到长度上限，已自动续写；如仍未完整可继续发送“继续”。';
+        }
 
         // 自动触发语音合成播放
         const lastMsg = chatState.messages[chatState.messages.length - 1];

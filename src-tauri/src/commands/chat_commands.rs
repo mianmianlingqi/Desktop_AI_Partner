@@ -43,6 +43,7 @@ pub async fn chat_send(app: tauri::AppHandle, request: ChatRequest) -> Result<()
             error: Some(
                 "API Key 未配置。Hint: 请先在设置中填写 API Key".to_string(),
             ),
+            finish_reason: Some("error".to_string()),
         };
         let _ = app.emit(defaults::EVENT_CHAT_DELTA, &error_event);
         return Ok(());
@@ -59,6 +60,7 @@ pub async fn chat_send(app: tauri::AppHandle, request: ChatRequest) -> Result<()
                 delta: None,
                 done: true,
                 error: Some(e.to_string()),
+                finish_reason: Some("error".to_string()),
             };
             let _ = app_clone.emit(defaults::EVENT_CHAT_DELTA, &error_event);
         }

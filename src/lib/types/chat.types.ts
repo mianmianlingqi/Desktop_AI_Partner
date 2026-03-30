@@ -33,4 +33,6 @@ export interface StreamEvent {
   done: boolean;
   /** 错误信息（仅在出错时有值） */
   error?: string;
+  /** 完成原因（如 stop / length / content_filter） */
+  finish_reason?: string;
 }

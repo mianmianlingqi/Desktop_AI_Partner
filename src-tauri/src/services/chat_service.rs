@@ -13,7 +13,22 @@ use tauri::Emitter;
 use crate::adapters::ai_adapter::OpenAiAdapter;
 use crate::config::defaults;
 use crate::errors::AppError;
-use crate::types::{ApiConfig, ChatRequest, StreamEvent};
+use crate::types::{ApiConfig, ChatMessage, ChatRequest, ChatRole, StreamEvent};
+
+/// 自动续写最大轮数（仅在模型因长度限制提前结束时触发）
+const MAX_AUTO_CONTINUE_ROUNDS: usize = 3;
+
+/// 续写提示词：要求从中断处继续，避免重复前文
+const AUTO_CONTINUE_PROMPT: &str =
+    "上一段回复被长度限制截断。请从中断处继续输出，不要重复前文，也不要重写开头。";
+
+fn normalize_finish_reason(reason: &async_openai::types::FinishReason) -> String {
+    format!("{:?}", reason).to_lowercase()
+}
+
+fn is_length_finish_reason(reason: &str) -> bool {
+    reason == "length"
+}
 
 /// 全局对话中断标志 —— 原子布尔，支持跨线程安全读写
 static CHAT_ABORT: AtomicBool = AtomicBool::new(false);
@@ -49,7 +64,7 @@ fn reset_abort() {
 /// - 事件推送失败返回 Chat 错误
 pub async fn send_message(
     app: &tauri::AppHandle,
-    request: ChatRequest,
+    mut request: ChatRequest,
     config: ApiConfig,
 ) -> Result<(), AppError> {
     // 1. 重置中断标志
@@ -57,87 +72,119 @@ pub async fn send_message(
 
     // 2. 创建适配器并构建请求
     let adapter = OpenAiAdapter::new(&config);
-    let model_override = request.model.as_deref();
-    let openai_request = adapter.build_stream_request(&request.messages, model_override)?;
+    let model_override = request.model.clone();
+    let mut auto_continue_round = 0usize;
 
-    // 3. 建立 SSE 流式连接
-    let mut stream = adapter
-        .client
-        .chat()
-        .create_stream(openai_request)
-        .await
-        .map_err(|e| {
-            AppError::Chat(format!(
-                "建立流式连接失败: {}。Hint: 检查 API Key 和网络连接",
-                e
-            ))
-        })?;
+    loop {
+        let openai_request =
+            adapter.build_stream_request(&request.messages, model_override.as_deref())?;
 
-    // 4. 逐 chunk 处理流式响应
-    while let Some(result) = stream.next().await {
-        // 检查中断标志
-        if CHAT_ABORT.load(Ordering::Relaxed) {
-            log::info!("用户中断对话，停止流式接收");
-            let abort_event = StreamEvent {
-                delta: None,
-                done: true,
-                error: Some("用户中断对话".to_string()),
-            };
-            let _ = app.emit(defaults::EVENT_CHAT_DELTA, &abort_event);
-            return Ok(());
-        }
+        // 3. 建立 SSE 流式连接
+        let mut stream = adapter
+            .client
+            .chat()
+            .create_stream(openai_request)
+            .await
+            .map_err(|e| {
+                AppError::Chat(format!(
+                    "建立流式连接失败: {}。Hint: 检查 API Key 和网络连接",
+                    e
+                ))
+            })?;
 
-        match result {
-            Ok(response) => {
-                // 遍历响应中的每个 choice
-                for choice in &response.choices {
-                    // 推送增量文本
-                    if let Some(ref content) = choice.delta.content {
-                        let event = StreamEvent {
-                            delta: Some(content.clone()),
-                            done: false,
-                            error: None,
-                        };
-                        app.emit(defaults::EVENT_CHAT_DELTA, &event).map_err(|e| {
-                            AppError::Chat(format!("推送 delta 事件失败: {}", e))
-                        })?;
-                    }
+        let mut round_output = String::new();
+        let mut round_finish_reason: Option<String> = None;
 
-                    // 检查是否完成（finish_reason 有值表示流结束）
-                    if choice.finish_reason.is_some() {
-                        let done_event = StreamEvent {
-                            delta: None,
-                            done: true,
-                            error: None,
-                        };
-                        app.emit(defaults::EVENT_CHAT_DELTA, &done_event).map_err(
-                            |e| AppError::Chat(format!("推送完成事件失败: {}", e)),
-                        )?;
-                        return Ok(());
-                    }
-                }
-            }
-            Err(e) => {
-                // 流式传输出错，推送错误事件并终止
-                log::error!("流式响应错误: {}", e);
-                let error_event = StreamEvent {
+        // 4. 逐 chunk 处理流式响应
+        'stream_loop: while let Some(result) = stream.next().await {
+            // 检查中断标志
+            if CHAT_ABORT.load(Ordering::Relaxed) {
+                log::info!("用户中断对话，停止流式接收");
+                let abort_event = StreamEvent {
                     delta: None,
                     done: true,
-                    error: Some(format!("AI 响应错误: {}", e)),
+                    error: Some("用户中断对话".to_string()),
+                    finish_reason: Some("abort".to_string()),
                 };
-                let _ = app.emit(defaults::EVENT_CHAT_DELTA, &error_event);
-                return Err(AppError::Chat(format!("流式传输失败: {}", e)));
+                let _ = app.emit(defaults::EVENT_CHAT_DELTA, &abort_event);
+                return Ok(());
+            }
+
+            match result {
+                Ok(response) => {
+                    // 遍历响应中的每个 choice
+                    for choice in &response.choices {
+                        // 推送增量文本
+                        if let Some(ref content) = choice.delta.content {
+                            round_output.push_str(content);
+
+                            let event = StreamEvent {
+                                delta: Some(content.clone()),
+                                done: false,
+                                error: None,
+                                finish_reason: None,
+                            };
+                            app.emit(defaults::EVENT_CHAT_DELTA, &event).map_err(|e| {
+                                AppError::Chat(format!("推送 delta 事件失败: {}", e))
+                            })?;
+                        }
+
+                        // 检查是否完成（finish_reason 有值表示流结束）
+                        if let Some(reason) = choice.finish_reason.as_ref() {
+                            round_finish_reason = Some(normalize_finish_reason(reason));
+                            break 'stream_loop;
+                        }
+                    }
+                }
+                Err(e) => {
+                    // 流式传输出错，推送错误事件并终止
+                    log::error!("流式响应错误: {}", e);
+                    let error_event = StreamEvent {
+                        delta: None,
+                        done: true,
+                        error: Some(format!("AI 响应错误: {}", e)),
+                        finish_reason: Some("error".to_string()),
+                    };
+                    let _ = app.emit(defaults::EVENT_CHAT_DELTA, &error_event);
+                    return Err(AppError::Chat(format!("流式传输失败: {}", e)));
+                }
             }
         }
+
+        let finish_reason = round_finish_reason.unwrap_or_else(|| "stop".to_string());
+
+        if is_length_finish_reason(&finish_reason)
+            && auto_continue_round < MAX_AUTO_CONTINUE_ROUNDS
+            && !round_output.trim().is_empty()
+        {
+            auto_continue_round += 1;
+            log::warn!(
+                "检测到长度截断，触发自动续写，第 {} 轮",
+                auto_continue_round
+            );
+
+            request.messages.push(ChatMessage {
+                role: ChatRole::Assistant,
+                content: round_output,
+                images: None,
+            });
+            request.messages.push(ChatMessage {
+                role: ChatRole::User,
+                content: AUTO_CONTINUE_PROMPT.to_string(),
+                images: None,
+            });
+
+            continue;
+        }
+
+        let done_event = StreamEvent {
+            delta: None,
+            done: true,
+            error: None,
+            finish_reason: Some(finish_reason),
+        };
+        app.emit(defaults::EVENT_CHAT_DELTA, &done_event)
+            .map_err(|e| AppError::Chat(format!("推送完成事件失败: {}", e)))?;
+        return Ok(());
     }
-
-    // 5. 流自然结束（所有 chunk 已处理），确保发送完成信号
-    let final_event = StreamEvent {
-        delta: None,
-        done: true,
-        error: None,
-    };
-    let _ = app.emit(defaults::EVENT_CHAT_DELTA, &final_event);
-
-    Ok(())
 }

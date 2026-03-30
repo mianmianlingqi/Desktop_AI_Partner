@@ -49,4 +49,7 @@ pub struct StreamEvent {
     /// 错误信息（仅在出错时有值）
     #[serde(default)]
     pub error: Option<String>,
+    /// 完成原因（如 stop / length / content_filter），仅在 done=true 时可能有值
+    #[serde(default)]
+    pub finish_reason: Option<String>,
 }
