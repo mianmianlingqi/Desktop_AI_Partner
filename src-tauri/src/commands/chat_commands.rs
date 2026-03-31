@@ -39,6 +39,7 @@ pub async fn chat_send(app: tauri::AppHandle, request: ChatRequest) -> Result<()
     if config.api_key.is_empty() {
         let error_event = StreamEvent {
             delta: None,
+            full_content: None,
             done: true,
             error: Some(
                 "API Key 未配置。Hint: 请先在设置中填写 API Key".to_string(),
@@ -58,6 +59,7 @@ pub async fn chat_send(app: tauri::AppHandle, request: ChatRequest) -> Result<()
             log::error!("流式对话失败: {}", e);
             let error_event = StreamEvent {
                 delta: None,
+                full_content: None,
                 done: true,
                 error: Some(e.to_string()),
                 finish_reason: Some("error".to_string()),

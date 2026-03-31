@@ -44,6 +44,9 @@ pub struct StreamEvent {
     /// 增量文本片段（流式输出的一个 token 块）
     #[serde(default)]
     pub delta: Option<String>,
+    /// 当前完整内容快照（用于 done/error 兜底，防止前端漏包导致截断）
+    #[serde(default)]
+    pub full_content: Option<String>,
     /// 是否已完成（true 表示流式传输结束）
     pub done: bool,
     /// 错误信息（仅在出错时有值）

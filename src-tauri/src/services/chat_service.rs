@@ -22,12 +22,38 @@ const MAX_AUTO_CONTINUE_ROUNDS: usize = 3;
 const AUTO_CONTINUE_PROMPT: &str =
     "上一段回复被长度限制截断。请从中断处继续输出，不要重复前文，也不要重写开头。";
 
+/// 流式自然结束时的续写提示词（用于 finish_reason 缺失但内容明显未完成的场景）
+const AUTO_CONTINUE_ON_STREAM_END_PROMPT: &str =
+    "上一段回复可能在传输过程中提前结束。请从中断处继续，不要重复前文。";
+
 fn normalize_finish_reason(reason: &async_openai::types::FinishReason) -> String {
     format!("{:?}", reason).to_lowercase()
 }
 
 fn is_length_finish_reason(reason: &str) -> bool {
     reason == "length"
+        || reason == "max_tokens"
+        || reason == "max_output_tokens"
+        || reason == "token_limit"
+        || reason.contains("length")
+}
+
+fn looks_incomplete_text(text: &str) -> bool {
+    let trimmed = text.trim();
+    if trimmed.is_empty() {
+        return false;
+    }
+
+    let code_fence_count = trimmed.matches("```").count();
+    if code_fence_count % 2 != 0 {
+        return true;
+    }
+
+    let tail = trimmed.chars().last().unwrap_or_default();
+    !matches!(
+        tail,
+        '。' | '！' | '？' | '.' | '!' | '?' | '"' | '\'' | ')' | '）' | ']' | '】' | '}' | '`'
+    )
 }
 
 /// 全局对话中断标志 —— 原子布尔，支持跨线程安全读写
@@ -74,6 +100,7 @@ pub async fn send_message(
     let adapter = OpenAiAdapter::new(&config);
     let model_override = request.model.clone();
     let mut auto_continue_round = 0usize;
+    let mut accumulated_output = String::new();
 
     loop {
         let openai_request =
@@ -102,6 +129,8 @@ pub async fn send_message(
                 log::info!("用户中断对话，停止流式接收");
                 let abort_event = StreamEvent {
                     delta: None,
+                    full_content: (!accumulated_output.is_empty())
+                        .then_some(accumulated_output.clone()),
                     done: true,
                     error: Some("用户中断对话".to_string()),
                     finish_reason: Some("abort".to_string()),
@@ -117,9 +146,11 @@ pub async fn send_message(
                         // 推送增量文本
                         if let Some(ref content) = choice.delta.content {
                             round_output.push_str(content);
+                            accumulated_output.push_str(content);
 
                             let event = StreamEvent {
                                 delta: Some(content.clone()),
+                                full_content: None,
                                 done: false,
                                 error: None,
                                 finish_reason: None,
@@ -141,6 +172,8 @@ pub async fn send_message(
                     log::error!("流式响应错误: {}", e);
                     let error_event = StreamEvent {
                         delta: None,
+                        full_content: (!accumulated_output.is_empty())
+                            .then_some(accumulated_output.clone()),
                         done: true,
                         error: Some(format!("AI 响应错误: {}", e)),
                         finish_reason: Some("error".to_string()),
@@ -151,7 +184,14 @@ pub async fn send_message(
             }
         }
 
-        let finish_reason = round_finish_reason.unwrap_or_else(|| "stop".to_string());
+        let finish_reason = round_finish_reason.unwrap_or_else(|| "stream_end".to_string());
+        log::info!(
+            "流式轮次结束: round={}, finish_reason={}, round_chars={}, total_chars={}",
+            auto_continue_round + 1,
+            finish_reason,
+            round_output.chars().count(),
+            accumulated_output.chars().count()
+        );
 
         if is_length_finish_reason(&finish_reason)
             && auto_continue_round < MAX_AUTO_CONTINUE_ROUNDS
@@ -177,14 +217,61 @@ pub async fn send_message(
             continue;
         }
 
+        if finish_reason == "stream_end"
+            && auto_continue_round < MAX_AUTO_CONTINUE_ROUNDS
+            && looks_incomplete_text(&round_output)
+        {
+            auto_continue_round += 1;
+            log::warn!(
+                "检测到流自然结束但内容疑似未完成，触发自动续写，第 {} 轮",
+                auto_continue_round
+            );
+
+            request.messages.push(ChatMessage {
+                role: ChatRole::Assistant,
+                content: round_output,
+                images: None,
+            });
+            request.messages.push(ChatMessage {
+                role: ChatRole::User,
+                content: AUTO_CONTINUE_ON_STREAM_END_PROMPT.to_string(),
+                images: None,
+            });
+
+            continue;
+        }
+
         let done_event = StreamEvent {
             delta: None,
+            full_content: (!accumulated_output.is_empty())
+                .then_some(accumulated_output.clone()),
             done: true,
             error: None,
             finish_reason: Some(finish_reason),
         };
         app.emit(defaults::EVENT_CHAT_DELTA, &done_event)
             .map_err(|e| AppError::Chat(format!("推送完成事件失败: {}", e)))?;
+        log::info!("流式回复完成并已推送 done 事件，总字符数={}", accumulated_output.chars().count());
         return Ok(());
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::looks_incomplete_text;
+
+    #[test]
+    fn short_incomplete_text_should_be_flagged() {
+        assert!(looks_incomplete_text("您好，老师。能再次"));
+    }
+
+    #[test]
+    fn complete_sentence_should_not_be_flagged() {
+        assert!(!looks_incomplete_text("您好，老师。我是玛丽。"));
+    }
+
+    #[test]
+    fn unmatched_code_fence_should_be_flagged() {
+        assert!(looks_incomplete_text("```rust\nfn demo() {"));
     }
 }

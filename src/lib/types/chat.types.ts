@@ -29,6 +29,8 @@ export interface ChatRequest {
 export interface StreamEvent {
   /** 增量文本片段（流式输出的一个 token 块） */
   delta?: string;
+  /** 当前完整内容快照（done/error 时用于防截断兜底） */
+  full_content?: string;
   /** 是否已完成（true 表示流式传输结束） */
   done: boolean;
   /** 错误信息（仅在出错时有值） */

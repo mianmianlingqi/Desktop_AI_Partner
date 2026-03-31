@@ -72,6 +72,10 @@
     // 4. 注册 delta 事件监听
     unlistenDelta = await listenChatDelta((event) => {
       if (event.error) {
+        if (event.full_content) {
+          chatState.currentStreamContent = event.full_content;
+        }
+
         // 出错前若已收到部分内容，先落库，避免用户看到“被吞掉”的截断回复。
         if (chatState.currentStreamContent) {
           finishStreaming();
@@ -83,12 +87,27 @@
       if (event.delta) {
         appendDelta(event.delta);
       }
+
       if (event.done) {
+        // 后端会在 done 事件携带完整内容快照，前端优先使用该快照兜底，防止 delta 丢包导致截断。
+        if (event.full_content) {
+          chatState.currentStreamContent = event.full_content;
+        }
+
         finishStreaming();
         cleanupListener();
 
-        if (event.finish_reason === 'length') {
+        const finishReason = event.finish_reason?.toLowerCase();
+
+        if (
+          finishReason === 'length' ||
+          finishReason === 'max_tokens' ||
+          finishReason === 'max_output_tokens' ||
+          finishReason?.includes('length')
+        ) {
           chatState.error = '检测到模型输出达到长度上限，已自动续写；如仍未完整可继续发送“继续”。';
+        } else if (finishReason === 'stream_end') {
+          chatState.error = '流式通道提前结束，已尝试自动补全；如仍未完整可发送“继续”。';
         }
 
         // 自动触发语音合成播放
